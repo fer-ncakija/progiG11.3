@@ -13,54 +13,54 @@ Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Progra
 Cilj našeg projekta je razviti aplikaciju koja će olakšati upravljanje zajedničkim stambenim zgradama, posebno za predstavnike suvlasnika. Motivacija za ovaj projekt proizlazi iz potrebe za efikasnijom komunikacijom među suvlasnicima, smanjenjem nesporazuma i boljom organizacijom zajedničkih aktivnosti i odluka. Problem koji rješavamo odnosi se na izazove koordinacije u zgradama s većim brojem suvlasnika, gdje dosadašnje metode poput oglasnih ploča ili e-mail komunikacije nisu dovoljno učinkovite. Naša aplikacija pruža digitalno rješenje za organizaciju sastanaka, praćenje zaključaka i bolju transparentnost. Time se olakšava donošenje odluka i održavanje zgrada.
 
 # Funkcijski zahtjevi
-> Administrator mora imati mogućnost kreiranja svih korisničkih računa unutar aplikacije i dodjeljivanja inicijalnih lozinki​
-> Korisnici moraju moći promijeniti inicijalnu lozinku nakon prve prijave.
-> Predstavnik suvlasnika mora imati mogućnost zakazivanja sastanaka, definiranja dnevnog reda i upravljanja zaključcima​
-> Aplikacija mora omogućiti prijavu korisnika putem vanjskog servisa za autentifikaciju Oauth 2.0
-> Suvlasnici moraju imati mogućnost prijave, pregleda zakazanih sastanaka i označavanje sudjelovanja na sastanku
-> Predstavnik mora moći kreirati nove sastanke sa definiranim dnevnim redom i točkama koje mogu, ali i ne moraju imati pravni učinak 
-> Predstavnik kreaira sastanak koji se nalazi u stanju 'Planiran' sve dok se ne navede naslov, mjesto, vrijeme i sažetak
-> Kada je sastanak u potpunosti kreiran, on prelazi u stanje 'Objavljen', kada postaje vidljiv svim suvlasnicima, a aplikacija automatski šalje obavijest putem e-maila​
-> Aplikacija mora automatski slati podsjetnike korisnicima za nadolazeće sastanke nekoliko dana unaprijed.
-> Suvlasnici mogu pregledavati točke dnevnog reda sastanka dok je u stanju 'Objavljen'​
-> Suvlasnici mogu označiti da će sudjelovati na sastanku putem aplikacije
-> Nakon što je sastanak završio, on prelazi u stanje 'Obavljen'
-> Predstavnik može dodavati zaključke za svaku točku dnevnog reda nakon što je sastanak prešao u stanje 'Obavljen'
-> Točke dnevnog reda s pravnim učinkom moraju imati zaključak prije arhiviranja sastanka​
-> Nakon obrade zaključaka, sastanak prelazi u stanje 'Arhiviran', a suvlasnici primaju obavijest putem e-maila
-> Nakon arhiviranja, sadržaj sastanka i zaključci se više ne mogu mijenjati​
-> Aplikacija mora omogućiti povezivanje točaka dnevnog reda sa specifičnim diskusijama na aplikaciji StanBlog
-> Suvlasnici moraju moći pregledavati povijest sastanaka i njihovih zaključaka nakon što su arhivirani​
-> Aplikacija mora moći mijenjati status sastanka, od "Planiran" do "Objavljen", a kasnije i "Obavljen" i "Arhiviran".
+>Administrator mora imati mogućnost kreiranja svih korisničkih računa unutar aplikacije i dodjeljivanja inicijalnih lozinki​
+>Korisnici moraju moći promijeniti inicijalnu lozinku nakon prve prijave.
+>Predstavnik suvlasnika mora imati mogućnost zakazivanja sastanaka, definiranja dnevnog reda i upravljanja zaključcima​
+>Aplikacija mora omogućiti prijavu korisnika putem vanjskog servisa za autentifikaciju Oauth 2.0
+>Suvlasnici moraju imati mogućnost prijave, pregleda zakazanih sastanaka i označavanje sudjelovanja na sastanku
+>Predstavnik mora moći kreirati nove sastanke sa definiranim dnevnim redom i točkama koje mogu, ali i ne moraju imati pravni učinak 
+>Predstavnik kreaira sastanak koji se nalazi u stanju 'Planiran' sve dok se ne navede naslov, mjesto, vrijeme i sažetak
+>Kada je sastanak u potpunosti kreiran, on prelazi u stanje 'Objavljen', kada postaje vidljiv svim suvlasnicima, a aplikacija automatski šalje obavijest putem e-maila​
+>Aplikacija mora automatski slati podsjetnike korisnicima za nadolazeće sastanke nekoliko dana unaprijed.
+>Suvlasnici mogu pregledavati točke dnevnog reda sastanka dok je u stanju 'Objavljen'​
+>Suvlasnici mogu označiti da će sudjelovati na sastanku putem aplikacije
+>Nakon što je sastanak završio, on prelazi u stanje 'Obavljen'
+>Predstavnik može dodavati zaključke za svaku točku dnevnog reda nakon što je sastanak prešao u stanje 'Obavljen'
+>Točke dnevnog reda s pravnim učinkom moraju imati zaključak prije arhiviranja sastanka​
+>Nakon obrade zaključaka, sastanak prelazi u stanje 'Arhiviran', a suvlasnici primaju obavijest putem e-maila
+>Nakon arhiviranja, sadržaj sastanka i zaključci se više ne mogu mijenjati​
+>Aplikacija mora omogućiti povezivanje točaka dnevnog reda sa specifičnim diskusijama na aplikaciji StanBlog
+>Suvlasnici moraju moći pregledavati povijest sastanaka i njihovih zaključaka nakon što su arhivirani​
+>Aplikacija mora moći mijenjati status sastanka, od "Planiran" do "Objavljen", a kasnije i "Obavljen" i "Arhiviran".
 
 # Nefunkcijski zahtjevi
-> Aplikacija mora imati zaštitu za korisničke podatake, poput lozinki i osobnih informacija
-> Administrator mora moći upravljati ulogama korisnika, poput dodjeljivanja ili oduzimanja ovlasti suvlasnicima i predstavnicima
-> Aplikacija mora biti kompatibilna s različitim uređajima (desktop, pametni telefoni)
-> Aplikacija mora biti jednostavna za korištenje, s intuitivnim korisničkim sučeljem koje ne zahtijeva posebnu obuku
+>Aplikacija mora imati zaštitu za korisničke podatake, poput lozinki i osobnih informacija
+>Administrator mora moći upravljati ulogama korisnika, poput dodjeljivanja ili oduzimanja ovlasti suvlasnicima i predstavnicima
+>Aplikacija mora biti kompatibilna s različitim uređajima (desktop, pametni telefoni)
+>Aplikacija mora biti jednostavna za korištenje, s intuitivnim korisničkim sučeljem koje ne zahtijeva posebnu obuku
 
 # Mogući funkcijski zahtjevi
-> Predstavnik suvlasnika mora moći kreirati glasanje za određene točke dnevnog reda koje zahtijevaju donošenje odluke.
-> Sustav mora bilježiti rezultate glasanja i automatski prikazivati zaključke kao "Izglasano" ili "Odbijeno"
-> Nakon završetka glasanja, sustav mora prikazati rezultate (broj glasova za, protiv i suzdržanih) svim korisnicima.
-> Tijekom glasanja, korisnici moraju moći vidjeti koliko je osoba već glasalo
+>Predstavnik suvlasnika mora moći kreirati glasanje za određene točke dnevnog reda koje zahtijevaju donošenje odluke.
+>Sustav mora bilježiti rezultate glasanja i automatski prikazivati zaključke kao "Izglasano" ili "Odbijeno"
+>Nakon završetka glasanja, sustav mora prikazati rezultate (broj glasova za, protiv i suzdržanih) svim korisnicima.
+>Tijekom glasanja, korisnici moraju moći vidjeti koliko je osoba već glasalo
 
 # Mogući nefunkcijski zahtjevi
-> Sustav mora automatski provjeriti i potvrditi da je postignut potreban kvorum za valjanost glasa
-> Sustav mora osigurati da samo ovlašteni suvlasnici mogu sudjelovati u glasanju i da svaki suvlasnik može glasati samo jednom.
+>Sustav mora automatski provjeriti i potvrditi da je postignut potreban kvorum za valjanost glasa
+>Sustav mora osigurati da samo ovlašteni suvlasnici mogu sudjelovati u glasanju i da svaki suvlasnik može glasati samo jednom.
 
 # Tehnologije
-> Frontend - React
-> Backend - .NET
+>Frontend - React
+>Backend - .NET
 
 # Članovi tima
-> Nina Čakija - nina.cakija@fer.hr
-> Borna Kučić - borna.kucic@fer.hr
-> Petar Rihtarec - petar.rihtarec@fer.hr
-> Ema Bradić - ema.bradic@fer.hr
-> Dorotea Požega - dorotea.pozega@fer.hr
-> Borna Elez - borna.elez@fer.hr
-> Nikola Špehar - nikola.spehar@fer.hr
+>Nina Čakija - nina.cakija@fer.hr
+>Borna Kučić - borna.kucic@fer.hr
+>Petar Rihtarec - petar.rihtarec@fer.hr
+>Ema Bradić - ema.bradic@fer.hr
+>Dorotea Požega - dorotea.pozega@fer.hr
+>Borna Elez - borna.elez@fer.hr
+>Nikola Špehar - nikola.spehar@fer.hr
 
 # Kontribucije
 >Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md

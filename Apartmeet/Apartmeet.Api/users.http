@@ -1,0 +1,13 @@
+GET http://localhost:5066/meetings
+
+###
+
+POST http://localhost:5066/meetings
+Content-Type: application/json
+
+{
+    "Title" : "sastanak",
+    "Summary" : "o sastanku",
+    "ScheduledDate" : "2025-11-11",
+    "Place" : "maksimir"
+}

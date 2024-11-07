@@ -20,7 +20,7 @@ public static class AgendaPointEndpoints
                 Description = createAgendaPointDto.Description,
                 HasLegalEffect = createAgendaPointDto.HasLegalEffect,
                 Outcome = null,
-                Meeting = meeting // Set the Meeting navigation property
+                Meeting = meeting 
             };
 
             context.AgendaPoints.Add(agendaPoint);
@@ -37,11 +37,30 @@ public static class AgendaPointEndpoints
                     ap.Id,
                     ap.Description,
                     ap.HasLegalEffect,
-                    ap.Outcome! //nisam siguran jel tu treba usklicnik
+                    ap.Outcome 
                 ))
                 .ToListAsync();
 
             return Results.Ok(agendaPoints);
+        });
+        routes.MapGet("/meetings/{meetingId}/agendapoints/{agendaPointId}", async (int meetingId, int agendaPointId, ApartmeetContext context) =>
+        {
+            var agendaPoint = await context.AgendaPoints
+                .Where(ap => ap.MeetingId == meetingId && ap.Id == agendaPointId)
+                .Select(ap => new AgendaPointDto(
+                    ap.Id,
+                    ap.Description,
+                    ap.HasLegalEffect,
+                    ap.Outcome
+                ))
+                .FirstOrDefaultAsync();
+
+            if (agendaPoint == null)
+            {
+                return Results.NotFound();
+            }
+
+            return Results.Ok(agendaPoint);
         });
 
         routes.MapPut("/meetings/{meetingId}/agendapoints/{id}", async (int meetingId, int id, UpdateAgendaPointDto updateAgendaPointDto, ApartmeetContext context) =>

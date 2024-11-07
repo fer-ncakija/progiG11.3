@@ -13,5 +13,5 @@ namespace Apartmeet.Api.Entities;
 
         // Navigational properties for relationships
         public ICollection<UserMeeting> UserMeetings { get; set; } = new List<UserMeeting>();
-        public ICollection<Meeting> ParticipatedMeetings => UserMeetings.Select(um => um.Meeting).ToList();
+     //   public ICollection<Meeting> ParticipatedMeetings => UserMeetings.Select(um => um.Meeting).ToList(); //mozda maknut
     }

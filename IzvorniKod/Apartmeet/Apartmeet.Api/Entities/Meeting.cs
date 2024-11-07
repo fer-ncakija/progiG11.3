@@ -12,7 +12,7 @@ namespace Apartmeet.Api.Entities;
         public required string Place { get; set; }
 
         // Navigational properties
-        public ICollection<AgendaPoint> AgendaPoints { get; set; } = new List<AgendaPoint>();
+        public ICollection<AgendaPoint> AgendaPoints { get; set; } = new List<AgendaPoint>(); 
         public ICollection<UserMeeting> UserMeetings { get; set; } = new List<UserMeeting>();
-        public ICollection<User> Participants => UserMeetings.Select(um => um.User).ToList();
+    //    public ICollection<User> Participants => UserMeetings.Select(um => um.User).ToList(); //mozda maknut
     }

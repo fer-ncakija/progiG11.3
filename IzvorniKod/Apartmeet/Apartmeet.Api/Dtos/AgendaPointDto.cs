@@ -4,5 +4,5 @@ namespace Apartmeet.Api.Dtos;
         int Id, 
         string Description, 
         bool HasLegalEffect, 
-        string Outcome
+        string? Outcome
     );

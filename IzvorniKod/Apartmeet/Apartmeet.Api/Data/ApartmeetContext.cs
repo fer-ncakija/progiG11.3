@@ -25,6 +25,17 @@ public class ApartmeetContext(DbContextOptions<ApartmeetContext> options) : DbCo
             .HasOne(um => um.Meeting)
             .WithMany(u => u.UserMeetings)
             .HasForeignKey(um => um.MeetingId);
+
+        modelBuilder.Entity<User>().HasData(
+            new
+            {
+                Id = 1,
+                Username = "admin",
+                Email = "",
+                Password = "admin",
+                Role = "admin"
+            }
+        );
     }
 
 }

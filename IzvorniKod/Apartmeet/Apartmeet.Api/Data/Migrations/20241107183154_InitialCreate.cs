@@ -67,30 +67,6 @@ namespace Apartmeet.Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MeetingUser",
-                columns: table => new
-                {
-                    ParticipantsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ParticipatedMeetingsId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MeetingUser", x => new { x.ParticipantsId, x.ParticipatedMeetingsId });
-                    table.ForeignKey(
-                        name: "FK_MeetingUser_Meetings_ParticipatedMeetingsId",
-                        column: x => x.ParticipatedMeetingsId,
-                        principalTable: "Meetings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MeetingUser_Users_ParticipantsId",
-                        column: x => x.ParticipantsId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserMeetings",
                 columns: table => new
                 {
@@ -120,11 +96,6 @@ namespace Apartmeet.Api.Data.Migrations
                 column: "MeetingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MeetingUser_ParticipatedMeetingsId",
-                table: "MeetingUser",
-                column: "ParticipatedMeetingsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserMeetings_MeetingId",
                 table: "UserMeetings",
                 column: "MeetingId");
@@ -135,9 +106,6 @@ namespace Apartmeet.Api.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AgendaPoints");
-
-            migrationBuilder.DropTable(
-                name: "MeetingUser");
 
             migrationBuilder.DropTable(
                 name: "UserMeetings");

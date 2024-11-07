@@ -115,21 +115,6 @@ namespace Apartmeet.Api.Data.Migrations
                     b.ToTable("UserMeetings");
                 });
 
-            modelBuilder.Entity("MeetingUser", b =>
-                {
-                    b.Property<int>("ParticipantsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ParticipatedMeetingsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ParticipantsId", "ParticipatedMeetingsId");
-
-                    b.HasIndex("ParticipatedMeetingsId");
-
-                    b.ToTable("MeetingUser");
-                });
-
             modelBuilder.Entity("Apartmeet.Api.Entities.AgendaPoint", b =>
                 {
                     b.HasOne("Apartmeet.Api.Entities.Meeting", "Meeting")
@@ -158,21 +143,6 @@ namespace Apartmeet.Api.Data.Migrations
                     b.Navigation("Meeting");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MeetingUser", b =>
-                {
-                    b.HasOne("Apartmeet.Api.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("ParticipantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Apartmeet.Api.Entities.Meeting", null)
-                        .WithMany()
-                        .HasForeignKey("ParticipatedMeetingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Apartmeet.Api.Entities.Meeting", b =>

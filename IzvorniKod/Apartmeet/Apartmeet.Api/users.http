@@ -11,3 +11,16 @@ Content-Type: application/json
     "ScheduledDate" : "2025-11-11",
     "Place" : "maksimir"
 }
+
+###
+POST http://localhost:5066/login
+Content-Type: application/json
+
+{
+    "Username": "admin",
+    "Password": "admin"
+}
+
+###
+GET http://localhost:5066/users
+Authorization: Bearer 

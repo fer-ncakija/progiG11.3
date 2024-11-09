@@ -41,6 +41,10 @@ public static class UserEndpoints
                 .ToListAsync();
 
             return Results.Ok(users);
+        })
+        .RequireAuthorization(policy => 
+        {
+            policy.RequireClaim("customRole", "admin");
         });
         routes.MapGet("/users/{id}", async (int id, ApartmeetContext context) =>
         {

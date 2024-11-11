@@ -13,7 +13,7 @@ function Login(props) {
 
   function isValid() {
     const { username, password } = loginForm;
-    return username.length > 5 && password.length > 5;
+    return username.length > 0 && password.length > 0;
   }
 
   function onChange(event) {
@@ -112,7 +112,7 @@ function Login(props) {
       <div className="nes">
         <p>ili</p>
         <div className="google">
-          <a href="http://localhost:8080/oauth2/authorization/google">
+          <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&access_type=offline&response_type=code&redirect_uri=http://localhost:3000&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com">
             Prijava s Google računom
           </a>
           <img src={google_icon} alt="" />

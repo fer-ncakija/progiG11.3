@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.css";
 import user_icon from "../assets/user.png";
 import password_icon from "../assets/lozinka.png";
@@ -43,6 +43,37 @@ function Login(props) {
       }
     });
   }
+
+  useEffect(() => {
+    // Detekcija da li URL sadrži Authorization Code
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    if (code) {
+      // Ako postoji kod, pošalji ga backendu da zameni za access token
+      fetch("/oauth2/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.access_token) {
+            // Sačuvaj access token (opciono, zavisi od logike sesije)
+            localStorage.setItem("access_token", data.access_token);
+            props.onLogin();
+          } else {
+            setError("OAuth2 login failed");
+          }
+        })
+        .catch((err) => {
+          console.error("Error during OAuth2 token exchange:", err);
+          setError("OAuth2 login failed");
+        });
+    }
+  }, []);
+
   return (
     <div className="box">
       <form onSubmit={onSubmit}>
@@ -64,6 +95,7 @@ function Login(props) {
             <img src={password_icon} alt="" />
             <input
               name="password"
+              type="password"
               placeholder="Lozinka"
               onChange={onChange}
               value={loginForm.password}
@@ -86,6 +118,7 @@ function Login(props) {
           <img src={google_icon} alt="" />
         </div>
       </div>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

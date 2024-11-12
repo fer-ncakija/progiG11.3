@@ -1,70 +1,97 @@
-import {useState} from 'react'
-import './DodajClana.css'
+import { useState } from 'react';
+import './DodajClana.css';
 
-export default function() {
+export default function DodajClana() {
+    // State to store the input data
+    const [formData, setFormData] = useState({
+        userName: "",
+        email: "",
+        password: "",
+        role: "stanar" // default role is "stanar"
+    });
 
-    //state koji cuva unesene podatke
-    const [formData, setFormData] = useState(
-        {
-            userName:"",
-            email:"",
-            password:""
-        }
-    )
-
-    //pri svakom upisu u input se azurira formData
-    function handleChange(event) {
-        setFormData(prevFormData => {
-            return {
-            ...prevFormData,
-            [event.target.name]: event.target.value
-            }
-        })
+    function isValid(){
+        const {username, email, password} = formData;
+        return username.length > 0 && email.length>0 && password.length>0;
     }
 
-    //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
-    //treba povezati u bazu nakon sto dode backend
-     function handleSubmit(event) {
-        event.prventDefault()
-        console.log(formData)
+    // Update formData on each input change
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+        }));
+    }
+
+    // Log formData on form submission (connect to backend later)
+    function handleSubmit(event) {
+        event.preventDefault();
+        const data = {
+            usrename: formData.userName,
+            email: formData.email,
+            password: formData.password,
+            role: formData.role
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+
+        return fetch('/users', options);
      }
 
-
-    return(
-        <div className='meeting-container'>
-            <form onSubmit={handleSubmit} >
-                <div className='dodajclana-form'>
-                    <div className='form-line'>
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div className="dodajclana-form">
+                    <div className="form-line">
                         <p>Korisničko ime:</p>
                         <input
                             type="text"
                             onChange={handleChange}
                             name="userName"
-                            value={formData.userName} />
+                            value={formData.userName}
+                        />
                     </div>
-                    <div className='form-line'>
+                    <div className="form-line">
                         <p>E-mail:</p>
                         <input
                             type="email"
                             onChange={handleChange}
                             name="email"
-                            value={formData.email} />
+                            value={formData.email}
+                        />
                     </div>
-                    <div className='form-line'>
+                    <div className="form-line">
                         <p>Lozinka:</p>
                         <input
                             type="password"
                             onChange={handleChange}
                             name="password"
-                            value={formData.password} />
+                            value={formData.password}
+                        />
+                    </div>
+                    <div className="form-line">
+                        <p>Uloga:</p>
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                        >
+                            <option value="predstavnik">Predstavnik</option>
+                            <option value="stanar">Stanar</option>
+                        </select>
                     </div>
                 </div>
-                
-                <div className='button-div'>
-                    <button>Dodaj člana</button>
-                </div>
 
+                <div className="button-div">
+                    <button type="submit" /*disabled={!isValid()}*/>Dodaj člana</button>
+                </div>
             </form>
         </div>
-    )
+    );
 }

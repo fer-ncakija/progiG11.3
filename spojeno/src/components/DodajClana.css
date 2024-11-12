@@ -54,6 +54,15 @@ button {
     background: #D9C8BF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     font-family: "Trebuchet MS";
-    cursor: pointer;
 
+}
+/* CSS for making the role dropdown larger */
+.dodajclana-form .form-line select {
+    width: 100%;        /* Make the dropdown take the full width of its container */
+    padding: 10px;      /* Increase padding for more space inside */
+    font-size: 1.1em;   /* Increase font size for readability */
+    height: 40px;       /* Adjust height to make it visually larger */
+    border-radius: 5px; /* Add some rounding to match input styling */
+    border: 1px solid #ccc; /* Optional: border for better visibility */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }

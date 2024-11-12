@@ -27,9 +27,23 @@ export default function DodajClana() {
 
     //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
     //treba povezati u bazu nakon sto dode backend
-     function handleSubmit(event) {
-        event.prventDefault()
-        console.log(formData)
+    function handleSubmit(event) {
+        event.preventDefault();
+        const data = {
+            username: formData.userName,
+            email: formData.email,
+            password: formData.password,
+            role: formData.role
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+
+        return fetch('/users', options);
      }
 
 

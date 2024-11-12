@@ -93,12 +93,12 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 
         var tokenResponse = JsonSerializer.Deserialize<GoogleTokenResponseDto>(responseContent);
 
-        if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.IdToken))
+        if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.id_token))
         {
             return Results.BadRequest();
         }
 
-        var userEmail = new JwtSecurityTokenHandler().ReadJwtToken(tokenResponse.IdToken).Claims.First(c => c.Type == "email").Value;
+        var userEmail = new JwtSecurityTokenHandler().ReadJwtToken(tokenResponse.id_token).Claims.First(c => c.Type == "email").Value;
 
         var user = await context.Users
             .Where(u => u.Email == userEmail)

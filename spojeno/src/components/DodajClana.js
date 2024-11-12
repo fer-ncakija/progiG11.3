@@ -17,17 +17,17 @@ export default function() {
         setFormData(prevFormData => {
             return {
             ...prevFormData,
-            [event.target.name]: event.target.value
-            }
+            [event.target.name]: event.target.value            
+            } 
         })
     }
 
     //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
     //treba povezati u bazu nakon sto dode backend
-     function handleSubmit(event) {
+    function handleSubmit(event) {
         event.prventDefault()
         console.log(formData)
-     }
+    }
 
 
     return(

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Apartmeet.Api.Dtos;
 using Apartmeet.Api.Entities;
 using Apartmeet.Api.Data;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apartmeet.Api.Endpoints;
 
@@ -11,58 +13,55 @@ public static class UserEndpoints
     public static void MapUserEndpoints(this IEndpointRouteBuilder routes)
     {
         routes.MapPost("/users", async (CreateUserDto createUserDto, ApartmeetContext context) =>
-    {
-
-        if (string.IsNullOrWhiteSpace(createUserDto.Username) || string.IsNullOrWhiteSpace(createUserDto.Email))
         {
-            return Results.BadRequest("Username and Email are required.");
-        }
-
-        var existingUser = await context.Users
-            .Where(u => u.Email == createUserDto.Email || u.Username == createUserDto.Username)
-            .FirstOrDefaultAsync();
-
-        if (existingUser != null)
-        {
-            if (existingUser.Email == createUserDto.Email)
+            if (string.IsNullOrWhiteSpace(createUserDto.Username) || string.IsNullOrWhiteSpace(createUserDto.Email))
             {
-                return Results.Conflict("A user with this email already exists.");
+                return Results.BadRequest("Username and Email are required.");
             }
 
-            if (existingUser.Username == createUserDto.Username)
+            var existingUser = await context.Users
+                .Where(u => u.Email == createUserDto.Email || u.Username == createUserDto.Username)
+                .FirstOrDefaultAsync();
+
+            if (existingUser != null)
             {
-                return Results.Conflict("A user with this username already exists.");
+                if (existingUser.Email == createUserDto.Email)
+                {
+                    return Results.Conflict("A user with this email already exists.");
+                }
+
+                if (existingUser.Username == createUserDto.Username)
+                {
+                    return Results.Conflict("A user with this username already exists.");
+                }
             }
-        }
 
-        var user = new User
-        {
-            Username = createUserDto.Username,
-            Password = createUserDto.Password,
-            Email = createUserDto.Email,
-            Role = createUserDto.Role
-        };
+            var user = new User
+            {
+                Username = createUserDto.Username,
+                Password = createUserDto.Password,
+                Email = createUserDto.Email,
+                Role = createUserDto.Role
+            };
 
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
 
-        var userDto = new UserDto(user.Id, user.Username, user.Email, user.Role);
 
-        return Results.Created($"/users/{user.Id}", userDto);
-    });
+            var userDto = new UserDto(user.Id, user.Username, user.Email, user.Role);
 
-        routes.MapGet("/users", async (ApartmeetContext context) =>
+            return Results.Created($"/users/{user.Id}", userDto);
+        });
+
+        routes.MapGet("/users", async (ApartmeetContext context, ClaimsPrincipal user) =>
         {
             var users = await context.Users
                 .Select(u => new UserDto(u.Id, u.Username, u.Email, u.Role))
                 .ToListAsync();
 
             return Results.Ok(users);
-        })
-        .RequireAuthorization(policy =>
-        {
-            policy.RequireClaim("customRole", "admin");
         });
+        
         routes.MapGet("/users/{id}", async (int id, ApartmeetContext context) =>
         {
             var user = await context.Users

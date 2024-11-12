@@ -11,9 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connString = builder.Configuration.GetConnectionString("Apartmeet");
-builder.Services.AddSqlite<ApartmeetContext>(connString);
-
+builder.Services.AddSqlite<ApartmeetContext>(builder.Configuration["ConnectionStrings:Apartmeet"]);
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -78,44 +76,62 @@ app.MapPost("/login", async (LoginDto loginDto, ApartmeetContext context) =>
     return Results.Ok(new {Token = new JwtSecurityTokenHandler().WriteToken(token)});
 });
 
-app.MapPost("/oauth2/token", async (AuthCodeDto authCode) => 
+app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext context) =>
 {
-    using var client = new HttpClient();
-
-    var formData = new List<KeyValuePair<string, string>>
-    {
-        new KeyValuePair<string, string>("code", authCode.code),
-        new KeyValuePair<string, string>("client_id", builder.Configuration["Authentication:Google:ClientId"]!),
-        new KeyValuePair<string, string>("client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!),
-        new KeyValuePair<string, string>("redirect_uri", "http://localhost:3000"),
-        new KeyValuePair<string, string>("grant_type", "authorization_code")
-    };
-
-    var content = new FormUrlEncodedContent(formData);
-
     try
     {
-        var response = await client.PostAsync("https://oauth2.googleapis.com/token", content);
-
-        if (!response.IsSuccessStatusCode)
+        var response = await new HttpClient().PostAsync("https://oauth2.googleapis.com/token", new FormUrlEncodedContent(new Dictionary<string, string>
         {
-            var errorContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Error response: {errorContent}");
-            return Results.BadRequest(new { error = "Failed to obtain token from Google" });
-        }
+            {"code", authCode.Code},
+            {"client_id", builder.Configuration["Authentication:Google:ClientId"]!},
+            {"client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!},
+            {"redirect_uri", "http://localhost:3000"},
+            {"grant_type", "authorization_code"}
+        }));
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(responseContent);
+
         var tokenResponse = JsonSerializer.Deserialize<GoogleTokenResponseDto>(responseContent);
 
-        return Results.Ok(tokenResponse);
+        if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.IdToken))
+        {
+            return Results.BadRequest();
+        }
+
+        var userEmail = new JwtSecurityTokenHandler().ReadJwtToken(tokenResponse.IdToken).Claims.First(c => c.Type == "email").Value;
+
+        var user = await context.Users
+            .Where(u => u.Email == userEmail)
+            .Select(u => new UserLoginDto(u.Id, u.Username, u.Password, u.Role))
+            .FirstOrDefaultAsync();
+
+        if(user == null)
+        {
+            return Results.Unauthorized();
+        }
+
+        var token = new JwtSecurityToken
+        (
+            issuer: builder.Configuration["Jwt:Issuer"],
+            audience: builder.Configuration["Jwt:Audience"],
+            claims: new List<Claim>
+            {
+                new Claim("username", user.Username),
+                new Claim("customRole", user.Role)
+            },
+            expires: DateTime.Now.AddHours(1),
+            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!)), SecurityAlgorithms.HmacSha256)
+        );
+
+        return Results.Ok(new {Token = new JwtSecurityTokenHandler().WriteToken(token)});
     }
     catch (Exception ex)
     {
         Console.WriteLine($"Error: {ex.Message}");
-        return Results.BadRequest(new { error = "An error occurred while obtaining Google token"});
+        return Results.BadRequest();
     }
 });
+
 
 app.MapUserEndpoints();
 app.MapMeetingEndpoints();

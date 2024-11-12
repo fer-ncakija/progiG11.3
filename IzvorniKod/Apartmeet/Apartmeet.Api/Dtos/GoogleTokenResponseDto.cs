@@ -2,8 +2,10 @@ namespace Apartmeet.Api.Dtos;
 
 public record GoogleTokenResponseDto
 (
-    string access_token,
-    int expires_in,
-    string scope,
-    string token_type
+    string AccessToken,
+    string TokenType,
+    string Scope,
+    string IdToken,
+    string? RefreshToken,
+    int ExpiresIn
 );

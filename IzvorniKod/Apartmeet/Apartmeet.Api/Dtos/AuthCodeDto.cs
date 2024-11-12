@@ -2,5 +2,5 @@ namespace Apartmeet.Api.Dtos;
 
 public record AuthCodeDto
 (
-    string code
+    string Code
 );

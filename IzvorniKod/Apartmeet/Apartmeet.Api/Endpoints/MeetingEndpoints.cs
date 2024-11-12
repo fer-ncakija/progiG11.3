@@ -28,14 +28,14 @@ public static class MeetingEndpoints
 
         routes.MapPost("/meetings/{meetingId}/users/{userId}", async (int meetingId, int userId, ApartmeetContext context) =>
         {
-            // Ako meeting postoji
+            // Ako meeting ne postoji
             var meeting = await context.Meetings.FindAsync(meetingId);
             if (meeting == null)
             {
                 return Results.NotFound($"Meeting with ID {meetingId} not found.");
             }
 
-            // Ako user postoji
+            // Ako user ne postoji
             var user = await context.Users.FindAsync(userId);
             if (user == null)
             {

@@ -24,10 +24,13 @@ function App() {
     )
   }
 
+  let userName
+  let role
+
   return (
     <div className="App">
       <BrowserRouter>
-      <Header userName="emaBradic" administrator={true} predstavnik={false} stanar={false}/>
+      <Header userName="emaBradic" role="administrator"/>
         <Routes>
           <Route path="/" exact Component={Meeting}/>
           <Route path="/dodavanjeClana" exact Component={DodajClana}/>

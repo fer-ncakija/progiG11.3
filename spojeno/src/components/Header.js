@@ -25,10 +25,10 @@ export default function Header(props) {
             {openDropdown && <div className="header-dropdown">
                 <p>SASTANCI</p>
                 <hr/>
-                {(props.stanar || props.predstavnik) && <p>PROMIJENI LOZINKU</p>}
-                {props.administrator && <p>DODAJ ČLANA</p>}
-                {props.administrator && <hr/>}
-                {props.administrator && <p>OBRIŠI ČLANA</p>}
+                {(props.role === "stanar" || props.role === "predstavnik") && <p>PROMIJENI LOZINKU</p>}
+                {props.role === "administrator" && <p>DODAJ ČLANA</p>}
+                {props.role === "administrator" && <hr/>}
+                {props.role === "administrator" && <p>OBRIŠI ČLANA</p>}
             </div>}
         </header>
     )

@@ -31,7 +31,7 @@ export default function() {
 
 
     return(
-        <div >
+        <div className='meeting-container'>
             <form onSubmit={handleSubmit} >
                 <div className='dodajclana-form'>
                     <div className='form-line'>

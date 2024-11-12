@@ -7,6 +7,7 @@ import DodajClana from './components/DodajClana';
 import './App.css'
 import './components/Header.css';
 import './Main.css';
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
@@ -26,12 +27,12 @@ function App() {
       </div>
     )
   }
-
+  const userName = jwtDecode(localStorage.getItem("token")).username
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Header userName="emaBradic" role="administrator"/>
+      <Header userName={userName} role="administrator"/>
         <Routes>
           <Route path="/" exact Component={Meeting}/>
           <Route path="/dodajClana" exact Component={DodajClana}/>

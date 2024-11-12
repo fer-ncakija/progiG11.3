@@ -36,10 +36,13 @@ function Login(props) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/login", options).then((response) => {
-      if (response.status === 401) {
-        setError("Login failed");
-      } else {
+    fetch("/login", options).then((response) => response.json())
+    .then(data => 
+    {
+      console.log(data);
+      if(data.token)
+      {
+        localStorage.setItem("token", data.token);
         props.onLogin();
       }
     });

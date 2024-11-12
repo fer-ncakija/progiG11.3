@@ -32,7 +32,7 @@
 .underline {
     width: 65px;
     height: 5px;
-    background: darkkhaki;
+    background: #D9C8BF;
     border-radius: 9px;
 }
 
@@ -92,7 +92,7 @@
     max-width: 300px;
     height: 50px;
     color: white;
-    background-color: darkkhaki;
+    background-color: #D9C8BF;
     border-radius: 50px;
     font-size: 18px;
     font-weight: 700;
@@ -105,7 +105,7 @@
 }
 
 
-.nes {
+.zadnje {
     margin: auto;
     width: 100%;
     display: flex;

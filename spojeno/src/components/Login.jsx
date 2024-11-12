@@ -45,11 +45,9 @@ function Login(props) {
   }
 
   useEffect(() => {
-    // Detekcija da li URL sadrži Authorization Code
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     if (code) {
-      // Ako postoji kod, pošalji ga backendu da zameni za access token
       fetch("/oauth2/token", {
         method: "POST",
         headers: {
@@ -60,7 +58,6 @@ function Login(props) {
         .then((response) => response.json())
         .then((data) => {
           if (data.access_token) {
-            // Sačuvaj access token (opciono, zavisi od logike sesije)
             localStorage.setItem("access_token", data.access_token);
             props.onLogin();
           } else {
@@ -109,7 +106,7 @@ function Login(props) {
           </button>
         </div>
       </form>
-      <div className="nes">
+      <div className="zadnje">
         <p>ili</p>
         <div className="google">
           <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&access_type=offline&response_type=code&redirect_uri=http://localhost:3000&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com">

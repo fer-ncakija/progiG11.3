@@ -9,12 +9,15 @@ import './components/Header.css';
 import './Main.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true";
+  });
   
+  // Funkcija koja se poziva kada se korisnik uspješno prijavi
   function onLogin() {
-    setIsLoggedIn(true)
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true"); // Spremanje statusa prijave u localStorage
   }
-
 
   if (!isLoggedIn) {
     return (
@@ -24,8 +27,6 @@ function App() {
     )
   }
 
-  let userName
-  let role
 
   return (
     <div className="App">

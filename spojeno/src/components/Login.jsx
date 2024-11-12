@@ -3,6 +3,7 @@ import "./Login.css";
 import user_icon from "../assets/user.png";
 import password_icon from "../assets/lozinka.png";
 import google_icon from "../assets/google.png";
+import { jwtDecode } from "jwt-decode";
 
 function Login(props) {
   const [loginForm, setLoginForm] = React.useState({
@@ -57,8 +58,9 @@ function Login(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.access_token) {
-            localStorage.setItem("access_token", data.access_token);
+          console.log(jwtDecode(data.token));
+          if (data.token) {
+            localStorage.setItem("token", data.token);
             props.onLogin();
           } else {
             setError("OAuth2 login failed");
@@ -109,7 +111,7 @@ function Login(props) {
       <div className="zadnje">
         <p>ili</p>
         <div className="google">
-          <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&access_type=offline&response_type=code&redirect_uri=http://localhost:3000&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com">
+          <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&access_type=offline&response_type=code&redirect_uri=http://localhost:3000&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com&include_granted_scopes=true">
             Prijava s Google računom
           </a>
           <img src={google_icon} alt="" />

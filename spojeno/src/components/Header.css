@@ -77,6 +77,14 @@ header {
   padding-right: 25px;
   font-weight: 700;
   cursor: pointer;
+  
+}
+
+.link {
+  color: #2A2828;
+  text-align: center;
+  font-family: "Trebuchet MS";
+  text-decoration: none;
 }
 
 hr {

@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Header(props) {
     //funkcija preko propsa prima username i ulogu osobe
@@ -16,7 +17,10 @@ export default function Header(props) {
         <header>
             <div className="header-menu-name">
                 <img src="./images/menu.png" className="header-menu" onClick={handleDropdown}></img>
-                <h1 className="header-name">APARTMEET</h1>
+                
+                <Link to={"/"} className='link'>
+                    <h1 className="header-name">APARTMEET</h1>
+                </Link>
             </div>
             <div className="header-user">
                 <p className="header-user-name">{props.userName}</p>
@@ -26,7 +30,7 @@ export default function Header(props) {
                 <p>SASTANCI</p>
                 <hr/>
                 {(props.role === "stanar" || props.role === "predstavnik") && <p>PROMIJENI LOZINKU</p>}
-                {props.role === "administrator" && <p>DODAJ ČLANA</p>}
+                <Link to="/dodajClana" className='link'>{props.role === "administrator" && <p>DODAJ ČLANA</p>}</Link>
                 {props.role === "administrator" && <hr/>}
                 {props.role === "administrator" && <p>OBRIŠI ČLANA</p>}
             </div>}

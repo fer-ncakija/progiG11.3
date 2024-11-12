@@ -33,7 +33,7 @@ function App() {
       <Header userName="emaBradic" role="administrator"/>
         <Routes>
           <Route path="/" exact Component={Meeting}/>
-          <Route path="/dodavanjeClana" exact Component={DodajClana}/>
+          <Route path="/dodajClana" exact Component={DodajClana}/>
         </Routes>
       </BrowserRouter>
     </div>

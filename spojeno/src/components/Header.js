@@ -27,7 +27,9 @@ export default function Header(props) {
                 <img src="./images/profilna.png" className="header-profile"></img>
             </div>
             {openDropdown && <div className="header-dropdown">
-                <p>SASTANCI</p>
+                <Link to="/" className='link'>
+                    <p>SASTANCI</p>
+                </Link>
                 <hr/>
                 {(props.role === "stanar" || props.role === "predstavnik") && <p>PROMIJENI LOZINKU</p>}
                 <Link to="/dodajClana" className='link'>{props.role === "administrator" && <p>DODAJ ČLANA</p>}</Link>

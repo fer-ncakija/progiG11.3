@@ -21,8 +21,8 @@ export default function DodajClana() {
         setFormData(prevFormData => ({
             ...prevFormData,
             [event.target.name]: event.target.value
-            }
-        })
+            })
+        )
     }
 
     //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
@@ -66,7 +66,7 @@ export default function DodajClana() {
                     </div>
                     <div className="form-line">
                         <p>Uloga:</p>
-                        <select
+                        <select className='select-form-line'
                             name="role"
                             value={formData.role}
                             onChange={handleChange}

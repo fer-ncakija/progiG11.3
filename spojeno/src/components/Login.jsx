@@ -6,22 +6,28 @@ import google_icon from "../assets/google.png";
 import { jwtDecode } from "jwt-decode";
 
 function Login(props) {
+  // stanje za pohranu podataka unesenih u formu za prijavu (korisničko ime i lozinka)
   const [loginForm, setLoginForm] = React.useState({
     username: "",
     password: "",
   });
+
+  // stanje za pohranu poruke o grešci prilikom prijave
   const [error, setError] = React.useState("");
 
+  // provjera je li forma za prijavu ispravna
   function isValid() {
     const { username, password } = loginForm;
     return username.length > 0 && password.length > 0;
   }
 
+  // ažurira podatke u formi na temelju korisnikovog unosa
   function onChange(event) {
     const { name, value } = event.target;
     setLoginForm((oldForm) => ({ ...oldForm, [name]: value }));
   }
 
+  // funkcija za obradu slanja forme
   function onSubmit(e) {
     e.preventDefault();
     setError("");
@@ -49,6 +55,7 @@ function Login(props) {
       });
   }
 
+  // hook za provjeru postoji li OAuth2 kod u URL-u i obradu prijave preko Google računa
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");

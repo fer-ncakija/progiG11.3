@@ -27,6 +27,8 @@ function App() {
       </div>
     )
   }
+
+  //izvlacenje podataka o korisniku iz tokena
   const userName = jwtDecode(localStorage.getItem("token")).username
   const role = jwtDecode(localStorage.getItem("token")).customRole
 

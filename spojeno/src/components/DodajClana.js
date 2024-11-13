@@ -27,8 +27,7 @@ export default function DodajClana() {
 
     //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
     //treba povezati u bazu nakon sto dode backend
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleSubmit() {
         const data = {
             username: formData.userName,
             email: formData.email,

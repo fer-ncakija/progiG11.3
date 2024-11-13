@@ -39,7 +39,6 @@ function Login(props) {
     fetch("/login", options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
           props.onLogin();
@@ -63,17 +62,15 @@ function Login(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(jwtDecode(data.token));
           if (data.token) {
             localStorage.setItem("token", data.token);
             props.onLogin();
           } else {
-            setError("OAuth2 login failed");
+            setError("OAuth2 login nije uspio");
           }
         })
         .catch((err) => {
-          console.error("Error during OAuth2 token exchange:", err);
-          setError("OAuth2 login failed");
+          setError("OAuth2 login nije uspio");
         });
     }
   }, []);

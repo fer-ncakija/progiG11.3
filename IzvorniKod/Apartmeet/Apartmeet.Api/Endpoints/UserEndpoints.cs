@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Apartmeet.Api.Dtos;
 using Apartmeet.Api.Entities;
 using Apartmeet.Api.Data;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Apartmeet.Api.Endpoints;
 
@@ -76,6 +74,7 @@ public static class UserEndpoints
 
             return Results.Ok(user);
         });
+        
         routes.MapGet("/users/{userId}/meetings", async (int userId, ApartmeetContext context) =>
         {
             var meetings = await context.UserMeetings

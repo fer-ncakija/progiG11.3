@@ -1,6 +1,7 @@
 namespace Apartmeet.Api.Dtos;
 
-public record UpdateAgendaPointDto(
+public record UpdateAgendaPointDto
+(
     string Description,
     bool HasLegalEffect,
     string? Outcome

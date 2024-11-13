@@ -43,6 +43,7 @@ public static class AgendaPointEndpoints
 
             return Results.Ok(agendaPoints);
         });
+
         routes.MapGet("/meetings/{meetingId}/agendapoints/{agendaPointId}", async (int meetingId, int agendaPointId, ApartmeetContext context) =>
         {
             var agendaPoint = await context.AgendaPoints
@@ -64,18 +65,18 @@ public static class AgendaPointEndpoints
         });
 
         routes.MapPut("/meetings/{meetingId}/agendapoints/{id}", async (int meetingId, int id, UpdateAgendaPointDto updateAgendaPointDto, ApartmeetContext context) =>
-{
-    var agendaPoint = await context.AgendaPoints.FindAsync(id);
-    if (agendaPoint == null || agendaPoint.MeetingId != meetingId) return Results.NotFound();
+        {
+            var agendaPoint = await context.AgendaPoints.FindAsync(id);
+            if (agendaPoint == null || agendaPoint.MeetingId != meetingId) return Results.NotFound();
 
-    agendaPoint.Description = updateAgendaPointDto.Description;
-    agendaPoint.HasLegalEffect = updateAgendaPointDto.HasLegalEffect;
-    agendaPoint.Outcome = updateAgendaPointDto.Outcome;
+            agendaPoint.Description = updateAgendaPointDto.Description;
+            agendaPoint.HasLegalEffect = updateAgendaPointDto.HasLegalEffect;
+            agendaPoint.Outcome = updateAgendaPointDto.Outcome;
 
-    await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 
-    return Results.NoContent();
-});
+            return Results.NoContent();
+        });
 
         routes.MapDelete("/meetings/{meetingId}/agendapoints/{id}", async (int meetingId, int id, ApartmeetContext context) =>
         {

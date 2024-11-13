@@ -2,12 +2,13 @@ import { useState } from 'react';
 import './DodajClana.css';
 
 export default function DodajClana() {
-    // State to store the input data
+
+    //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
         userName: "",
         email: "",
         password: "",
-        role: "stanar" // default role is "stanar"
+        role: "stanar" 
     });
 
     function isValid(){
@@ -15,7 +16,6 @@ export default function DodajClana() {
         return username.length > 0 && email.length>0 && password.length>0;
     }
 
-    // Update formData on each input change
     function handleChange(event) {
         const { name, value } = event.target;
         setFormData(prevFormData => ({
@@ -25,8 +25,7 @@ export default function DodajClana() {
         )
     }
 
-    //trenutno se podaci nakon sto se stisne gumb za dodavanje ispisuju
-    //treba povezati u bazu nakon sto dode backend
+    //funkcija koja obraduje submit i salje podatke na backend
     function handleSubmit() {
         const data = {
             username: formData.userName,
@@ -46,6 +45,7 @@ export default function DodajClana() {
      }
 
 
+    //forma za dodavanje novog clana
     return(
         <div className='meeting-container'>
             <form onSubmit={handleSubmit} >

@@ -36,16 +36,21 @@ function Login(props) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/login", options).then((response) => response.json())
-    .then(data => 
-    {
-      console.log(data);
-      if(data.token)
-      {
-        localStorage.setItem("token", data.token);
-        props.onLogin();
-      }
-    });
+    fetch("/login", options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          props.onLogin();
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Greška prilikom prijave ili nedostupnost backenda:",
+          error
+        );
+      });
   }
 
   useEffect(() => {

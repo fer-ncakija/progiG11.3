@@ -28,11 +28,12 @@ function App() {
     )
   }
   const userName = jwtDecode(localStorage.getItem("token")).username
+  const role = jwtDecode(localStorage.getItem("token")).customRole
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Header userName={userName} role="administrator"/>
+      <Header userName={userName} role={role}/>
         <Routes>
           <Route path="/" exact Component={Meeting}/>
           <Route path="/dodajClana" exact Component={DodajClana}/>

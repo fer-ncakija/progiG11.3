@@ -46,10 +46,7 @@ function Login(props) {
         }
       })
       .catch((error) => {
-        console.error(
-          "Greška prilikom prijave ili nedostupnost backenda:",
-          error
-        );
+        setError("Greška prilikom prijave");
       });
   }
 

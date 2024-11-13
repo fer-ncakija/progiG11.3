@@ -32,9 +32,9 @@ export default function Header(props) {
                 </Link>
                 <hr/>
                 {(props.role === "stanar" || props.role === "predstavnik") && <p>PROMIJENI LOZINKU</p>}
-                <Link to="/dodajClana" className='link'>{props.role === "administrator" && <p>DODAJ ČLANA</p>}</Link>
-                {props.role === "administrator" && <hr/>}
-                {props.role === "administrator" && <p>OBRIŠI ČLANA</p>}
+                <Link to="/dodajClana" className='link'>{props.role === "admin" && <p>DODAJ ČLANA</p>}</Link>
+                {props.role === "admin" && <hr/>}
+                {props.role === "admin" && <p>OBRIŠI ČLANA</p>}
             </div>}
         </header>
     )

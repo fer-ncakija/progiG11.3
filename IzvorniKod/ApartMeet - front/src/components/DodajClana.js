@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './DodajClana.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export default function DodajClana() {
 
     //state za cuvanje podataka o novom dodanom clanu
@@ -41,7 +43,7 @@ export default function DodajClana() {
             body : JSON.stringify(data)
         };
 
-        return fetch('/users', options);
+        return fetch(`${apiUrl}/users`, options);
      }
 
 

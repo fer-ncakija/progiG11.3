@@ -68,26 +68,27 @@ public static class MeetingEndpoints
 
 
         routes.MapGet("/meetings", async (ApartmeetContext context) =>
-            {
-                var meetings = await context.Meetings
-                    .Select(m => new MeetingDto(
-                        m.Id,
-                        m.Title,
-                        m.Summary,
-                        m.Status,
-                        m.ScheduledDate,
-                        m.Place,
-                        m.AgendaPoints.Select(ap => new AgendaPointDto(
-                            ap.Id, ap.Description, ap.HasLegalEffect, ap.Outcome
-                        )).ToList(),
-                        m.UserMeetings.Select(um => new UserDto(
-                            um.User.Id, um.User.Username, um.User.Email, um.User.Role
-                        )).ToList()
-                    ))
-                    .ToListAsync();
+        {
+            var meetings = await context.Meetings
+                .Select(m => new MeetingDto(
+                    m.Id,
+                    m.Title,
+                    m.Summary,
+                    m.Status,
+                    m.ScheduledDate,
+                    m.Place,
+                    m.AgendaPoints.Select(ap => new AgendaPointDto(
+                        ap.Id, ap.Description, ap.HasLegalEffect, ap.Outcome
+                    )).ToList(),
+                    m.UserMeetings.Select(um => new UserDto(
+                        um.User.Id, um.User.Username, um.User.Email, um.User.Role
+                    )).ToList()
+                ))
+                .ToListAsync();
 
-                return Results.Ok(meetings);
-            });
+            return Results.Ok(meetings);
+        });
+        
         routes.MapGet("/meetings/{meetingId}", async (int meetingId, ApartmeetContext context) =>
         {
             var meeting = await context.Meetings
@@ -121,6 +122,7 @@ public static class MeetingEndpoints
 
             return Results.Ok(meeting);
         });
+
         routes.MapPut("/meetings/{id}", async (int id, UpdateMeetingDto updateMeetingDto, ApartmeetContext context) =>
         {
             var meeting = await context.Meetings.FindAsync(id);
@@ -147,36 +149,37 @@ public static class MeetingEndpoints
 
             return Results.NoContent();
         });
+        
         routes.MapDelete("/meetings/{meetingId}/users/{userId}", async (int meetingId, int userId, ApartmeetContext context) =>
-{
-    // Ako meeting postoji
-    var meeting = await context.Meetings.FindAsync(meetingId);
-    if (meeting == null)
-    {
-        return Results.NotFound($"Meeting with ID {meetingId} not found.");
-    }
+        {
+            // Ako meeting postoji
+            var meeting = await context.Meetings.FindAsync(meetingId);
+            if (meeting == null)
+            {
+                return Results.NotFound($"Meeting with ID {meetingId} not found.");
+            }
 
-    // Ako user postoji
-    var user = await context.Users.FindAsync(userId);
-    if (user == null)
-    {
-        return Results.NotFound($"User with ID {userId} not found.");
-    }
+            // Ako user postoji
+            var user = await context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return Results.NotFound($"User with ID {userId} not found.");
+            }
 
-    // Ako je user dio meetinga
-    var userMeeting = await context.UserMeetings
-        .FirstOrDefaultAsync(um => um.UserId == userId && um.MeetingId == meetingId);
+            // Ako je user dio meetinga
+            var userMeeting = await context.UserMeetings
+                .FirstOrDefaultAsync(um => um.UserId == userId && um.MeetingId == meetingId);
 
-    if (userMeeting == null)
-    {
-        return Results.BadRequest("User is not part of this meeting.");
-    }
+            if (userMeeting == null)
+            {
+                return Results.BadRequest("User is not part of this meeting.");
+            }
 
-    // Uklanjanje usera s meetinga
-    context.UserMeetings.Remove(userMeeting);
-    await context.SaveChangesAsync();
+            // Uklanjanje usera s meetinga
+            context.UserMeetings.Remove(userMeeting);
+            await context.SaveChangesAsync();
 
-    return Results.Ok($"User {userId} removed from meeting {meetingId}.");
-});
+            return Results.Ok($"User {userId} removed from meeting {meetingId}.");
+        });
     }
 }

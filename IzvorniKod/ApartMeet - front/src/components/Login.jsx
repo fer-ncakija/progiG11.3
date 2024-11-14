@@ -5,6 +5,8 @@ import password_icon from "../assets/lozinka.png";
 import google_icon from "../assets/google.png";
 import { jwtDecode } from "jwt-decode";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Login(props) {
   // stanje za pohranu podataka unesenih u formu za prijavu (korisničko ime i lozinka)
   const [loginForm, setLoginForm] = React.useState({
@@ -42,7 +44,7 @@ function Login(props) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/login", options)
+    fetch(`${apiUrl}/login`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.token) {
@@ -60,7 +62,7 @@ function Login(props) {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     if (code) {
-      fetch("/oauth2/token", {
+      fetch(`${apiUrl}/oauth2/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,0 +1,123 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+    height: 100%;
+    max-width: 500px;
+    background: white;
+    box-sizing: border-box;
+}
+
+.gore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+.tekst {
+    margin-top: 12px;
+    color: gray;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.underline {
+    width: 65px;
+    height: 5px;
+    background: darkkhaki;
+    border-radius: 9px;
+}
+
+.inputs {
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input {
+    width: 80%;
+    align-self: center;
+    height: 65px;
+    background: lightgray;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.input img {
+    margin: 0 10px;
+    width: 40px;
+}
+
+.input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: silver;
+    font-size: 18px;
+}
+
+.zaborav {
+    margin-top: 30px;
+    text-align: center;
+    color: rgb(41, 86, 149);
+    font-size: 18px;
+    cursor: pointer;
+
+}
+
+.submit {
+    margin: 40px auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.prijava {
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    color: white;
+    background-color: darkkhaki;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.google {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 80%;
+    max-width: 300px;
+    height: 55px;
+    background: lightgray;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.google p {
+    margin-left: 40px;
+}
+
+.google img {
+    margin: 0;
+    width: 30px;
+}

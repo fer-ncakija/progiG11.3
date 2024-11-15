@@ -9,6 +9,8 @@ import './components/Header.css';
 import './Main.css';
 import { jwtDecode } from "jwt-decode";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function App() {
   // stanje za praćenje prijavljenosti korisnika
   const [isLoggedIn, setIsLoggedIn] = React.useState(() => {

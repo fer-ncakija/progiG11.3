@@ -97,6 +97,8 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
             {"grant_type", "authorization_code"}
         }));
 
+        Console.WriteLine("---------- dobio token --------------");
+
         var responseContent = await response.Content.ReadAsStringAsync();
 
         var tokenResponse = JsonSerializer.Deserialize<GoogleTokenResponseDto>(responseContent);
@@ -105,6 +107,8 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
         {
             return Results.BadRequest();
         }
+
+        Console.WriteLine("----------------- sve ok s tokenom -------------------");
 
         var userEmail = new JwtSecurityTokenHandler().ReadJwtToken(tokenResponse.id_token).Claims.First(c => c.Type == "email").Value;
 
@@ -117,6 +121,8 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
         {
             return Results.Unauthorized();
         }
+
+        Console.WriteLine("------------ pronaden user --------------");
 
         var token = new JwtSecurityToken
         (

@@ -88,6 +88,8 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 {
     try
     {
+        Console.WriteLine($"ClientId: {builder.Configuration["Authentication:Google:ClientId"]}");
+
         var response = await new HttpClient().PostAsync("https://oauth2.googleapis.com/token", new FormUrlEncodedContent(new Dictionary<string, string>
         {
             {"code", authCode.Code},

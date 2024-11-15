@@ -103,7 +103,7 @@ export default function DodajClana() {
                 </div>
 
                 <div className="button-div">
-                    <button type="submit" isabled={!isValid()}>Dodaj člana</button>
+                    <button type="submit" disabled={!isValid()}>Dodaj člana</button>
                 </div>
             </form>
         </div>

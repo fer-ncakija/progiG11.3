@@ -88,13 +88,13 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 {
     try
     {
-        Console.WriteLine($"ClientId: {builder.Configuration["Authentication:Google:ClientId"]}");
+        Console.WriteLine($"ClientId: {Environment.GetEnvironmentVariable("ClientId")}");
 
         var response = await new HttpClient().PostAsync("https://oauth2.googleapis.com/token", new FormUrlEncodedContent(new Dictionary<string, string>
         {
             {"code", authCode.Code},
-            {"client_id", builder.Configuration["Authentication:Google:ClientId"]!},
-            {"client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!},
+            {"client_id", Environment.GetEnvironmentVariable("ClientId")!},
+            {"client_secret", Environment.GetEnvironmentVariable("ClientSecret")!},
             {"redirect_uri", "https://apartmeet.onrender.com"},
             {"grant_type", "authorization_code"}
         }));

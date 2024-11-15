@@ -93,7 +93,7 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
             {"code", authCode.Code},
             {"client_id", builder.Configuration["Authentication:Google:ClientId"]!},
             {"client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!},
-            {"redirect_uri", "http://localhost:3000"},
+            {"redirect_uri", "https://apartmeet.onrender.com"},
             {"grant_type", "authorization_code"}
         }));
 

@@ -17,8 +17,8 @@ export default function DodajClana() {
     });
 
     function isValid(){
-        const {username, email, password} = formData;
-        return username.length > 0 && email.length>0 && password.length>0;
+        const {userName, email, password} = formData;
+        return userName.length > 0 && email.length>0 && password.length>0;
     }
 
     function handleChange(event) {

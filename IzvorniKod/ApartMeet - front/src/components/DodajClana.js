@@ -28,8 +28,7 @@ export default function DodajClana() {
     }
 
     //funkcija koja obraduje submit i salje podatke na backend
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleSubmit() {
         const data = {
             username: formData.userName,
             email: formData.email,

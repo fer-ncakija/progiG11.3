@@ -88,33 +88,23 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 {
     try
     {
-        Console.WriteLine($"ClientId: {Environment.GetEnvironmentVariable("ClientId")}");
-
         var response = await new HttpClient().PostAsync("https://oauth2.googleapis.com/token", new FormUrlEncodedContent(new Dictionary<string, string>
         {
             {"code", authCode.Code},
-            {"client_id", Environment.GetEnvironmentVariable("ClientId")!},
-            {"client_secret", Environment.GetEnvironmentVariable("ClientSecret")!},
+            {"client_id", builder.Configuration["Authentication:Google:ClientId"]!},
+            {"client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!},
             {"redirect_uri", "https://apartmeet.onrender.com"},
             {"grant_type", "authorization_code"}
         }));
 
-        Console.WriteLine("---------- dobio token --------------");
-
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        Console.WriteLine($"--------- Response:\n{responseContent}");
-
         var tokenResponse = JsonSerializer.Deserialize<GoogleTokenResponseDto>(responseContent);
-
-        Console.WriteLine($"--------- Token response:\n{tokenResponse}");
 
         if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.id_token))
         {
             return Results.BadRequest();
         }
-
-        Console.WriteLine("----------------- sve ok s tokenom -------------------");
 
         var userEmail = new JwtSecurityTokenHandler().ReadJwtToken(tokenResponse.id_token).Claims.First(c => c.Type == "email").Value;
 
@@ -127,8 +117,6 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
         {
             return Results.Unauthorized();
         }
-
-        Console.WriteLine("------------ pronaden user --------------");
 
         var token = new JwtSecurityToken
         (

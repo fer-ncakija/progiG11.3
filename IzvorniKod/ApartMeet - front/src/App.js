@@ -42,7 +42,7 @@ function App() {
         <Header userName={userName} role={role} />
         <Routes>
           <Route path="/" exact Component={Meeting} />
-          <Route path="/dodajClana" exact Component={DodajClana} />
+          <Route path={`${apiUrl}/dodajClana`} exact Component={DodajClana} />
         </Routes>
       </BrowserRouter>
     </div>

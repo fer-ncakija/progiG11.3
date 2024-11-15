@@ -101,7 +101,11 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 
         var responseContent = await response.Content.ReadAsStringAsync();
 
+        Console.WriteLine($"--------- Response:\n{responseContent}");
+
         var tokenResponse = JsonSerializer.Deserialize<GoogleTokenResponseDto>(responseContent);
+
+        Console.WriteLine($"--------- Token response:\n{tokenResponse}");
 
         if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.id_token))
         {

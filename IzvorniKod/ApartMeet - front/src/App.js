@@ -9,8 +9,6 @@ import './components/Header.css';
 import './Main.css';
 import { jwtDecode } from "jwt-decode";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 function App() {
   // stanje za praćenje prijavljenosti korisnika
   const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
@@ -42,7 +40,7 @@ function App() {
         <Header userName={userName} role={role} />
         <Routes>
           <Route path="/" exact Component={Meeting} />
-          <Route path={`${apiUrl}/dodajClana`} exact Component={DodajClana} />
+          <Route path="/dodajClana" exact Component={DodajClana} />
         </Routes>
       </BrowserRouter>
     </div>

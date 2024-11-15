@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DodajClana.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function DodajClana() {
+
+    const navigate = useNavigate();
 
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
@@ -28,7 +31,8 @@ export default function DodajClana() {
     }
 
     //funkcija koja obraduje submit i salje podatke na backend
-    function handleSubmit() {
+    function handleSubmit(event) {
+        event.preventDefault();
         const data = {
             username: formData.userName,
             email: formData.email,
@@ -43,7 +47,13 @@ export default function DodajClana() {
             body : JSON.stringify(data)
         };
 
-        return fetch(`${apiUrl}/users`, options);
+        fetch(`${apiUrl}/users`, options)
+            .then(response => {
+                return response.json();
+            })
+            .then(() => {
+                navigate('/');
+            })
      }
 
 
@@ -93,7 +103,7 @@ export default function DodajClana() {
                 </div>
 
                 <div className="button-div">
-                    <button type="submit" /*disabled={!isValid()}*/>Dodaj člana</button>
+                    <button type="submit" isabled={!isValid()}>Dodaj člana</button>
                 </div>
             </form>
         </div>

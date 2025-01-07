@@ -33,6 +33,10 @@ function Login(props) {
   function onSubmit(e) {
     e.preventDefault();
     setError("");
+
+    // OVO PRIVREMENO ZAKOMENTIRANO ZA POTREBE FRONTENDA (DA NE TREBA BACKEND)!!!!
+
+    /*
     const data = {
       username: loginForm.username,
       password: loginForm.password,
@@ -55,6 +59,7 @@ function Login(props) {
       .catch((error) => {
         setError("Greška prilikom prijave");
       });
+      */
   }
 
   // hook za provjeru postoji li OAuth2 kod u URL-u i obradu prijave preko Google računa

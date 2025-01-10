@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import "./DodajSastanak.css";
-import {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function DodajSastanak(){
+
+    const navigate = useNavigate();
 
     const [meetForm, setMeetForm] = React.useState({
         naslov: "",
@@ -43,7 +44,13 @@ function DodajSastanak(){
         },
         body: JSON.stringify(data),
         };
-        fetch(`${apiUrl}/meetings`, options);  // mora se dodati ruta za meetings u backendu (mozda ce biti drugacije ime)
+        fetch(`${apiUrl}/meetings`, options)  // mora se dodati ruta za meetings u backendu (mozda ce biti drugacije ime)
+            .then(response => {
+                return response.json();
+            })
+            .then(() => {
+                navigate('/');
+            })
     }
 
 

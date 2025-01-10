@@ -1,32 +1,34 @@
 .meetbox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin: 50px auto 15px;
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     background: white;
     box-sizing: border-box;
-    padding-bottom: 25px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .meetinputs {
-    margin-top: 55px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 12px;
 }
 
 .meetinput {
-    width: 80%;
-    align-self: center;
-    height: 65px;
-    background: lightgray;
+    width: 100%;
+    height: 45px;
+    background: #F7F7F7;
+    border: 1px solid #E0E0E0;
     border-radius: 6px;
     display: flex;
     align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
 }
 
 .meetinput input {
@@ -35,39 +37,62 @@
     border: none;
     outline: none;
     color: black;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .submitmeet {
-    margin: 10px auto;
+    margin: 15px auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .meetbutton {
     width: 100%;
-    max-width: 300px;
-    height: 50px;
+    max-width: 250px;
+    height: 40px;
     color: white;
     background-color: #D9C8BF;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 700;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
-    box-shadow: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.meetbutton:hover {
+    background-color: #C6B0A6;
 }
 
 .meetbutton:disabled {
+    cursor: default;
     background-color: red;
-    color: white; /* Postavi boju teksta kako bi bio vidljiv na crvenoj pozadini */
-    border: 1px solid red; /* Opcionalno, ako želiš da granica bude također crvena */
+    opacity: 0.7;
 }
 
+@media (max-width: 600px) {
+    .meetbox {
+        margin: 40px auto 10px;
+        padding: 10px;
+    }
+
+    .meetinput {
+        height: 40px;
+    }
+
+    .meetbutton {
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .meetinput input {
+        font-size: 12px;
+    }
+}

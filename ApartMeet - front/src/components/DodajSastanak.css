@@ -72,10 +72,93 @@
 }
 
 .meetbutton:disabled {
-    cursor: default;
+    position: relative;
+    cursor: not-allowed;
     background-color: red;
     opacity: 0.7;
 }
+
+.meetbutton:disabled::after {
+    content: "Unesite sve podatke za nastavak";
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    background-color: gray;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.meetbutton:disabled:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tockainput {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #F7F7F7;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.tockainput input {
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: 1px solid #D9C8BF;
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.tockainput input:focus {
+    border-color: #C6B0A6;
+}
+
+.tockainput label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.tockainput label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.tockainput button {
+    align-self: flex-end;
+    background: #FF5A5F;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
+}
+
+.tockainput button:hover {
+    background-color: #E1494F;
+}
+
 
 @media (max-width: 600px) {
     .meetbox {

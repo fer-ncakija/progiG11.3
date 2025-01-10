@@ -13,7 +13,8 @@ function DodajSastanak(){
         sazetak: "",
         vrijeme: "",
         mjesto: "",
-        tockeDnevnogReda: [{ naziv: "", pravniUcinak: false }]
+        tockeDnevnogReda: [{ naziv: "", pravniUcinak: false }],
+        stanje: "planiran"
     });
 
     // provjera je li forma za prijavu ispravna

@@ -1,0 +1,61 @@
+
+{
+    "//komentar0": "!!!BITNO, PROCITAJ:",
+    "//komentar1": "u JSON foratu nema komentara pa sam stavila ovako",
+    "//komentar2": "uglavnom ovo je lazna baza podataka za sastanke",
+    "//komentar3": "samo za privremene potrebe frontenda",
+    "//komentar4": "obrisat ce se kad frontend bude povezan s backendom",
+
+
+    "sastanci": [
+        {
+            "naslov": "prvi sastanak proba",
+            "sazetak": "za namjene probe",
+            "vrijeme": "2025-01-11T12:00",
+            "mjesto": "doma",
+            "tockeDnevnogReda": [
+            {
+                "naziv": "tockica",
+                "pravniUcinak": true
+            },
+            {
+                "naziv": "tocka",
+                "pravniUcinak": false
+            }
+            ],
+            "stanje": "planiran"
+        },
+        {
+            "naslov": "drugi sastanak proba",
+            "sazetak": "probe",
+            "vrijeme": "2025-11-11T13:00",
+            "mjesto": "zgrada",
+            "tockeDnevnogReda": [
+            {
+                "naziv": "tocketina",
+                "pravniUcinak": false
+            }
+            ],
+            "stanje": "planiran"
+        },
+        {
+            "naslov": "treci sastanak proba",
+            "sazetak": "za namjene",
+            "vrijeme": "2025-05-12T11:00",
+            "mjesto": "soba",
+            "tockeDnevnogReda": [
+            {
+                "naziv": "to",
+                "pravniUcinak": false
+            },
+            {
+                "naziv": "cka",
+                "pravniUcinak": true
+            }
+            ],
+            "stanje": "planiran"
+        }
+    ]
+
+
+}

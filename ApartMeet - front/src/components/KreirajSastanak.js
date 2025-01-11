@@ -1,10 +1,10 @@
 import React from "react";
-import "./DodajSastanak.css";
+import "./KreirajSastanak.css";
 import { useNavigate } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function DodajSastanak(){
+function KreirajSastanak(){
 
     const navigate = useNavigate();
 
@@ -13,43 +13,22 @@ function DodajSastanak(){
         sazetak: "",
         vrijeme: "",
         mjesto: "",
-        tockeDnevnogReda: [{ naziv: "", pravniUcinak: false }],
-        stanje: "planiran"
+        stanje: "Planiran"
     });
 
     // provjera je li forma za prijavu ispravna
     function isValid() {
-        const { naslov, sazetak, vrijeme, mjesto, tockeDnevnogReda } = meetForm;
-        return naslov.length > 0 && sazetak.length > 0 && vrijeme.length > 0 && mjesto.length > 0 && 
-            tockeDnevnogReda.every(tocka => tocka.naziv.length > 0);
+        const { naslov, sazetak, vrijeme, mjesto } = meetForm;
+        return naslov.length > 0 && sazetak.length > 0 && vrijeme.length > 0 && mjesto.length > 0;
     }
 
     // ažurira podatke u formi na temelju korisnikovog unosa
     function onChange(event) {
-        const { name, value, dataset } = event.target;
-        if (dataset.index !== undefined) {
-            const tockeDnevnogReda = [...meetForm.tockeDnevnogReda];
-            tockeDnevnogReda[dataset.index][name] = name === "pravniUcinak" ? event.target.checked : value;
-            setMeetForm((oldForm) => ({ ...oldForm, tockeDnevnogReda }));
-        } else {
-            setMeetForm((oldForm) => ({ ...oldForm, [name]: value }));
-        }
+        const { name, value } = event.target;
+        setMeetForm((oldForm) => ({ ...oldForm, [name]: value }));
     }
 
-    function addTocka() {
-        setMeetForm((oldForm) => ({
-            ...oldForm,
-            tockeDnevnogReda: [...oldForm.tockeDnevnogReda, { naziv: "", pravniUcinak: false }]
-        }));
-    }
-    
-    function removeTocka(index) {
-        setMeetForm((oldForm) => ({
-            ...oldForm,
-            tockeDnevnogReda: oldForm.tockeDnevnogReda.filter((_, i) => i !== index)
-        }));
-    }
-    
+   
     // funkcija za obradu slanja forme
     function onSubmit(e) {
         e.preventDefault();
@@ -59,7 +38,7 @@ function DodajSastanak(){
             sazetak: meetForm.sazetak,
             vrijeme: meetForm.vrijeme,
             mjesto: meetForm.mjesto,
-            tockeDnevnogReda: meetForm.tockeDnevnogReda
+            stanje: meetForm.stanje,
         };
         
         const options = {
@@ -70,7 +49,7 @@ function DodajSastanak(){
             body: JSON.stringify(data),
         };
 
-        fetch(`${apiUrl}/meetings`, options)
+        fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
             .then(response => response.json())
             .then(() => {
                 navigate('/');
@@ -118,42 +97,10 @@ function DodajSastanak(){
                             value={meetForm.mjesto}
                         />
                     </div>
-                    {meetForm.tockeDnevnogReda.map((tocka, index) => (
-                        <div key={index}>
-                            <label>Točka dnevnog reda {index + 1}</label>
-                            <div className="tockainput">
-                                <input
-                                    name="naziv"
-                                    placeholder={`tocka dnevnog reda ${index + 1}`}
-                                    onChange={onChange}
-                                    value={tocka.naziv}
-                                    data-index={index}
-                                />
-                                <label>
-                                    Pravni učinak
-                                    <input
-                                        type="checkbox"
-                                        name="pravniUcinak"
-                                        onChange={onChange}
-                                        checked={tocka.pravniUcinak}
-                                        data-index={index}
-                                    />
-                                </label>
-                                {index > 0 && (
-                                    <button type="button" onClick={() => removeTocka(index)}>
-                                        Ukloni
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                ))}
-                </div>
-                <div className="addpoint">
-                    <button className="addbutton" type="button" onClick={addTocka}>Dodaj točku dnevnog reda</button>
                 </div>
                 <div className="submitmeet">
                     <button className="meetbutton" type="submit" disabled={!isValid()}>
-                        Dodaj sastanak
+                        Kreiraj sastanak
                     </button>
                 </div>
             </form>
@@ -161,4 +108,4 @@ function DodajSastanak(){
     );
 }
 
-export default DodajSastanak;
+export default KreirajSastanak;

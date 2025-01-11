@@ -4,7 +4,8 @@ import Login from "./components/Login.jsx";
 import Header from './components/Header';
 import Meeting from './components/Meeting';
 import DodajClana from './components/DodajClana';
-import DodajSastanak from './components/DodajSastanak';
+import KreirajSastanak from './components/KreirajSastanak.js';
+import DodajTocke from './components/DodajTocke.js';
 import './App.css';
 import './components/Header.css';
 import './Main.css';
@@ -54,7 +55,8 @@ function App() {
         <Routes>
           <Route path="/" exact Component={({...props}) => <Meeting role={role} {...props}/>} />
           <Route path="/dodajClana" exact Component={DodajClana} />
-          <Route path="/dodajSastanak" exact Component={DodajSastanak} />
+          <Route path="/kreirajSastanak" exact Component={KreirajSastanak} />
+          <Route path="/dodajTocke/:id" exact Component={DodajTocke} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -23,7 +23,7 @@
                 "pravniUcinak": false
             }
             ],
-            "stanje": "planiran"
+            "stanje": "Planiran"
         },
         {
             "naslov": "drugi sastanak proba",
@@ -36,7 +36,7 @@
                 "pravniUcinak": false
             }
             ],
-            "stanje": "planiran"
+            "stanje": "Planiran"
         },
         {
             "naslov": "treci sastanak proba",
@@ -53,7 +53,7 @@
                 "pravniUcinak": true
             }
             ],
-            "stanje": "planiran"
+            "stanje": "Planiran"
         }
     ]
 

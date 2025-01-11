@@ -1,0 +1,180 @@
+.pointbox {
+    position: relative;
+    margin: 50px auto 15px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pointinputs {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pointinput {
+    width: 100%;
+    height: 45px;
+    background: #F7F7F7;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.pointinput input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 14px;
+}
+
+.tockainput {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #F7F7F7;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.tockainput input {
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: 1px solid #D9C8BF;
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.tockainput input:focus {
+    border-color: #C6B0A6;
+}
+
+.tockainput label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.tockainput label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.tockainput button {
+    align-self: flex-end;
+    background: #FF5A5F;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
+}
+
+.tockainput button:hover {
+    background-color: #E1494F;
+}
+
+.submitpoint {
+    margin: 15px auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointbutton {
+    width: 100%;
+    max-width: 250px;
+    height: 40px;
+    color: white;
+    background-color: #D9C8BF;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.pointbutton:hover {
+    background-color: #C6B0A6;
+}
+
+.pointbutton:disabled {
+    position: relative;
+    cursor: not-allowed;
+    background-color: red;
+    opacity: 0.7;
+}
+
+.pointbutton:disabled::after {
+    content: "Unesite sve podatke za nastavak";
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    background-color: gray;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.pointbutton:disabled:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .pointbox {
+        margin: 40px auto 10px;
+        padding: 10px;
+    }
+
+    .pointinput {
+        height: 40px;
+    }
+
+    .pointbutton {
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .pointinput input {
+        font-size: 12px;
+    }
+}

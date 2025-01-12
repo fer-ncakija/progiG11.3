@@ -42,6 +42,22 @@ export default function Meeting({ role }) {
                 Dodaj točke dnevnog reda
               </button>
             )}
+            {role === "predstavnik" && meeting.stanje === "Planiran" && (
+              <button
+                className="sudjeluj"
+                onClick={() => navigate(`/sudjeluj/${index}`)}
+              >
+                Sudjeluj u sastanku
+              </button>
+            )}
+            {role === "predstavnik" && meeting.stanje === "Planiran" && (
+              <button
+                className="obavljen"
+                onClick={() => navigate(`/obavljen/${index}`)}
+              >
+                Označi sastanak kao obavljen
+              </button>
+            )}
             <p>______________________________________________________________________________________________________________</p>
           </div>
         ))}

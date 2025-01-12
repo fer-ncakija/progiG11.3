@@ -23,17 +23,34 @@ export default function Meeting({ role }) {
   useEffect(() => {
     setMeetings(laznabazasastanaka.sastanci);
   }, []);
+  
 
   return (
     <div className="meeting-container">
       <div className="meeting-list">
+
         {meetings.map((meeting, index) => (
+          
           <div key={index} className="meeting-item">
             <h2>{meeting.naslov}</h2>
             <p>- {meeting.sazetak}</p>
             <p>- {meeting.vrijeme}</p>
             <p>- {meeting.mjesto}</p>
             <p>- Status: {meeting.stanje}</p>
+
+
+            <div className="agenda-points">
+              <h3>Točke dnevnog reda:</h3>
+              <ul>
+                {meeting.stanje != "Planiran" && meeting.tockeDnevnogReda.map((tocka, tockaIndex) => (
+                  <li key={tockaIndex}>
+                    <strong>{tocka.naziv}</strong> - Pravna učinkovitost: {tocka.pravniUcinak ? "Da" : "Ne"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+
             {role === "predstavnik" && meeting.stanje === "Planiran" && (
               <button
                 className="dodaj"
@@ -42,7 +59,8 @@ export default function Meeting({ role }) {
                 Dodaj točke dnevnog reda
               </button>
             )}
-            {role === "predstavnik" && meeting.stanje === "Planiran" && (
+
+            {role === "stanar" && meeting.stanje === "Objavljen" && (
               <button
                 className="sudjeluj"
                 onClick={() => navigate(`/sudjeluj/${index}`)}
@@ -50,7 +68,8 @@ export default function Meeting({ role }) {
                 Sudjeluj u sastanku
               </button>
             )}
-            {role === "predstavnik" && meeting.stanje === "Planiran" && (
+
+            {role === "predstavnik" && new Date(meeting.vrijeme).getTime() < new Date().getTime() && meeting.stanje === "Objavljen" && (
               <button
                 className="obavljen"
                 onClick={() => navigate(`/obavljen/${index}`)}

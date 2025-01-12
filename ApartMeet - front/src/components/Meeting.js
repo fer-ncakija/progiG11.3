@@ -27,24 +27,31 @@ export default function Meeting({ role }) {
 
   return (
     <div className="meeting-container">
+      
       <div className="meeting-list">
         {meetings.map((meeting, index) => {
-          // Debugging: Pratimo vrijednosti za vrijeme sastanka
-          console.log("Vrijeme sastanka:", meeting.vrijeme);
-          console.log("Parsed vrijeme sastanka:", new Date(meeting.vrijeme));
-          console.log("Trenutno vrijeme:", new Date());
-          console.log(
-            "Je li vrijeme prošlo?",
-            new Date(meeting.vrijeme).getTime() < new Date().getTime()
-          );
+
+          const datum = new Date(meeting.vrijeme); // Pretvori string u Date objekt
+          const satiMinute = datum.toLocaleTimeString("hr-HR", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }); // Dobij vrijeme u formatu 13:00
+          const datumDio = datum.toLocaleDateString("hr-HR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
 
           return (
             <div key={index} className="meeting-item">
-              <h2>{meeting.naslov}</h2>
-              <p>- {meeting.sazetak}</p>
-              <p>- {meeting.vrijeme}</p>
-              <p>- {meeting.mjesto}</p>
-              <p>- Status: {meeting.stanje}</p>
+
+              <h2 className="meeting-title">{meeting.naslov}</h2>
+              <div className="meeting-bullets">
+                <p className="meeting-status">Status: {meeting.stanje}</p>
+                <p className="meeting-intro">- {meeting.sazetak}</p>
+                <p className="meeting-time">- {datumDio} ({datum.toLocaleDateString("hr-HR", { weekday: "long" })}) u {satiMinute} sati, {meeting.mjesto}</p>
+              </div>
+              
 
               <div className="agenda-points">
                 <h3>Točke dnevnog reda:</h3>
@@ -53,12 +60,14 @@ export default function Meeting({ role }) {
                     meeting.tockeDnevnogReda.map((tocka, tockaIndex) => (
                       <li key={tockaIndex}>
                         <strong>{tocka.naziv}</strong> - Pravna učinkovitost:{" "}
-                        {tocka.pravniUcinak ? "Da" : "Ne"}
+                        {tocka.pravniUcinak ? "DA" : "NE"}
                       </li>
                     ))}
                 </ul>
               </div>
 
+              <div className="buttons">
+                    
               {role === "predstavnik" && meeting.stanje === "Planiran" && (
                 <button
                   className="dodaj"
@@ -68,7 +77,7 @@ export default function Meeting({ role }) {
                 </button>
               )}
 
-              {role === "stanar" && meeting.stanje === "Objavljen" && (
+              {role === "predstavnik" && meeting.stanje === "Objavljen" && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}
@@ -89,10 +98,12 @@ export default function Meeting({ role }) {
                   </button>
                 )}
 
-              <p>______________________________________________________________________________________________________________</p>
+              </div>
+              
             </div>
           );
         })}
+
       </div>
       {role === "predstavnik" && (
         <button className="kreiraj" onClick={() => navigate("/kreirajSastanak")}>

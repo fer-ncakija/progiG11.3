@@ -34,6 +34,26 @@ function Login(props) {
     e.preventDefault();
     setError("");
 
+    // OVO PRIVREMENO, TREBA SE OBRISAT KAD ĆE SE SPAJAT SA BACKENDOM!!!!!
+    const data = {
+      username: loginForm.username,
+      password: loginForm.password,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("/login", options).then((response) => {
+      if (response.status === 401) {
+        setError("Login failed");
+      } else {
+        props.onLogin();
+      }
+    });
+
     // OVO PRIVREMENO ZAKOMENTIRANO ZA POTREBE FRONTENDA (DA NE TREBA BACKEND)!!!!
 
     /*

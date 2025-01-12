@@ -1,0 +1,76 @@
+import React, { useState } from 'react';
+import './PromijeniLozinku.css';
+
+const PromijeniLozinku = () => {
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setMessage('Nove lozinke se ne podudaraju');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+        }),
+      });
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
+      setMessage('Greška pri promjeni lozinke');
+    }
+  };
+
+  return (
+    <div className="promijeni-lozinku">
+      <div className="content">
+        <form onSubmit={handleSubmit}>
+          <div className="form-line">
+            <p>Trenutna lozinka:</p>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-line">
+            <p>Nova lozinka:</p>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-line">
+            <p>Potvrdi novu lozinku:</p>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="button-div">
+            <button type="submit">Promijeni lozinku</button>
+          </div>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
+    </div>
+  );
+};
+
+export default PromijeniLozinku;

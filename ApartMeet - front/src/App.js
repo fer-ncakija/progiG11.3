@@ -8,6 +8,8 @@ import KreirajSastanak from './components/KreirajSastanak.js';
 import DodajTocke from './components/DodajTocke.js';
 import Sudjeluj from './components/Sudjeluj.js';
 import Obavljen from './components/Obavljen.js';
+import PromijeniLozinku from './components/PromijeniLozinku.js';
+import ObrisiClana from './components/ObrisiClana.js';
 import './App.css';
 import './components/Header.css';
 import './Main.css';
@@ -61,6 +63,8 @@ function App() {
           <Route path="/dodajTocke/:id" exact Component={DodajTocke} />
           <Route path="/sudjeluj/:id" exact Component={Sudjeluj} />
           <Route path="/obavljen/:id" exact Component={Obavljen} />
+          <Route path="/promijeniLozinku" exact Component={PromijeniLozinku} />
+          <Route path="/obrisiClana" exact Component={ObrisiClana} />
         </Routes>
       </BrowserRouter>
     </div>

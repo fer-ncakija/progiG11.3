@@ -31,10 +31,10 @@ export default function Header(props) {
                     <p>SASTANCI</p>
                 </Link>
                 <hr/>
-                {(props.role === "stanar" || props.role === "predstavnik") && <p>PROMIJENI LOZINKU</p>}
+                {(props.role === "stanar" || props.role === "predstavnik") && <Link to="/promijeniLozinku" className='link'><p>PROMIJENI LOZINKU</p></Link>}
                 <Link to="/dodajClana" className='link'>{props.role === "admin" && <p>DODAJ ČLANA</p>}</Link>
                 {props.role === "admin" && <hr/>}
-                {props.role === "admin" && <p>OBRIŠI ČLANA</p>}
+                {props.role === "admin" && <Link to="/obrisiClana" className='link'><p>OBRIŠI ČLANA</p></Link>}
             </div>}
         </header>
     )

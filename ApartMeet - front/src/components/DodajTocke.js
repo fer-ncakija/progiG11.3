@@ -44,29 +44,50 @@ function DodajTocke() {
         }));
     }
 
-    // funkcija za obradu slanja forme
-    function onSubmit(e) {
-        e.preventDefault();
+// funkcija za obradu slanja forme
+function onSubmit(e) {
+    e.preventDefault();
 
-        const data = {
-            tockeDnevnogReda: pointForm.tockeDnevnogReda,
-            stanje: "Objavljen" // postavljanje stanja sastanka na "Objavljen"
-        };
+    // podaci za ažuriranje stanja sastanka
+    const stanjeData = {
+        stanje: "Objavljen"
+    };
 
-        const options = {
-            method: "PUT", // promjena iz POST u PUT zbog ažuriranja postojećeg sastanka
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        };
+    // PUT zahtjev za ažuriranje stanja
+    const stanjeOptions = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(stanjeData),
+    };
 
-        fetch(`${apiUrl}/meetings/${id}`, options) // slanje zahtjeva s ID-em sastanka
-            .then(response => response.json())
-            .then(() => {
-                navigate('/');
-            });
-    }
+
+    // prvo ažuriramo stanje sastanka
+    fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
+        .then(response => response.json())
+        .then(() => {
+            // nakon uspješnog ažuriranja stanja, dodajemo točke dnevnog reda
+            const tockeDnevnogRedaData = {
+                tockeDnevnogReda: pointForm.tockeDnevnogReda
+            };
+
+            const tockeDnevnogRedaOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(tockeDnevnogRedaData),
+            };
+
+            return fetch(`${apiUrl}/meetings/${id}/agendapoints`, tockeDnevnogRedaOptions);
+        })
+        .then(response => response.json())
+        .then(() => {
+            navigate('/');
+        });
+}
+
 
     return (
         <div className="pointbox">

@@ -10,6 +10,7 @@ import Sudjeluj from './components/Sudjeluj.js';
 import Obavljen from './components/Obavljen.js';
 import PromijeniLozinku from './components/PromijeniLozinku.js';
 import ObrisiClana from './components/ObrisiClana.js';
+import DodajZakljucke from "./components/DodajZakljucke.js";
 import './App.css';
 import './components/Header.css';
 import './Main.css';
@@ -65,6 +66,7 @@ function App() {
           <Route path="/obavljen/:id" exact Component={Obavljen} />
           <Route path="/promijeniLozinku" exact Component={PromijeniLozinku} />
           <Route path="/obrisiClana" exact Component={ObrisiClana} />
+          <Route path="/dodajZakljucke/:id" exact Component={DodajZakljucke} />
         </Routes>
       </BrowserRouter>
     </div>

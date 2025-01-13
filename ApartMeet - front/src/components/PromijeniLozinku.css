@@ -4,7 +4,7 @@
   align-items: center;
   gap: 20px;
   padding-right: 15%;
-  width: 100%;
+  width: 80%;
   height: min-content;
 }
 
@@ -53,7 +53,7 @@
   padding-right: 15px;
 }
 
-button {
+.button-promijeni {
   margin-top: 5%;
   font-size: 1.7vw; 
   padding: 8px;
@@ -67,7 +67,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button-promijeni:hover {
   background-color: #c82333;
 }
 

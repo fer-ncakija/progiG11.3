@@ -37,7 +37,7 @@ const ObrisiClana = () => {
             />
           </div>
           <div className="button-div">
-            <button type="submit">Obriši Korisnika</button>
+            <button className='button-obrisi' type="submit">Obriši Korisnika</button>
           </div>
         </form>
         {message && <p>{message}</p>}

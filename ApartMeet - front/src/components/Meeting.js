@@ -97,6 +97,12 @@ export default function Meeting({ role }) {
                     Označi sastanak kao obavljen
                   </button>
                 )}
+              
+              <button
+                className="detalji"
+                onClick={() => navigate(`/dodajZakljucke/${index}`)}
+              > Dodaj zaključke
+              </button>
 
               </div>
               

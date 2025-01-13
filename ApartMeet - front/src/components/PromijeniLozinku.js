@@ -64,7 +64,7 @@ const PromijeniLozinku = () => {
             />
           </div>
           <div className="button-div">
-            <button type="submit">Promijeni lozinku</button>
+            <button className='button-promijeni' type="submit">Promijeni lozinku</button>
           </div>
         </form>
         {message && <p>{message}</p>}

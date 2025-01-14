@@ -29,6 +29,7 @@ export default function DodajClana() {
 
     //funkcija koja obraduje submit i salje podatke na backend
     function handleSubmit() {
+        e.preventDefault();
         const data = {
             username: formData.userName,
             email: formData.email,
@@ -42,7 +43,7 @@ export default function DodajClana() {
             },
             body : JSON.stringify(data)
         };
-
+        setMessage("Korisnik uspješno obrisan.");
         return fetch(`${apiUrl}/users`, options);
      }
 

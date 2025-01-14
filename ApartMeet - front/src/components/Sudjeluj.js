@@ -44,14 +44,12 @@ function Sudjeluj({ userName }) {
     return (
         <div className="attendbox">
             <form onSubmit={onSubmit}>
-                <div className="attendinputs">
+                <div className="attendask">
                     <p>Sudjelujete li na sastanku?</p>
                 </div>
                 <div className="submitattend">
                     <button className="attendbutton" type="submit" onClick={() => onChange({ target: { name: "sudionik", value: userName } })}>Da</button>
-                </div>
-                <div className="addattend">
-                    <button className="addbutton" type="button" onClick={() => navigate('/')}>Ne</button>
+                    <button className="nobutton" type="button" onClick={() => navigate('/')}>Ne</button>
                 </div>
             </form>
         </div>

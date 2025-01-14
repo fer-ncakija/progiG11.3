@@ -53,7 +53,7 @@
     width: 100%;
     max-width: 250px;
     height: 40px;
-    color: white;
+    color: darkslategray;
     background-color: #D9C8BF;
     border-radius: 20px;
     font-size: 14px;
@@ -74,7 +74,8 @@
 .meetbutton:disabled {
     position: relative;
     cursor: not-allowed;
-    background-color: red;
+    background-color: #D9C8BF;
+    color: white;
     opacity: 0.7;
 }
 

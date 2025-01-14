@@ -1,0 +1,65 @@
+.attendbox {
+    position: relative;
+    margin: 50px auto 15px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attendask {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: darkslategray;
+    font-weight: 500;
+}
+
+.submitattend {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.attendbutton {
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: #28A745;
+    opacity: 80%;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.attendbutton:hover {
+    background-color: #218838;
+}
+
+.nobutton {
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: #DC3545;
+    opacity: 80%;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.nobutton:hover {
+    background-color: #C82333;
+}

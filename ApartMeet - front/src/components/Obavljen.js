@@ -31,16 +31,14 @@ function Obavljen() {
     }
 
     return (
-        <div className="attendbox">
+        <div className="donebox">
             <form onSubmit={onSubmit}>
-                <div className="attendinputs">
+                <div className="doneask">
                     <p>Želite li označiti sastanak kao obavljen?</p>
                 </div>
-                <div className="submitattend">
-                    <button className="attendbutton" type="submit">Da</button>
-                </div>
-                <div className="addattend">
-                    <button className="addbutton" type="button" onClick={() => navigate('/')}>Ne</button>
+                <div className="submitdone">
+                    <button className="donebutton" type="submit">Da</button>
+                    <button className="buttonnot" type="button" onClick={() => navigate('/')}>Ne</button>
                 </div>
             </form>
         </div>

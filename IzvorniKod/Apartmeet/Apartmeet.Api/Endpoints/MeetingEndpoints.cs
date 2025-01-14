@@ -7,9 +7,9 @@ namespace Apartmeet.Api.Endpoints;
 
 public static class MeetingEndpoints
 {
-    public static void MapMeetingEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapMeetingEndpoints(this IEndpointRouteBuilder routes)    
     {
-        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context) =>
+        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context, HttpContext httpContext, IMailService mailService) =>
         {
             var meeting = new Meeting
             {
@@ -23,6 +23,8 @@ public static class MeetingEndpoints
             context.Meetings.Add(meeting);
             await context.SaveChangesAsync();
 
+            //httpContext.User
+            await mailService.SendMailAsync(meeting);
             return Results.Created($"/meetings/{meeting.Id}", meeting);
         });
 

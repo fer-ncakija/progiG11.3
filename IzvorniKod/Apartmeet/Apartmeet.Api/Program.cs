@@ -8,10 +8,16 @@ using Apartmeet.Api.Endpoints;
 using Apartmeet.Api.Dtos;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration
+.AddJsonFile("appsettings.User.json", optional: true, reloadOnChange: true);
 builder.Services.AddSqlite<ApartmeetContext>(builder.Configuration["ConnectionStrings:Apartmeet"]);
+builder.Services.Configure<MailClientSettings>(builder.Configuration.GetSection("MailClient"));
+builder.Services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<MailClientSettings>>().Value);
+
+builder.Services.AddSingleton<IMailService, MailService>();
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

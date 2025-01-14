@@ -9,9 +9,32 @@ Content-Type: application/json
 
 {
     "Username": "admin",
-    "Password": "admin"
+    "Password": "admin",
+    "Email": "apartmeetprogi@gmail.com"
 }
 
 ###
 GET http://localhost:5066/users
 Authorization: Bearer 
+###
+POST http://localhost:5066/users
+Content-Type: application/json
+
+{
+    "Username": "marko",
+    "Password": "markic",
+    "Role": "admin",
+    "Email": "apartmeetprogi1@gmail.com"
+}
+
+###
+POST http://localhost:5066/meetings
+Content-Type: application/json
+
+{
+    "Title": "Novi sastanak o pticama",
+    "Summary": "sazetak tocaka i ideja sastanka",
+    "ScheduledDate": "2025-01-01",
+    "Place": "Zagreb"
+
+}

@@ -3,7 +3,7 @@ namespace Apartmeet.Api.Dtos;
 public record AgendaPointDto
 (
     int Id, 
-    string Description, 
-    bool HasLegalEffect, 
-    string? Outcome
+    string naziv, 
+    bool pravniUcinak, 
+    string? zakljucak
 );

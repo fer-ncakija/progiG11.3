@@ -15,7 +15,7 @@ export default function Meeting({ role }) {
   useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
-      .then(data => setMeetings(data.sastanci));
+      .then(data => setMeetings(data));
   }, []);
   */
 
@@ -30,7 +30,7 @@ export default function Meeting({ role }) {
       
       <div className="meeting-list">
         {meetings.map((meeting, index) => {
-
+          index += 1;
           const datum = new Date(meeting.vrijeme); // Pretvori string u Date objekt
           const satiMinute = datum.toLocaleTimeString("hr-HR", {
             hour: "2-digit",

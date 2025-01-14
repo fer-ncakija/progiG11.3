@@ -44,49 +44,46 @@ function DodajTocke() {
         }));
     }
 
-// funkcija za obradu slanja forme
-function onSubmit(e) {
-    e.preventDefault();
+    // funkcija za obradu slanja forme
+    function onSubmit(e) {
+        e.preventDefault();
 
-    // podaci za ažuriranje stanja sastanka
-    const stanjeData = {
-        stanje: "Objavljen"
-    };
+        // podaci za ažuriranje stanja sastanka
+        const stanjeData = {
+            stanje: "Objavljen"
+        };
 
-    // PUT zahtjev za ažuriranje stanja
-    const stanjeOptions = {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(stanjeData),
-    };
+        // PUT zahtjev za ažuriranje stanja
+        const stanjeOptions = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(stanjeData),
+        };
 
 
-    // prvo ažuriramo stanje sastanka
-    fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
-        .then(response => response.json())
-        .then(() => {
-            // nakon uspješnog ažuriranja stanja, dodajemo točke dnevnog reda
-            const tockeDnevnogRedaData = {
-                tockeDnevnogReda: pointForm.tockeDnevnogReda
-            };
+        // prvo ažuriramo stanje sastanka
+        fetch(`/meetings/${id}`, stanjeOptions)
+            .then(() => {
+                // nakon uspješnog ažuriranja stanja, dodajemo svaku točku dnevnog reda zasebno
+                const postAgendaPointPromises = pointForm.tockeDnevnogReda.map(tocka => {
+                    const tockaOptions = {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(tocka),
+                    };
+                    return fetch(`/meetings/${id}/agendapoints`, tockaOptions);
+                });
 
-            const tockeDnevnogRedaOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(tockeDnevnogRedaData),
-            };
-
-            return fetch(`${apiUrl}/meetings/${id}/agendapoints`, tockeDnevnogRedaOptions);
-        })
-        .then(response => response.json())
-        .then(() => {
-            navigate('/');
-        });
-}
+                return Promise.all(postAgendaPointPromises);
+            })
+            .then(() => {
+                navigate('/');
+            });
+    }
 
 
     return (

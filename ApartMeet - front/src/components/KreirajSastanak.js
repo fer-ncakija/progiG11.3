@@ -13,7 +13,6 @@ function KreirajSastanak(){
         sazetak: "",
         vrijeme: "",
         mjesto: "",
-        stanje: "Planiran"
     });
 
     // provjera je li forma za prijavu ispravna
@@ -38,7 +37,6 @@ function KreirajSastanak(){
             sazetak: meetForm.sazetak,
             vrijeme: meetForm.vrijeme,
             mjesto: meetForm.mjesto,
-            stanje: meetForm.stanje,
         };
         
         const options = {

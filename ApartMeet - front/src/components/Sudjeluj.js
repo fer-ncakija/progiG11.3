@@ -4,12 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Sudjeluj() {
+function Sudjeluj({ userName }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
     const [attendForm, setAttendForm] = React.useState({
-        sudjelovanje: 0,
+        sudionik: "",
     });
 
     // funkcija za obradu promjene stanja
@@ -23,18 +23,18 @@ function Sudjeluj() {
         e.preventDefault();
 
         const data = {
-            sudjelovanje: attendForm.sudjelovanje,
+            sudionik: attendForm.sudionik,
         };
 
         const options = {
-            method: "PUT", // promjena iz POST u PUT zbog ažuriranja postojećeg sastanka
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         };
 
-        fetch(`${apiUrl}/meetings/${id}`, options) // slanje zahtjeva s ID-em sastanka
+        fetch(`${apiUrl}/meetings/${id}/users`, options) // !!!! PROVJERITE JESAM DOBRO STAVILA, NISAM SIGURNA KAK SE ZOVE NA BACKU !!!!
             .then(response => response.json())
             .then(() => {
                 navigate('/');
@@ -47,11 +47,11 @@ function Sudjeluj() {
                 <div className="attendinputs">
                     <p>Sudjelujete li na sastanku?</p>
                 </div>
+                <div className="submitattend">
+                    <button className="attendbutton" type="submit" onClick={() => onChange({ target: { name: "sudionik", value: userName } })}>Da</button>
+                </div>
                 <div className="addattend">
                     <button className="addbutton" type="button" onClick={() => navigate('/')}>Ne</button>
-                </div>
-                <div className="submitattend">
-                    <button className="attendbutton" type="submit" onClick={() => onChange({ target: { name: "sudjelovanje", value: attendForm.sudjelovanje + 1 } })}>Da</button>
                 </div>
             </form>
         </div>

@@ -25,7 +25,6 @@ function Obavljen() {
         };
 
         fetch(`${apiUrl}/meetings/${id}`, options) // slanje zahtjeva s ID-em sastanka
-            .then(response => response.json())
             .then(() => {
                 navigate('/');
             });
@@ -37,11 +36,11 @@ function Obavljen() {
                 <div className="attendinputs">
                     <p>Želite li označiti sastanak kao obavljen?</p>
                 </div>
-                <div className="addattend">
-                    <button className="addbutton" type="button" onClick={() => navigate('/')}>Ne</button>
-                </div>
                 <div className="submitattend">
                     <button className="attendbutton" type="submit">Da</button>
+                </div>
+                <div className="addattend">
+                    <button className="addbutton" type="button" onClick={() => navigate('/')}>Ne</button>
                 </div>
             </form>
         </div>

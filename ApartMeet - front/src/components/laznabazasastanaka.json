@@ -11,7 +11,7 @@
         {
             "naslov": "prvi sastanak proba",
             "sazetak": "za namjene probe",
-            "vrijeme": "2026-01-11T12:00",
+            "vrijeme": "2025-01-11T12:00",
             "mjesto": "doma",
             "tockeDnevnogReda": [
             {
@@ -23,7 +23,12 @@
                 "pravniUcinak": false
             }
             ],
-            "stanje": "Objavljen"
+            "stanje": "Obavljen",
+            "sudionik": [
+            {
+                "userName": "frontUser"
+            }
+            ]
         },
         {
             "naslov": "drugi sastanak proba",

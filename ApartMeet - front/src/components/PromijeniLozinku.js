@@ -18,7 +18,7 @@ const PromijeniLozinku = () => {
     }
 
     try {
-      const response = await fetch(`/users/${jwtDecode(localStorage.getItem("token")).username}`, {
+      const response = await fetch(`${apiUrl}/users/${jwtDecode(localStorage.getItem("token")).username}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

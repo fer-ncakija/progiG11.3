@@ -43,7 +43,7 @@ export default function DodajClana() {
             },
             body : JSON.stringify(data)
         };
-        setMessage("Korisnik uspješno obrisan.");
+        setMessage("Korisnik uspješno dodan.");
         return fetch(`${apiUrl}/users`, options);
      }
 

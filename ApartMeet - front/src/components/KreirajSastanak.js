@@ -2,9 +2,8 @@ import React from "react";
 import "./KreirajSastanak.css";
 import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-function KreirajSastanak(){
+function KreirajSastanak({ apiUrl }) {
 
     const navigate = useNavigate();
 

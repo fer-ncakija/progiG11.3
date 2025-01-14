@@ -2,9 +2,8 @@ import React from "react";
 import "./DodajTocke.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-function DodajTocke() {
+function DodajTocke({ apiUrl }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
@@ -64,7 +63,7 @@ function DodajTocke() {
 
 
         // prvo ažuriramo stanje sastanka
-        fetch(`/meetings/${id}`, stanjeOptions)
+        fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
             .then(() => {
                 // nakon uspješnog ažuriranja stanja, dodajemo svaku točku dnevnog reda zasebno
                 const postAgendaPointPromises = pointForm.tockeDnevnogReda.map(tocka => {
@@ -75,7 +74,7 @@ function DodajTocke() {
                         },
                         body: JSON.stringify(tocka),
                     };
-                    return fetch(`/meetings/${id}/agendapoints`, tockaOptions);
+                    return fetch(`${apiUrl}/meetings/${id}/agendapoints`, tockaOptions);
                 });
 
                 return Promise.all(postAgendaPointPromises);
@@ -121,7 +120,7 @@ function DodajTocke() {
                     ))}
                 </div>
                 <div className="addpoint">
-                    <button className="addbutton" type="button" onClick={addTocka}>Dodaj točku dnevnog reda</button>
+                    <button className="addbutton" type="button" onClick={addTocka}>Dodaj točku</button>
                 </div>
                 <div className="submitpoint">
                     <button className="pointbutton" type="submit" disabled={!isValid()}>

@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import './DodajClana.css';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function DodajClana() {
+export default function DodajClana({ apiUrl }) {
 
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({

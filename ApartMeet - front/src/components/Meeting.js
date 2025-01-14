@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
-
-const apiUrl = process.env.REACT_APP_API_URL;
+//import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
 
 
-export default function Meeting({ role }) {
+export default function Meeting({ role, apiUrl }) {
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
 
-  /*
-  // dohvaćanje podataka iz backenda --> treba provjeriti je li dobro !!!
+
+  // dohvaćanje podataka iz backenda --> treba zakomentirati kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
   useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
       .then(data => setMeetings(data));
   }, []);
-  */
 
-  // simuliran dohvat podataka iz privremene baze --> privremeno, zamijeniti s gornjim useEffect-om pri spajanju na backend !!!
+  
+  /*
+  // simuliran dohvat podataka iz privremene baze --> maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
   useEffect(() => {
     setMeetings(laznabazasastanaka.sastanci);
   }, []);
+  */
   
 
   return (
@@ -85,8 +85,6 @@ export default function Meeting({ role }) {
                   Sudjeluj u sastanku
                 </button>
               )}
-
-              {/* Gumb za označavanje kao obavljen */}
               {role === "predstavnik" &&
                 meeting.stanje === "Objavljen" &&
                 new Date(meeting.vrijeme).getTime() < new Date().getTime() && (
@@ -99,7 +97,7 @@ export default function Meeting({ role }) {
                 )}
               
               <button
-                className="detalji"
+                className="zakljucci"
                 onClick={() => navigate(`/dodajZakljucke/${index}`)}
               > Dodaj zaključke
               </button>

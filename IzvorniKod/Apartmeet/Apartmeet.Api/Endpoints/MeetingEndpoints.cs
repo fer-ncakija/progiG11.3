@@ -13,11 +13,11 @@ public static class MeetingEndpoints
         {
             var meeting = new Meeting
             {
-                Title = createMeetingDto.Title,
+                Title = createMeetingDto.naslov,
                 Status = "Planiran",
-                Summary = createMeetingDto.Summary,
-                ScheduledDate = createMeetingDto.ScheduledDate,
-                Place = createMeetingDto.Place
+                Summary = createMeetingDto.sazetak,
+                ScheduledDate = createMeetingDto.vrijeme,
+                Place = createMeetingDto.mjesto
             };
 
             context.Meetings.Add(meeting);
@@ -130,11 +130,7 @@ public static class MeetingEndpoints
             var meeting = await context.Meetings.FindAsync(id);
             if (meeting == null) return Results.NotFound();
 
-            meeting.Title = updateMeetingDto.Title;
-            meeting.Summary = updateMeetingDto.Summary;
-            meeting.Status = updateMeetingDto.Status;
-            meeting.ScheduledDate = updateMeetingDto.ScheduledDate;
-            meeting.Place = updateMeetingDto.Place;
+            meeting.Status = updateMeetingDto.stanje;
 
             await context.SaveChangesAsync();
 

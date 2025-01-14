@@ -17,8 +17,8 @@ public static class AgendaPointEndpoints
             var agendaPoint = new AgendaPoint
             {
                 MeetingId = meetingId,
-                Description = createAgendaPointDto.Description,
-                HasLegalEffect = createAgendaPointDto.HasLegalEffect,
+                Description = createAgendaPointDto.naziv,
+                HasLegalEffect = createAgendaPointDto.pravniUcinak,
                 Outcome = null,
                 Meeting = meeting 
             };
@@ -26,7 +26,15 @@ public static class AgendaPointEndpoints
             context.AgendaPoints.Add(agendaPoint);
             await context.SaveChangesAsync();
 
-            return Results.Created($"/meetings/{meetingId}/agendapoints/{agendaPoint.Id}", agendaPoint);
+            return Results.Created($"/meetings/{meetingId}/agendapoints/{agendaPoint.Id}",
+                new AgendaPointDto
+                (
+                    agendaPoint.Id,
+                    agendaPoint.Description,
+                    agendaPoint.HasLegalEffect,
+                    agendaPoint.Outcome
+                )
+            );
         });
 
         routes.MapGet("/meetings/{meetingId}/agendapoints", async (int meetingId, ApartmeetContext context) =>
@@ -69,9 +77,9 @@ public static class AgendaPointEndpoints
             var agendaPoint = await context.AgendaPoints.FindAsync(id);
             if (agendaPoint == null || agendaPoint.MeetingId != meetingId) return Results.NotFound();
 
-            agendaPoint.Description = updateAgendaPointDto.Description;
-            agendaPoint.HasLegalEffect = updateAgendaPointDto.HasLegalEffect;
-            agendaPoint.Outcome = updateAgendaPointDto.Outcome;
+            agendaPoint.Description = updateAgendaPointDto.naziv;
+            agendaPoint.HasLegalEffect = updateAgendaPointDto.pravniUcinak;
+            agendaPoint.Outcome = updateAgendaPointDto.zakljucak;
 
             await context.SaveChangesAsync();
 

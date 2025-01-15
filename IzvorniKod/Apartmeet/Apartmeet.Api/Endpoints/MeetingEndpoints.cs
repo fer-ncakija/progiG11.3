@@ -28,7 +28,7 @@ public static class MeetingEndpoints
             return Results.Created($"/meetings/{meeting.Id}", meeting);
         });
 
-        routes.MapPost("/meetings/{meetingId}/users/{userId}", async (int meetingId, int userId, ApartmeetContext context) =>
+        routes.MapPost("/meetings/{meetingId}/users/{username}", async (int meetingId, string username, ApartmeetContext context) =>
         {
             // Ako meeting ne postoji
             var meeting = await context.Meetings.FindAsync(meetingId);
@@ -38,15 +38,15 @@ public static class MeetingEndpoints
             }
 
             // Ako user ne postoji
-            var user = await context.Users.FindAsync(userId);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Username == username);
             if (user == null)
             {
-                return Results.NotFound($"User with ID {userId} not found.");
+                return Results.NotFound($"User with username {username} not found.");
             }
 
             // Ako je user vec u tom meetingu
             var existingUserMeeting = await context.UserMeetings
-                .FirstOrDefaultAsync(um => um.UserId == userId && um.MeetingId == meetingId);
+                .FirstOrDefaultAsync(um => um.UserId == user.Id && um.MeetingId == meetingId);
 
             if (existingUserMeeting != null)
             {
@@ -56,7 +56,7 @@ public static class MeetingEndpoints
             // Dodavanje usera u meeting
             var userMeeting = new UserMeeting
             {
-                UserId = userId,
+                UserId = user.Id,
                 MeetingId = meetingId,
                 User = user,
                 Meeting = meeting
@@ -65,7 +65,7 @@ public static class MeetingEndpoints
             context.UserMeetings.Add(userMeeting);
             await context.SaveChangesAsync();
 
-            return Results.Ok($"User {userId} added to meeting {meetingId}.");
+            return Results.Ok($"User {user.Id} added to meeting {meetingId}.");
         });
 
 

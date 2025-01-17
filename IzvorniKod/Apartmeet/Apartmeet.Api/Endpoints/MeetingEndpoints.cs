@@ -11,6 +11,7 @@ public static class MeetingEndpoints
     {
         routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context, HttpContext httpContext, IMailService mailService) =>
         {
+            
             var meeting = new Meeting
             {
                 Title = createMeetingDto.naslov,
@@ -23,8 +24,7 @@ public static class MeetingEndpoints
             context.Meetings.Add(meeting);
             await context.SaveChangesAsync();
 
-            //httpContext.User
-            await mailService.SendMailAsync(meeting);
+
             return Results.Created($"/meetings/{meeting.Id}", meeting);
         });
 
@@ -125,15 +125,16 @@ public static class MeetingEndpoints
             return Results.Ok(meeting);
         });
 
-        routes.MapPut("/meetings/{id}", async (int id, UpdateMeetingDto updateMeetingDto, ApartmeetContext context) =>
+        routes.MapPut("/meetings/{id}", async (int id, UpdateMeetingDto updateMeetingDto, ApartmeetContext context, IMailService mailService) =>
         {
             var meeting = await context.Meetings.FindAsync(id);
             if (meeting == null) return Results.NotFound();
+            
 
             meeting.Status = updateMeetingDto.stanje;
-
             await context.SaveChangesAsync();
 
+            await mailService.SendMailAsync(meeting);
             return Results.NoContent();
         });
 

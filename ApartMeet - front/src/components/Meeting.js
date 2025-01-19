@@ -4,7 +4,7 @@ import "./Meeting.css";
 import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
 
 
-export default function Meeting({ role, apiUrl }) {
+export default function Meeting({ role, apiUrl, userName }) {
 
   const userName = "frontUser"
   const navigate = useNavigate();

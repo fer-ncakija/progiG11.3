@@ -28,6 +28,14 @@ function App() {
     localStorage.setItem("isLoggedIn", "true");
   }
 
+  // funkcija koja se poziva kada se korisnik odjavi
+  function onLogout() {
+    setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("token");
+  }
+
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
 
@@ -41,16 +49,14 @@ function App() {
   }
 
 
-  
   // OVO TREBA ZAKOMENTIRATI KAD ĆE SE KORISTITI SAMO FRONTEND BEZ BACKENDA !!!!
   // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
   const userName = jwtDecode(localStorage.getItem("token")).username;
   const role = jwtDecode(localStorage.getItem("token")).customRole;
 
 
-
-  // TREBA MAKNUTI KOMETAR KAD SE KORISTI SAMO FRONTEND BEZ BACKENDA !!!!
   /*
+  // TREBA MAKNUTI KOMETAR KAD SE KORISTI SAMO FRONTEND BEZ BACKENDA !!!!
   const userName = "frontuser";
   const role = "predstavnik";
   */
@@ -60,9 +66,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header userName={userName} role={role} />
+        <Header userName={userName} role={role} onLogout={onLogout}/>
         <Routes>
-          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} {...props}/>} />
+          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} userName={userName} {...props}/>} />
           <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
           <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
           <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />

@@ -15,6 +15,10 @@ export default function Header(props) {
         )
     }
 
+    function logout() {
+        props.onLogout();
+    }
+
     return(
         <header>
             <div className="header-menu-name">
@@ -33,10 +37,13 @@ export default function Header(props) {
                     <p>SASTANCI</p>
                 </Link>
                 <hr/>
-                {(props.role === "stanar" || props.role === "predstavnik") && <Link to="/promijeniLozinku" className='link'><p>PROMIJENI LOZINKU</p></Link>}
+                {(props.role === "stanar" || props.role === "predstavnik") && <Link to="/promijeniLozinku" className='link'><p>PROMIJENI LOZINKU</p></Link> }
+                {(props.role === "stanar" || props.role === "predstavnik") && <hr/>}
                 <Link to="/dodajClana" className='link'>{props.role === "admin" && <p>DODAJ ČLANA</p>}</Link>
                 {props.role === "admin" && <hr/>}
-                {props.role === "admin" && <Link to="/obrisiClana" className='link'><p>OBRIŠI ČLANA</p></Link>}
+                {props.role === "admin" && <Link to="/obrisiClana" className='link'><p>OBRIŠI ČLANA</p></Link> && <hr/>}
+                <Link to="/" className='link' onClick={logout}>ODJAVI SE</Link>
+
             </div>}
         </header>
     )

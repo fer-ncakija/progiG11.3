@@ -30,6 +30,10 @@ export default function Meeting({ role, apiUrl }) {
 
   return (
     <div className="meeting-container">
+
+      {role === "admin" && (
+        <p>Admin nema pristup uvidima u sastanke</p>
+      )}
       
       <div className="meeting-list">
         {meetings.map((meeting, index) => {

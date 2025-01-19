@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
 import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
+import jwtDecode  from "jwt-decode";
+
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -9,6 +11,16 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function Meeting({ role }) {
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
+  const [currentUser, setCurrentUser] = useState("frontUser");
+  
+
+ /* useEffect(() => {
+    const token = localStorage.getItem("token"); 
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setCurrentUser(decodedToken.username || decodedToken.id); 
+    }
+  }, []);*/
 
   /*
   // dohvaćanje podataka iz backenda --> treba provjeriti je li dobro !!!
@@ -41,6 +53,9 @@ export default function Meeting({ role }) {
             month: "2-digit",
             year: "numeric",
           });
+
+          const isUserInMeeting = meeting.sudionik?.some((user) => user.userName === currentUser);
+
 
           return (
             <div key={index} className="meeting-item">
@@ -77,7 +92,7 @@ export default function Meeting({ role }) {
                 </button>
               )}
 
-              {role === "predstavnik" && meeting.stanje === "Objavljen" && (
+              {role === "predstavnik" && new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}

@@ -28,49 +28,54 @@ function App() {
     localStorage.setItem("isLoggedIn", "true");
   }
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+
   // provjera je li korisnik prijavljen, ako nije prikazuje komponentu za prijavu
   if (!isLoggedIn) {
     return (
       <div className="App">
-        <Login onLogin={onLogin} />
+        <Login onLogin={onLogin} apiUrl={apiUrl} />
       </div>
     );
   }
 
-  
-  // OVO PRIVREMENO ZAKOMENTIRANO ZA POTREBE FRONTENDA (DA NE TREBA BACKEND)!!!!
 
-  /*
+  
+  // OVO TREBA ZAKOMENTIRATI KAD ĆE SE KORISTITI SAMO FRONTEND BEZ BACKENDA !!!!
   // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
   const userName = jwtDecode(localStorage.getItem("token")).username;
   const role = jwtDecode(localStorage.getItem("token")).customRole;
+
+
+
+  // TREBA MAKNUTI KOMETAR KAD SE KORISTI SAMO FRONTEND BEZ BACKENDA !!!!
+  /*
+  const userName = "frontuser";
+  const role = "predstavnik";
   */
 
 
 
-  // OVO PRIVREMENO, TREBA SE OBRISAT KAD ĆE SE SPAJAT SA BACKENDOM!!!!!
-  const userName = "frontuser";
-  const role = "predstavnik";
-
-  
   return (
     <div className="App">
       <BrowserRouter>
         <Header userName={userName} role={role} />
         <Routes>
-          <Route path="/" exact Component={({...props}) => <Meeting role={role} {...props}/>} />
-          <Route path="/dodajClana" exact Component={DodajClana} />
-          <Route path="/kreirajSastanak" exact Component={KreirajSastanak} />
-          <Route path="/dodajTocke/:id" exact Component={DodajTocke} />
-          <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} {...props} />} />
-          <Route path="/obavljen/:id" exact Component={Obavljen} />
-          <Route path="/promijeniLozinku" exact Component={PromijeniLozinku} />
-          <Route path="/obrisiClana" exact Component={ObrisiClana} />
-          <Route path="/dodajZakljucke/:id" exact Component={DodajZakljucke} />
+          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} {...props}/>} />
+          <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
+          <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
+          <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
+          <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
+          <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
+          <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} {...props}/>} />
+          <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
+          <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
         </Routes>
       </BrowserRouter>
     </div>
   );
+
 }
 
 export default App;

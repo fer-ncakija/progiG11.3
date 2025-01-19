@@ -2,9 +2,8 @@ import React from "react";
 import "./DodajZakljucke.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-function DodajZakljucke() {
+function DodajZakljucke({ apiUrl }) {
 
     return (
         <div className="meetbox">

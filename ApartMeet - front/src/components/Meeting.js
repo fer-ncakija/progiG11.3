@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
+<<<<<<< HEAD
+import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
+import jwtDecode  from "jwt-decode";
+
+
+const apiUrl = process.env.REACT_APP_API_URL;
+=======
 //import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
+>>>>>>> b34bda9aba6104ed9b0dacf0577da91bf0b21cf9
 
 
-export default function Meeting({ role }) {
+export default function Meeting({ role, apiUrl }) {
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
   const [currentUser, setCurrentUser] = useState("frontUser");
@@ -25,12 +33,14 @@ export default function Meeting({ role }) {
       .then(response => response.json())
       .then(data => setMeetings(data));
   }, []);
-  */
 
-  // simuliran dohvat podataka iz privremene baze --> privremeno, zamijeniti s gornjim useEffect-om pri spajanju na backend !!!
+  
+  /*
+  // simuliran dohvat podataka iz privremene baze --> maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
   useEffect(() => {
     setMeetings(laznabazasastanaka.sastanci);
   }, []);
+  */
   
 
   return (
@@ -49,6 +59,9 @@ export default function Meeting({ role }) {
             month: "2-digit",
             year: "numeric",
           });
+
+          const isUserInMeeting = meeting.sudionik?.some((user) => user.userName === currentUser);
+
 
           return (
             <div key={index} className="meeting-item">
@@ -85,7 +98,7 @@ export default function Meeting({ role }) {
                 </button>
               )}
 
-              {role === "predstavnik" && meeting.stanje === "Objavljen" && (
+              {role === "predstavnik" && new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}
@@ -93,8 +106,6 @@ export default function Meeting({ role }) {
                   Sudjeluj u sastanku
                 </button>
               )}
-
-              {/* Gumb za označavanje kao obavljen */}
               {role === "predstavnik" &&
                 meeting.stanje === "Objavljen" &&
                 new Date(meeting.vrijeme).getTime() < new Date().getTime() && (
@@ -107,7 +118,7 @@ export default function Meeting({ role }) {
                 )}
               
               <button
-                className="detalji"
+                className="zakljucci"
                 onClick={() => navigate(`/dodajZakljucke/${index}`)}
               > Dodaj zaključke
               </button>

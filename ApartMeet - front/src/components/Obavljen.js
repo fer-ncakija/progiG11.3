@@ -2,9 +2,8 @@ import React from "react";
 import "./Obavljen.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-function Obavljen() {
+function Obavljen({ apiUrl }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 

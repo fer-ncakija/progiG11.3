@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-<<<<<<< HEAD
 import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
 import jwtDecode  from "jwt-decode";
 
 
 const apiUrl = process.env.REACT_APP_API_URL;
-=======
-//import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
->>>>>>> b34bda9aba6104ed9b0dacf0577da91bf0b21cf9
 
 
-export default function Meeting({ role, apiUrl }) {
+export default function Meeting({ role }) {
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
   const [currentUser, setCurrentUser] = useState("frontUser");
@@ -26,21 +22,19 @@ export default function Meeting({ role, apiUrl }) {
     }
   }, []);*/
 
-
-  // dohvaćanje podataka iz backenda --> treba zakomentirati kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
+  /*
+  // dohvaćanje podataka iz backenda --> treba provjeriti je li dobro !!!
   useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
       .then(data => setMeetings(data));
   }, []);
+  */
 
-  
-  /*
-  // simuliran dohvat podataka iz privremene baze --> maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
+  // simuliran dohvat podataka iz privremene baze --> privremeno, zamijeniti s gornjim useEffect-om pri spajanju na backend !!!
   useEffect(() => {
     setMeetings(laznabazasastanaka.sastanci);
   }, []);
-  */
   
 
   return (
@@ -106,6 +100,8 @@ export default function Meeting({ role, apiUrl }) {
                   Sudjeluj u sastanku
                 </button>
               )}
+
+              {/* Gumb za označavanje kao obavljen */}
               {role === "predstavnik" &&
                 meeting.stanje === "Objavljen" &&
                 new Date(meeting.vrijeme).getTime() < new Date().getTime() && (
@@ -118,7 +114,7 @@ export default function Meeting({ role, apiUrl }) {
                 )}
               
               <button
-                className="zakljucci"
+                className="detalji"
                 onClick={() => navigate(`/dodajZakljucke/${index}`)}
               > Dodaj zaključke
               </button>

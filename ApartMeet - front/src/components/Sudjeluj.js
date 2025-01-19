@@ -2,7 +2,9 @@ import React from "react";
 import "./Sudjeluj.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function Sudjeluj({ userName, apiUrl }) {
+const apiUrl = process.env.REACT_APP_API_URL;
+
+function Sudjeluj({ userName }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
@@ -32,7 +34,7 @@ function Sudjeluj({ userName, apiUrl }) {
             body: JSON.stringify(data),
         };
 
-        fetch(`${apiUrl}/meetings/${id}/users/${userName}`, options)
+        fetch(`${apiUrl}/meetings/${id}/users`, options) // !!!! PROVJERITE JESAM DOBRO STAVILA, NISAM SIGURNA KAK SE ZOVE NA BACKU !!!!
             .then(response => response.json())
             .then(() => {
                 navigate('/');

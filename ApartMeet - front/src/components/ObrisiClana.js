@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './ObrisiClana.css';
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 const ObrisiClana = () => {
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
@@ -11,13 +9,15 @@ const ObrisiClana = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${apiUrl}/users/${username}`, {
-        method: 'DELETE',
+      const response = await fetch('/api/delete-user', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ username }),
       });
-      setMessage("Korisnik uspješno obrisan.");
+      const data = await response.json();
+      setMessage(data.message);
     } catch (error) {
       setMessage('Greška pri brisanju korisnika');
     }

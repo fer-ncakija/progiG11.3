@@ -5,7 +5,9 @@ import password_icon from "../assets/lozinka.png";
 import google_icon from "../assets/google.png";
 import { jwtDecode } from "jwt-decode";
 
-function Login({ apiUrl, ...props }) {
+const apiUrl = process.env.REACT_APP_API_URL;
+
+function Login(props) {
   // stanje za pohranu podataka unesenih u formu za prijavu (korisničko ime i lozinka)
   const [loginForm, setLoginForm] = React.useState({
     username: "",
@@ -32,8 +34,7 @@ function Login({ apiUrl, ...props }) {
     e.preventDefault();
     setError("");
 
-    // MAKNUT KOMENTAR KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
-    /*
+    // OVO PRIVREMENO, TREBA SE OBRISAT KAD ĆE SE SPAJAT SA BACKENDOM!!!!!
     const data = {
       username: loginForm.username,
       password: loginForm.password,
@@ -52,9 +53,10 @@ function Login({ apiUrl, ...props }) {
         props.onLogin();
       }
     });
-    */
 
-    // ZAKOMENTIRAT KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
+    // OVO PRIVREMENO ZAKOMENTIRANO ZA POTREBE FRONTENDA (DA NE TREBA BACKEND)!!!!
+
+    /*
     const data = {
       username: loginForm.username,
       password: loginForm.password,
@@ -77,6 +79,7 @@ function Login({ apiUrl, ...props }) {
       .catch((error) => {
         setError("Greška prilikom prijave");
       });
+      */
   }
 
   // hook za provjeru postoji li OAuth2 kod u URL-u i obradu prijave preko Google računa

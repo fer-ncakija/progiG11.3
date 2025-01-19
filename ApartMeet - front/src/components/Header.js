@@ -1,7 +1,5 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
-import profilna_icon from "../assets/profilna.png";
-import menu_icon from "../assets/menu.png";
 
 export default function Header(props) {
     //funkcija preko propsa prima username i ulogu osobe
@@ -18,7 +16,7 @@ export default function Header(props) {
     return(
         <header>
             <div className="header-menu-name">
-                <img src={menu_icon} className="header-menu" onClick={handleDropdown}></img>
+                <img src="./images/menu.png" className="header-menu" onClick={handleDropdown}></img>
                 
                 <Link to={"/"} className='link'>
                     <h1 className="header-name">APARTMEET</h1>
@@ -26,7 +24,7 @@ export default function Header(props) {
             </div>
             <div className="header-user">
                 <p className="header-user-name">{props.userName}</p>
-                <img src={profilna_icon} className="header-profile"></img>
+                <img src="./images/profilna.png" className="header-profile"></img>
             </div>
             {openDropdown && <div className="header-dropdown">
                 <Link to="/" className='link'>

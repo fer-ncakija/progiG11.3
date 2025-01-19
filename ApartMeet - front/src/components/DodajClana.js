@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './DodajClana.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function DodajClana({ apiUrl }) {
+export default function DodajClana() {
 
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
@@ -28,7 +29,6 @@ export default function DodajClana({ apiUrl }) {
 
     //funkcija koja obraduje submit i salje podatke na backend
     function handleSubmit() {
-        e.preventDefault();
         const data = {
             username: formData.userName,
             email: formData.email,
@@ -42,7 +42,7 @@ export default function DodajClana({ apiUrl }) {
             },
             body : JSON.stringify(data)
         };
-        setMessage("Korisnik uspješno dodan.");
+
         return fetch(`${apiUrl}/users`, options);
      }
 

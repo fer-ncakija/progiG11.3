@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import './PromijeniLozinku.css';
-import { jwtDecode } from "jwt-decode";
-
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const PromijeniLozinku = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -18,8 +15,8 @@ const PromijeniLozinku = () => {
     }
 
     try {
-      const response = await fetch(`${apiUrl}/users/${jwtDecode(localStorage.getItem("token")).username}`, {
-        method: 'PUT',
+      const response = await fetch('/api/change-password', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -28,8 +25,9 @@ const PromijeniLozinku = () => {
           newPassword,
         }),
       });
-      setMessage("Lozinka promijenjena");
-    }catch (error) {
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
       setMessage('Greška pri promjeni lozinke');
     }
   };

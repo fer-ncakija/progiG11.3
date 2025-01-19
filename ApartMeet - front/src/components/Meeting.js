@@ -1,38 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-//import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
+import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
 
 
 export default function Meeting({ role, apiUrl }) {
+
+  const userName = "frontUser"
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
-  const [currentUser, setCurrentUser] = useState("frontUser");
-  
-
- /* useEffect(() => {
-    const token = localStorage.getItem("token"); 
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setCurrentUser(decodedToken.username || decodedToken.id); 
-    }
-  }, []);*/
+  const [currentUser, setCurrentUser] = useState(userName);
 
 
   // dohvaćanje podataka iz backenda --> treba zakomentirati kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
-  useEffect(() => {
+  /*useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
       .then(data => setMeetings(data));
-  }, []);
+  }, []);*/
 
   
-  /*
+  
   // simuliran dohvat podataka iz privremene baze --> maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
   useEffect(() => {
     setMeetings(laznabazasastanaka.sastanci);
   }, []);
-  */
+  
   
 
   return (
@@ -90,7 +83,7 @@ export default function Meeting({ role, apiUrl }) {
                 </button>
               )}
 
-              {role === "predstavnik" && new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
+              {new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}

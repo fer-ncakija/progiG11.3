@@ -30,50 +30,6 @@
             }
             ]
         },
-        { 
-            "naslov": "drugi objavljen frontUser je sudionik",
-            "sazetak": "za namjene probe",
-            "vrijeme": "2026-01-11T12:00",
-            "mjesto": "doma",
-            "tockeDnevnogReda": [
-            {
-                "naziv": "tockica",
-                "pravniUcinak": true
-            },
-            {
-                "naziv": "tocka",
-                "pravniUcinak": false
-            }
-            ],
-            "stanje": "Objavljen",
-            "sudionik": [
-            {
-                "userName": "frontUser"
-            }
-            ]
-        },
-        { 
-            "naslov": "drugi objavljen bez sudionika",
-            "sazetak": "za namjene probe",
-            "vrijeme": "2026-01-11T12:00",
-            "mjesto": "doma",
-            "tockeDnevnogReda": [
-            {
-                "naziv": "tockica",
-                "pravniUcinak": true
-            },
-            {
-                "naziv": "tocka",
-                "pravniUcinak": false
-            }
-            ],
-            "stanje": "Objavljen",
-            "sudionik": [
-            {
-                "userName": ""
-            }
-            ]
-        },
         {
             "naslov": "drugi sastanak proba",
             "sazetak": "probe",

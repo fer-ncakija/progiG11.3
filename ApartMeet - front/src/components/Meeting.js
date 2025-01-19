@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
-import jwtDecode  from "jwt-decode";
-
-
-const apiUrl = process.env.REACT_APP_API_URL;
+//import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
 
 
 export default function Meeting({ role }) {
@@ -22,8 +18,8 @@ export default function Meeting({ role }) {
     }
   }, []);*/
 
-  /*
-  // dohvaćanje podataka iz backenda --> treba provjeriti je li dobro !!!
+
+  // dohvaćanje podataka iz backenda --> treba zakomentirati kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
   useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
@@ -53,9 +49,6 @@ export default function Meeting({ role }) {
             month: "2-digit",
             year: "numeric",
           });
-
-          const isUserInMeeting = meeting.sudionik?.some((user) => user.userName === currentUser);
-
 
           return (
             <div key={index} className="meeting-item">
@@ -92,7 +85,7 @@ export default function Meeting({ role }) {
                 </button>
               )}
 
-              {role === "predstavnik" && new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
+              {role === "predstavnik" && meeting.stanje === "Objavljen" && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}

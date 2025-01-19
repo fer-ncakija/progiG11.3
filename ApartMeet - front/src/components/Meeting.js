@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-<<<<<<< HEAD
-import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka
-import jwtDecode  from "jwt-decode";
-
-
-const apiUrl = process.env.REACT_APP_API_URL;
-=======
 //import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
->>>>>>> b34bda9aba6104ed9b0dacf0577da91bf0b21cf9
 
 
 export default function Meeting({ role, apiUrl }) {

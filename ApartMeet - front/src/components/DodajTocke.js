@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import "./DodajTocke.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -9,6 +10,16 @@ function DodajTocke({ apiUrl }) {
     const [pointForm, setPointForm] = React.useState({
         tockeDnevnogReda: [{ naziv: "", pravniUcinak: false }],
     });
+
+    const [threads, setThreads] = React.useState([]); // lista dostupnih diskusija
+
+    // učitavanje diskusija iz StanBlog aplikacije pri montaži komponente
+    useEffect(() => {
+        fetch(`${apiUrl}/threads`)
+            .then(response => response.json())
+            .then(data => setThreads(data))
+            .catch(error => console.error("Greška pri dohvaćanju diskusija:", error));
+    }, [apiUrl]);
 
     // provjera je li forma za prijavu ispravna
     function isValid() {
@@ -42,6 +53,19 @@ function DodajTocke({ apiUrl }) {
         }));
     }
 
+    // funkcija za postavljanje naziva točke na temelju odabrane threads
+    function onDiskusijaChange(event) {
+        const { value, dataset } = event.target;
+        if (dataset.index !== undefined) {
+            const tockeDnevnogReda = [...pointForm.tockeDnevnogReda];
+            const selectedDiskusija = threads.find(diskusija => diskusija.link === value);
+            if (selectedDiskusija) {
+                tockeDnevnogReda[dataset.index].naziv = selectedDiskusija.naziv;
+            }
+            setPointForm((oldForm) => ({ ...oldForm, tockeDnevnogReda }));
+        }
+    }
+
     // funkcija za obradu slanja forme
     function onSubmit(e) {
         e.preventDefault();
@@ -59,7 +83,6 @@ function DodajTocke({ apiUrl }) {
             },
             body: JSON.stringify(stanjeData),
         };
-
 
         // prvo ažuriramo stanje sastanka
         fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
@@ -107,6 +130,21 @@ function DodajTocke({ apiUrl }) {
                                         checked={tocka.pravniUcinak}
                                         data-index={index}
                                     />
+                                </label>
+                                <label>
+                                    Odaberi diskusiju
+                                    <select
+                                        onChange={onDiskusijaChange}
+                                        value={threads.find(diskusija => diskusija.naziv === tocka.naziv)?.link || ""}
+                                        data-index={index}
+                                    >
+                                        <option value="">Odaberi diskusiju</option>
+                                        {threads.map((diskusija) => (
+                                            <option key={diskusija.id} value={diskusija.link}>
+                                                {diskusija.naziv}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </label>
                                 {pointForm.tockeDnevnogReda.length > 1 && (
                                     <button type="button" onClick={() => removeTocka(index)}>

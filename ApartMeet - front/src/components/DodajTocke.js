@@ -2,7 +2,6 @@ import React from "react";
 import "./DodajTocke.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-
 function DodajTocke({ apiUrl }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
@@ -14,7 +13,7 @@ function DodajTocke({ apiUrl }) {
     // provjera je li forma za prijavu ispravna
     function isValid() {
         const { tockeDnevnogReda } = pointForm;
-        return tockeDnevnogReda.every(tocka => tocka.naziv.length > 0);
+        return tockeDnevnogReda.length > 0 && tockeDnevnogReda.every(tocka => tocka.naziv.length > 0);
     }
 
     // ažurira podatke u formi na temelju korisnikovog unosa
@@ -84,7 +83,6 @@ function DodajTocke({ apiUrl }) {
             });
     }
 
-
     return (
         <div className="pointbox">
             <form onSubmit={onSubmit}>
@@ -110,7 +108,7 @@ function DodajTocke({ apiUrl }) {
                                         data-index={index}
                                     />
                                 </label>
-                                {index > 0 && (
+                                {pointForm.tockeDnevnogReda.length > 1 && (
                                     <button type="button" onClick={() => removeTocka(index)}>
                                         Ukloni
                                     </button>

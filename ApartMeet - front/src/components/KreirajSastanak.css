@@ -80,7 +80,7 @@
 }
 
 .meetbutton:disabled::after {
-    content: "Unesite sve podatke za nastavak";
+    content: "Unesite sve podatke za nastavak!";
     position: absolute;
     left: 50%;
     bottom: 120%;

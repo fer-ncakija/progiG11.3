@@ -139,7 +139,7 @@
 }
 
 .pointbutton:disabled::after {
-    content: "Unesite sve podatke za nastavak";
+    content: "Dodajte barem jednu točku za nastavak!";
     position: absolute;
     left: 50%;
     bottom: 120%;

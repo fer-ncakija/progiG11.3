@@ -33,7 +33,7 @@ function Login({ apiUrl, ...props }) {
     setError("");
 
     // MAKNUT KOMENTAR KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
-    /*
+
     const data = {
       username: loginForm.username,
       password: loginForm.password,
@@ -52,8 +52,8 @@ function Login({ apiUrl, ...props }) {
         props.onLogin();
       }
     });
-    */
 
+    /*
     // ZAKOMENTIRAT KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
     const data = {
       username: loginForm.username,
@@ -77,6 +77,7 @@ function Login({ apiUrl, ...props }) {
       .catch((error) => {
         setError("Greška prilikom prijave");
       });
+    */
   }
 
   // hook za provjeru postoji li OAuth2 kod u URL-u i obradu prijave preko Google računa

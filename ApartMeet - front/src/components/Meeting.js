@@ -6,7 +6,6 @@ import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privr
 
 export default function Meeting({ role, apiUrl, userName }) {
 
-  const userName = "frontUser"
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
   const [currentUser, setCurrentUser] = useState(userName);

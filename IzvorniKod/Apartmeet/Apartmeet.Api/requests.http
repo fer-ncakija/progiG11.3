@@ -5,11 +5,26 @@ POST http://localhost:5066/meetings
 Content-Type: application/json
 
 {
-    "Title": "a",
-    "Summary": "b",
-    "ScheduledDate": "2018-06-12T19:30",
-    "Place": "c"
+    "NASLOV": "a",
+    "SAZETAK": "b",
+    "VRIJEME": "2018-06-12T19:30",
+    "MJESTO": "c"
 }
+
+###
+POST http://localhost:5066/meetings/thread
+Content-Type: application/json
+
+{
+    "MeetingTitle": "mt title",
+    "ScheduledDate": "2018-06-12T19:30",
+    "MeetingSummary": "mt summary",
+    "ThreadTitle": "th title",
+    "ThreadDescription": "th description"
+}
+
+###
+GET http://localhost:5066/threads
 
 ###
 POST http://localhost:5066/meetings/1/agendapoints

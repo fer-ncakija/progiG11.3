@@ -9,7 +9,7 @@ public static class MeetingEndpoints
 {
     public static void MapMeetingEndpoints(this IEndpointRouteBuilder routes)    
     {
-        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context, HttpContext httpContext, IMailService mailService) =>
+        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context, IMailService mailService) =>
         {
             
             var meeting = new Meeting
@@ -26,6 +26,55 @@ public static class MeetingEndpoints
 
 
             return Results.Created($"/meetings/{meeting.Id}", meeting);
+        });
+
+        routes.MapPost("/meetings/thread", async (CreateMeetingThreadDto createMeetingThreadDto, ApartmeetContext context) =>
+        {
+            var meeting = new Meeting
+            {
+                Title = $"{createMeetingThreadDto.MeetingTitle} - za diskusiju",
+                Status = "Obavljen",
+                Summary = createMeetingThreadDto.MeetingSummary,
+                ScheduledDate = createMeetingThreadDto.ScheduledDate,
+                Place = ""
+            };
+
+            context.Meetings.Add(meeting);
+            await context.SaveChangesAsync();
+
+            var agendaPoint = new AgendaPoint
+            {
+                MeetingId = meeting.Id,
+                Description = createMeetingThreadDto.ThreadTitle,
+                HasLegalEffect = true,
+                Outcome = null,
+                Meeting = meeting
+            };
+
+            context.AgendaPoints.Add(agendaPoint);
+            await context.SaveChangesAsync();
+
+            var responseBody = new
+            {
+                meeting,
+                agendaPoint
+            };
+
+            return Results.Created($"/meetings/{meeting.Id}", new MeetingDto(
+                meeting.Id,
+                meeting.Title,
+                meeting.Summary,
+                meeting.Status,
+                meeting.ScheduledDate,
+                meeting.Place,
+                new List<AgendaPointDto> { new AgendaPointDto(
+                    agendaPoint.Id,
+                    agendaPoint.Description,
+                    agendaPoint.HasLegalEffect,
+                    agendaPoint.Outcome
+                )},
+                new List<UserDto> {}
+            ));
         });
 
         routes.MapPost("/meetings/{meetingId}/users/{username}", async (int meetingId, string username, ApartmeetContext context) =>

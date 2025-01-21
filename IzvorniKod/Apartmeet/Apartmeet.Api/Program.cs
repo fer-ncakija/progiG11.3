@@ -148,6 +148,7 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
 app.MapUserEndpoints();
 app.MapMeetingEndpoints();
 app.MapAgendaPointEndpoints();
+app.MapThreadEndpoints();
 
 app.MigrateDb();
 app.Run();

@@ -77,8 +77,6 @@ public static class AgendaPointEndpoints
             var agendaPoint = await context.AgendaPoints.FindAsync(id);
             if (agendaPoint == null || agendaPoint.MeetingId != meetingId) return Results.NotFound();
 
-            agendaPoint.Description = updateAgendaPointDto.naziv;
-            agendaPoint.HasLegalEffect = updateAgendaPointDto.pravniUcinak;
             agendaPoint.Outcome = updateAgendaPointDto.zakljucak;
 
             await context.SaveChangesAsync();

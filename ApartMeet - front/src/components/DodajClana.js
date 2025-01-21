@@ -43,6 +43,11 @@ export default function DodajClana({ apiUrl }) {
             body : JSON.stringify(data)
         };
         setMessage("Korisnik uspješno dodan.");
+        fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
+            .then(response => response.json())
+            .then(() => {
+                navigate('/');
+            });
         return fetch(`${apiUrl}/users`, options);
      }
 

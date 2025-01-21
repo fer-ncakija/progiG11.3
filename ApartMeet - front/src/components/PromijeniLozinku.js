@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './PromijeniLozinku.css';
 import { jwtDecode } from "jwt-decode";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+export default function PromijeniLozinku({ apiUrl }) {
 
 const PromijeniLozinku = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -29,6 +29,11 @@ const PromijeniLozinku = () => {
         }),
       });
       setMessage("Lozinka promijenjena");
+      fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
+            .then(response => response.json())
+            .then(() => {
+                navigate('/');
+            });
     }catch (error) {
       setMessage('Greška pri promjeni lozinke');
     }
@@ -75,4 +80,4 @@ const PromijeniLozinku = () => {
   );
 };
 
-export default PromijeniLozinku;
+}

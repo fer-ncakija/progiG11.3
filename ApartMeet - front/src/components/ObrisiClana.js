@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ObrisiClana.css';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+export default function ObrisiClana({ apiUrl }){
 
 const ObrisiClana = () => {
   const [username, setUsername] = useState('');
@@ -18,6 +18,11 @@ const ObrisiClana = () => {
         },
       });
       setMessage("Korisnik uspješno obrisan.");
+      fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
+            .then(response => response.json())
+            .then(() => {
+                navigate('/');
+            });
     } catch (error) {
       setMessage('Greška pri brisanju korisnika');
     }
@@ -46,4 +51,5 @@ const ObrisiClana = () => {
   );
 };
 
-export default ObrisiClana;
+
+}

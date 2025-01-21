@@ -33,16 +33,17 @@ export default function Header(props) {
                 <img src={profilna_icon} className="header-profile"></img>
             </div>
             {openDropdown && <div className="header-dropdown">
-                <Link to="/" className='link'>
+                {(props.role === "stanar" || props.role === "predstavnik") && <Link to="/" className='link'>
                     <p>SASTANCI</p>
-                </Link>
-                <hr/>
+                </Link> }
+                {(props.role === "stanar" || props.role === "predstavnik") && <hr/>}
                 {(props.role === "stanar" || props.role === "predstavnik") && <Link to="/promijeniLozinku" className='link'><p>PROMIJENI LOZINKU</p></Link> }
                 {(props.role === "stanar" || props.role === "predstavnik") && <hr/>}
                 <Link to="/dodajClana" className='link'>{props.role === "admin" && <p>DODAJ ČLANA</p>}</Link>
                 {props.role === "admin" && <hr/>}
-                {props.role === "admin" && <Link to="/obrisiClana" className='link'><p>OBRIŠI ČLANA</p></Link> && <hr/>}
-                <Link to="/" className='link' onClick={logout}>ODJAVI SE</Link>
+                {props.role === "admin" && <Link to="/obrisiClana" className='link'><p>OBRIŠI ČLANA</p></Link>}
+                {props.role === "admin" && <hr/>}
+                <Link to="/" className='link' onClick={logout}><p>ODJAVI SE</p></Link>
 
             </div>}
         </header>

@@ -11,7 +11,7 @@ function DodajZakljucke({ apiUrl }) {
     // provjerava imaju li točke s pravnim učinkom zaključke
     function isValid() {
         return agendaForm.every(tocka => 
-            !tocka.pravniUcinak || (tocka.outcome && ['Izglasan', 'Odbijen'].includes(tocka.outcome))
+            !tocka.pravniUcinak || (tocka.zakljucak && ['Izglasan', 'Odbijen'].includes(tocka.zakljucak))
         );
     }
 
@@ -26,7 +26,7 @@ function DodajZakljucke({ apiUrl }) {
     function onChange(event) {
         const { name, value, dataset } = event.target;
         const updatedAgendas = [...agendaForm];
-        updatedAgendas[dataset.index][name] = value;    
+        updatedAgendas[dataset.index][name.split("_")[0]] = value;
         setAgendaForm(updatedAgendas);
     }  
 
@@ -54,11 +54,11 @@ function DodajZakljucke({ apiUrl }) {
                 // ažurira svaku točku dnevnog reda sa zaključkom
                 const postConclusionPromises = agendaForm.map(tocka => {
                     const options = {
-                        method: "POST",
+                        method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({ outcome: tocka.outcome }),
+                        body: JSON.stringify({ zakljucak: tocka.zakljucak }),
                     };
                     return fetch(`${apiUrl}/meetings/${id}/agendapoints/${tocka.id}`, options);
                 });
@@ -80,9 +80,9 @@ function DodajZakljucke({ apiUrl }) {
                         {!tocka.pravniUcinak && (
                             <div className="nepravne">
                                 <textarea
-                                    name="outcome"
+                                    name={`zakljucak_${index}`}
                                     rows="2"
-                                    value={tocka.outcome || ''}
+                                    value={tocka.zakljucak || ''}
                                     onChange={onChange}
                                     data-index={index}
                                 />
@@ -96,9 +96,9 @@ function DodajZakljucke({ apiUrl }) {
                                     <label>
                                         <input
                                             type="radio"
-                                            name="outcome"
+                                            name={`zakljucak_${index}`}
                                             value="Izglasan"
-                                            checked={tocka.outcome === "Izglasan"}
+                                            checked={tocka.zakljucak === "Izglasan"}
                                             onChange={onChange}
                                             data-index={index}
                                         /> 
@@ -107,9 +107,9 @@ function DodajZakljucke({ apiUrl }) {
                                     <label>
                                         <input
                                             type="radio"
-                                            name="outcome"
+                                            name={`zakljucak_${index}`}
                                             value="Odbijen"
-                                            checked={tocka.outcome === "Odbijen"}
+                                            checked={tocka.zakljucak === "Odbijen"}
                                             onChange={onChange}
                                             data-index={index}
                                         /> 

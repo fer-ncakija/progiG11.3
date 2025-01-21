@@ -53,19 +53,6 @@ function DodajTocke({ apiUrl }) {
         }));
     }
 
-    // funkcija za postavljanje naziva točke na temelju odabrane threads
-    function onDiskusijaChange(event) {
-        const { value, dataset } = event.target;
-        if (dataset.index !== undefined) {
-            const tockeDnevnogReda = [...pointForm.tockeDnevnogReda];
-            const selectedDiskusija = threads.find(diskusija => diskusija.link === value);
-            if (selectedDiskusija) {
-                tockeDnevnogReda[dataset.index].naziv = selectedDiskusija.naziv;
-            }
-            setPointForm((oldForm) => ({ ...oldForm, tockeDnevnogReda }));
-        }
-    }
-
     // funkcija za obradu slanja forme
     function onSubmit(e) {
         e.preventDefault();
@@ -120,6 +107,7 @@ function DodajTocke({ apiUrl }) {
                                     onChange={onChange}
                                     value={tocka.naziv}
                                     data-index={index}
+                                    disabled={threads.some(diskusija => diskusija.naziv === tocka.naziv)}
                                 />
                                 <label>
                                     Pravni učinak
@@ -134,13 +122,14 @@ function DodajTocke({ apiUrl }) {
                                 <label>
                                     Odaberi diskusiju
                                     <select
-                                        onChange={onDiskusijaChange}
-                                        value={threads.find(diskusija => diskusija.naziv === tocka.naziv)?.link || ""}
+                                        name="naziv"
+                                        onChange={onChange}
+                                        value={threads.find(diskusija => diskusija.naziv === tocka.naziv)?.naziv || ""}
                                         data-index={index}
                                     >
                                         <option value="">Odaberi diskusiju</option>
-                                        {threads.map((diskusija) => (
-                                            <option key={diskusija.id} value={diskusija.link}>
+                                        {threads.map((diskusija, dis_index) => (
+                                            <option key={dis_index} value={diskusija.naziv}>
                                                 {diskusija.naziv}
                                             </option>
                                         ))}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import "./Obavljen.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,12 +8,23 @@ function Obavljen({ apiUrl }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
+    useEffect(() => {
+        fetch(`${apiUrl}/meetings/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.stanje === "Obavljen") {
+                    navigate('*');
+                }
+            })
+    }, [apiUrl, id, navigate]);
+    
+
     // funkcija za obradu slanja forme
     function onSubmit(e) {
         e.preventDefault();
 
         const data = {
-            stanje: "Obavljen" // postavljanje stanja sastanka na "Objavljen"
+            stanje: "Obavljen" // postavljanje stanja sastanka na "Obavljen"
         };
 
         const options = {

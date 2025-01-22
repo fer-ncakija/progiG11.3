@@ -16,6 +16,16 @@ function DodajZakljucke({ apiUrl }) {
     }
 
     useEffect(() => {
+        fetch(`${apiUrl}/meetings/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.stanje === "Arhiviran") {
+                    navigate('*');
+                }
+            })
+    }, [apiUrl, id, navigate]);
+
+    useEffect(() => {
         fetch(`${apiUrl}/meetings/${id}/agendapoints`)
             .then(response => response.json())
             .then(data => setAgendaForm(data));

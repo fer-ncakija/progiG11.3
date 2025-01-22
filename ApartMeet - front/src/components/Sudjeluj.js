@@ -1,14 +1,26 @@
 import React from "react";
+import { useEffect } from "react";
 import "./Sudjeluj.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Sudjeluj({ userName, apiUrl }) {
+    const currentUser = userName;
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
     const [attendForm, setAttendForm] = React.useState({
         sudionik: "",
     });
+
+    useEffect(() => {
+        fetch(`${apiUrl}/meetings/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.sudionik?.some((user) => user.userName === currentUser)) {
+                    navigate('*');
+                }
+            })
+    }, [apiUrl, id, navigate]);
 
     // funkcija za obradu promjene stanja
     function onChange(event) {

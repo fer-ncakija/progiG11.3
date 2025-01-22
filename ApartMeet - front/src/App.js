@@ -11,6 +11,7 @@ import Obavljen from './components/Obavljen.js';
 import PromijeniLozinku from './components/PromijeniLozinku.js';
 import ObrisiClana from './components/ObrisiClana.js';
 import DodajZakljucke from "./components/DodajZakljucke.js";
+import NemaStranice from "./components/NemaStranice.js"
 import './App.css';
 import './components/Header.css';
 import './Main.css';
@@ -68,14 +69,31 @@ function App() {
         <Header userName={userName} role={role} onLogout={onLogout}/>
         <Routes>
           <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} userName={userName} {...props}/>} />
-          <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
-          <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
-          <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
-          <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
-          <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
-          <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>} />
-          <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
-          <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
+          {role === "admin" && (
+          <>
+            <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
+            <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
+          </>
+          )}
+          {role === "predstavnik" && (
+          <>
+            <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
+            <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
+            <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
+            <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
+          </>
+          )}
+          {role === "stanar" && (
+          <>
+            <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
+          </>
+          )}
+          {(role === "stanar" || role === "predstavnik") && (
+          <>
+            <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>} />
+          </>
+          )}
+          <Route path="*" Component={NemaStranice}/>
         </Routes>
       </BrowserRouter>
     </div>

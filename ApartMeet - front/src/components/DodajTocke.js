@@ -13,6 +13,9 @@ function DodajTocke({ apiUrl }) {
 
     const [threads, setThreads] = React.useState([]); // lista dostupnih diskusija
 
+    const [selectedFromSelect, setSelectedFromSelect] = React.useState({}); // provjerava je li odabrana diskusija iz selecta
+
+
     // učitavanje diskusija iz StanBlog aplikacije pri montaži komponente
     useEffect(() => {
         fetch(`${apiUrl}/threads`)
@@ -32,6 +35,13 @@ function DodajTocke({ apiUrl }) {
         const { name, value, dataset } = event.target;
         if (dataset.index !== undefined) {
             const tockeDnevnogReda = [...pointForm.tockeDnevnogReda];
+    
+            if (event.target.tagName === "SELECT") {
+                setSelectedFromSelect((old) => ({ ...old, [dataset.index]: true }));
+            } else if (name === "naziv") {
+                setSelectedFromSelect((old) => ({ ...old, [dataset.index]: false }));
+            }
+    
             tockeDnevnogReda[dataset.index][name] = name === "pravniUcinak" ? event.target.checked : value;
             setPointForm((oldForm) => ({ ...oldForm, tockeDnevnogReda }));
         } else {
@@ -52,6 +62,16 @@ function DodajTocke({ apiUrl }) {
             tockeDnevnogReda: oldForm.tockeDnevnogReda.filter((_, i) => i !== index)
         }));
     }
+
+    function clearNaziv(index) {
+        setPointForm((oldForm) => {
+            const tockeDnevnogReda = [...oldForm.tockeDnevnogReda];
+            tockeDnevnogReda[index].naziv = "";
+            return { ...oldForm, tockeDnevnogReda };
+        });
+        setSelectedFromSelect((old) => ({ ...old, [index]: false }));
+    }
+    
 
     // funkcija za obradu slanja forme
     function onSubmit(e) {
@@ -101,14 +121,17 @@ function DodajTocke({ apiUrl }) {
                         <div key={index}>
                             <label>{index + 1}. Točka dnevnog reda </label>
                             <div className="tockainput">
-                                <input
-                                    name="naziv"
-                                    placeholder={`${index + 1}. Točka dnevnog reda`}
-                                    onChange={onChange}
-                                    value={tocka.naziv}
-                                    data-index={index}
-                                    disabled={threads.some(diskusija => diskusija.naziv === tocka.naziv)}
-                                />
+                                <div className="tocka">
+                                    <input
+                                        name="naziv"
+                                        placeholder={`${index + 1}. Točka dnevnog reda`}
+                                        onChange={onChange}
+                                        value={tocka.naziv}
+                                        data-index={index}
+                                        disabled={selectedFromSelect[index] && threads.some(diskusija => diskusija.naziv === tocka.naziv)}
+                                    />
+                                    <button className="clearbutton" type="button" onClick={() => clearNaziv(index)}> <p>X</p> </button>
+                                </div>
                                 <label>
                                     Pravni učinak
                                     <input
@@ -136,7 +159,7 @@ function DodajTocke({ apiUrl }) {
                                     </select>
                                 </label>
                                 {pointForm.tockeDnevnogReda.length > 1 && (
-                                    <button type="button" onClick={() => removeTocka(index)}>
+                                    <button className="uklonibutton" type="button" onClick={() => removeTocka(index)}>
                                         Ukloni
                                     </button>
                                 )}

@@ -51,21 +51,56 @@
     margin-top: 12px;
 }
 
-.tockainput input {
+.tocka {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.tocka input {
+    vertical-align: middle;
+    align-self: center;
     width: 100%;
     height: 40px;
     background: white;
     border: 1px solid #D9C8BF;
     border-radius: 6px;
-    padding: 0 10px;
+    padding: 0 10px 0 10px;
     font-size: 14px;
     outline: none;
     box-sizing: border-box;
 }
 
-.tockainput input:focus {
+.tocka input:focus {
     border-color: #C6B0A6;
 }
+
+
+.clearbutton {
+    margin: 0px;
+    max-width: 30px;
+    height: 35px;
+    align-self: center;
+    align-items: center;
+    background: transparent;
+    border: 0.1px solid lightgray;
+    color: darkslategray;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.clearbutton p {
+    margin: 0px;
+}
+
+.clearbutton:hover {
+    color: #FF5A5F;
+}
+
 
 .tockainput label {
     display: flex;
@@ -81,7 +116,7 @@
     cursor: pointer;
 }
 
-.tockainput button {
+.uklonibutton {
     align-self: flex-end;
     background: #FF5A5F;
     border: none;
@@ -95,9 +130,11 @@
     margin-top: 8px;
 }
 
-.tockainput button:hover {
+.uklonibutton:hover {
     background-color: #E1494F;
 }
+
+
 
 .submitpoint {
     margin: 15px auto;
@@ -139,7 +176,7 @@
 }
 
 .pointbutton:disabled::after {
-    content: "Dodajte barem jednu točku za nastavak!";
+    content: "Ispunite barem jednu točku za nastavak!";
     position: absolute;
     left: 50%;
     bottom: 120%;

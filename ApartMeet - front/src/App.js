@@ -73,7 +73,7 @@ function App() {
           <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
           <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
           <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
-          <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} {...props}/>} />
+          <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>} />
           <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
           <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
         </Routes>

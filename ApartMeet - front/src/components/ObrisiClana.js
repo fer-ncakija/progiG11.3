@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
 import './ObrisiClana.css';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function ObrisiClana({ apiUrl }){
 
-const ObrisiClana = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await fetch(`${apiUrl}/users/${username}`, {
+      const response = await fetch('${apiUrl}/users/${username}', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      setMessage("Korisnik uspješno obrisan.");
-      fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
-            .then(response => response.json())
-            .then(() => {
-                navigate('/');
-            });
+  
+      if (response.ok) {
+        navigate('/');
+      } else {
+        setMessage('Greška pri brisanju korisnika');
+      }
     } catch (error) {
       setMessage('Greška pri brisanju korisnika');
     }
   };
-
+  
   return (
     <div className="obrisi-clana">
       <div className="content">
@@ -49,7 +52,4 @@ const ObrisiClana = () => {
       </div>
     </div>
   );
-};
-
-
 }

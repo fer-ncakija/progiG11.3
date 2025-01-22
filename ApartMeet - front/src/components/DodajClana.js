@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './DodajClana.css';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function DodajClana({ apiUrl }) {
+
+    const navigate = useNavigate();
 
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
@@ -13,8 +16,8 @@ export default function DodajClana({ apiUrl }) {
     });
 
     function isValid(){
-        const {username, email, password} = formData;
-        return username.length > 0 && email.length>0 && password.length>0;
+        const {userName, email, password} = formData;
+        return userName.length > 0 && email.length>0 && password.length>0;
     }
 
     function handleChange(event) {
@@ -27,10 +30,10 @@ export default function DodajClana({ apiUrl }) {
     }
 
     //funkcija koja obraduje submit i salje podatke na backend
-    function handleSubmit() {
+    function handleSubmit(e) {
         e.preventDefault();
         const data = {
-            username: formData.userName,
+            userName: formData.userName,
             email: formData.email,
             password: formData.password,
             role: formData.role
@@ -42,13 +45,11 @@ export default function DodajClana({ apiUrl }) {
             },
             body : JSON.stringify(data)
         };
-        setMessage("Korisnik uspješno dodan.");
-        fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
+        fetch('${apiUrl}/users', options)
             .then(response => response.json())
             .then(() => {
                 navigate('/');
             });
-        return fetch(`${apiUrl}/users`, options);
      }
 
 
@@ -98,7 +99,7 @@ export default function DodajClana({ apiUrl }) {
                 </div>
 
                 <div className="button-div">
-                    <button type="submit" /*disabled={!isValid()}*/>Dodaj člana</button>
+                    <button type="submit" disabled={!isValid()}>Dodaj člana</button>
                 </div>
             </form>
         </div>

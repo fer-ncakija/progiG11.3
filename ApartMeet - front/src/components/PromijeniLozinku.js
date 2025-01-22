@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './PromijeniLozinku.css';
-import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 
-export default function PromijeniLozinku({ apiUrl }) {
 
-const PromijeniLozinku = () => {
+export default function PromijeniLozinku({ apiUrl, userName }) {
+
+  const navigate = useNavigate();
+
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,7 +20,7 @@ const PromijeniLozinku = () => {
     }
 
     try {
-      const response = await fetch(`${apiUrl}/users/${jwtDecode(localStorage.getItem("token")).username}`, {
+      const response = await fetch('${apiUrl}/users/${userName}', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -28,16 +30,16 @@ const PromijeniLozinku = () => {
           newPassword,
         }),
       });
-      setMessage("Lozinka promijenjena");
-      fetch(`${apiUrl}/meetings`, options)    // treba provjeriti je li ruta ispravna (kako je napisana u backu) !!!
-            .then(response => response.json())
-            .then(() => {
-                navigate('/');
-            });
-    }catch (error) {
+      if (response.ok) {
+        navigate('/');
+      } else {
+        setMessage('Greška pri promjeni lozinke');
+      }
+    } catch (error) {
       setMessage('Greška pri promjeni lozinke');
     }
   };
+  
 
   return (
     <div className="promijeni-lozinku">
@@ -78,6 +80,5 @@ const PromijeniLozinku = () => {
       </div>
     </div>
   );
-};
 
 }

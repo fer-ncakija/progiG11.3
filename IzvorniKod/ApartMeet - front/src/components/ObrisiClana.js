@@ -21,7 +21,6 @@ export default function ObrisiClana({ apiUrl }){
         body : JSON.stringify(username)
     };
     fetch(`${apiUrl}/users`, options)
-        .then(options => options.json())
         .then(() => {
             navigate('/');
         });

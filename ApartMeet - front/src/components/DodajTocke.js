@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import "./DodajTocke.css";
+import plus_icon from "../assets/plus.png";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function DodajTocke({ apiUrl }) {
@@ -154,7 +155,7 @@ function DodajTocke({ apiUrl }) {
                                     />
                                 </label>
                                 <label>
-                                    Odaberi diskusiju
+                                    Odaberi diskusiju:
                                     <select
                                         name="naziv"
                                         onChange={onChange}
@@ -179,6 +180,7 @@ function DodajTocke({ apiUrl }) {
                     ))}
                 </div>
                 <div className="addpoint">
+                    <img src={plus_icon} alt="" />
                     <button className="addbutton" type="button" onClick={addTocka}>Dodaj točku</button>
                 </div>
                 <div className="submitpoint">

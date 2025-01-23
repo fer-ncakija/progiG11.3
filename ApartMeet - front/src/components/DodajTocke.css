@@ -197,6 +197,61 @@
     opacity: 1;
 }
 
+.addpoint {
+    background-color: #F7F7F7;
+    max-width: 145px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: left;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    cursor: pointer;
+}
+
+.addpoint img {
+    padding: 10px;
+    padding-right: 2px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.addbutton {
+    margin: 0px;
+    border: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 100px;
+    border-radius: 0%;
+    color: darkslategray;
+    background-color: #F7F7F7;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: none;
+    background-color: none;
+}
+
+.tockainput label select {
+    margin-left: 10px;
+    width: 70%;
+    height: 30px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+    color: darkslategray;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.tockainput label select:focus {
+    border-color: #C6B0A6;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 600px) {
     .pointbox {
         margin: 40px auto 10px;
@@ -214,5 +269,37 @@
 
     .pointinput input {
         font-size: 12px;
+    }
+
+    .addpoint {
+        max-width: 140px;
+    }
+
+    .addpoint img {
+        width: 21px;
+        height: 21px;
+        padding-right: 0px;
+    }
+
+    .addbutton {
+        font-size: 13px;
+    }
+
+    .tocka input {
+        font-size: 13px;
+        height: 35px;
+    }
+
+    .clearbutton {
+        padding: 0px;
+        margin: 0px;
+        height: 30px;
+    }
+
+    .tockainput label select {
+        margin-left: 5px;
+        width: 50%;
+        font-size: 12px;
+        height: 25px;
     }
 }

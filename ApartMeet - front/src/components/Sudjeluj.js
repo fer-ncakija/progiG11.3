@@ -45,7 +45,6 @@ function Sudjeluj({ userName, apiUrl }) {
         };
 
         fetch(`${apiUrl}/meetings/${id}/users/${userName}`, options)
-            .then(response => response.json())
             .then(() => {
                 navigate('/');
             });

@@ -59,7 +59,7 @@ function App() {
   
   // TREBA MAKNUTI KOMETAR KAD SE KORISTI SAMO FRONTEND BEZ BACKENDA !!!!
   const userName = "frontuser";
-  const role = "stanar";
+  const role = "predstavnik";
   
 
 

@@ -27,6 +27,9 @@ Content-Type: application/json
 GET http://localhost:5066/threads
 
 ###
+GET https://projectbajeet.work.gd/api/main/allThreads
+
+###
 POST http://localhost:5066/meetings/1/agendapoints
 Content-Type: application/json
 

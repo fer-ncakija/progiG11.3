@@ -12,7 +12,7 @@ public static class ThreadEndpoints
     {
         routes.MapGet("/threads", async (ApartmeetContext context) =>
         {
-            var response = await new HttpClient().GetAsync("http://localhost:5067");
+            var response = await new HttpClient().GetAsync("https://projectbajeet.work.gd/api/main/allThreads");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

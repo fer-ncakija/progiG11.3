@@ -2,6 +2,6 @@ namespace Apartmeet.Api.Dtos;
 
 public record CreateAgendaPointDto
 (
-    string Description, 
-    bool HasLegalEffect
+    string naziv, 
+    bool pravniUcinak
 );

@@ -2,8 +2,8 @@ namespace Apartmeet.Api.Dtos;
 
 public record CreateMeetingDto
 (
-    string Title, 
-    string Summary, 
-    DateTime ScheduledDate, 
-    string Place
+    string naslov, 
+    string sazetak, 
+    DateTime vrijeme, 
+    string mjesto
 );

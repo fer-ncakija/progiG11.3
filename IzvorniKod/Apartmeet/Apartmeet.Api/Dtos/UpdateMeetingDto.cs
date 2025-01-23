@@ -2,9 +2,9 @@ namespace Apartmeet.Api.Dtos;
 
 public record UpdateMeetingDto
 (
-    string Title,
-    string Summary,
-    string Status,
-    DateTime ScheduledDate,
-    string Place
+    string naslov,
+    string sazetak,
+    string stanje,
+    DateTime vrijeme,
+    string mjesto
 );

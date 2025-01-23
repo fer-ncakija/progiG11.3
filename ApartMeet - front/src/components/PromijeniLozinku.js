@@ -19,25 +19,21 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
       return;
     }
 
-    try {
-      const response = await fetch('${apiUrl}/users/${userName}', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const options = {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
         body: JSON.stringify({
           currentPassword,
           newPassword,
         }),
-      });
-      if (response.ok) {
+    };
+    fetch(`${apiUrl}/users`, options)
+    .then(options => options.json())
+    .then(() => {
         navigate('/');
-      } else {
-        setMessage('Greška pri promjeni lozinke');
-      }
-    } catch (error) {
-      setMessage('Greška pri promjeni lozinke');
-    }
+    });
   };
   
 
@@ -76,7 +72,6 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
             <button className='button-promijeni' type="submit">Promijeni lozinku</button>
           </div>
         </form>
-        {message && <p>{message}</p>}
       </div>
     </div>
   );

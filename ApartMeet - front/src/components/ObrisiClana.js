@@ -13,24 +13,19 @@ export default function ObrisiClana({ apiUrl }){
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    try {
-      const response = await fetch('${apiUrl}/users/${username}', {
+      const options = {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-      });
-  
-      if (response.ok) {
-        navigate('/');
-      } else {
-        setMessage('Greška pri brisanju korisnika');
-      }
-    } catch (error) {
-      setMessage('Greška pri brisanju korisnika');
-    }
-  };
-  
+        body : JSON.stringify(username)
+    };
+    fetch(`${apiUrl}/users`, options)
+        .then(options => options.json())
+        .then(() => {
+            navigate('/');
+        });
+  }
   return (
     <div className="obrisi-clana">
       <div className="content">
@@ -48,7 +43,6 @@ export default function ObrisiClana({ apiUrl }){
             <button className='button-obrisi' type="submit">Obriši Korisnika</button>
           </div>
         </form>
-        {message && <p>{message}</p>}
       </div>
     </div>
   );

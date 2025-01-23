@@ -16,6 +16,17 @@ function DodajTocke({ apiUrl }) {
     const [selectedFromSelect, setSelectedFromSelect] = React.useState({}); // provjerava je li odabrana diskusija iz selecta
 
 
+    useEffect(() => {
+        fetch(`${apiUrl}/meetings/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.stanje === "Objavljen") {
+                    navigate('*');
+                }
+            })
+    }, [apiUrl, id, navigate]);
+
+
     // učitavanje diskusija iz StanBlog aplikacije pri montaži komponente
     useEffect(() => {
         fetch(`${apiUrl}/threads`)

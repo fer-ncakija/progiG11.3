@@ -14,14 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
 .AddJsonFile("appsettings.User.json", optional: true, reloadOnChange: true);
 
-builder.Services.AddCors(options => 
-    {
-        options.AddPolicy(name: "cors", policy => 
-        {
-            policy.WithOrigins("http://localhost:3000");
-        });
-    }
-);
 builder.Services.AddSqlite<ApartmeetContext>(builder.Configuration["ConnectionStrings:Apartmeet"]);
 builder.Services.Configure<MailClientSettings>(builder.Configuration.GetSection("MailClient"));
 
@@ -57,10 +49,17 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
-app.UseCors("cors");
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -104,9 +103,9 @@ app.MapPost("/oauth2/token", async (AuthCodeDto authCode, ApartmeetContext conte
         var response = await new HttpClient().PostAsync("https://oauth2.googleapis.com/token", new FormUrlEncodedContent(new Dictionary<string, string>
         {
             {"code", authCode.Code},
-            {"client_id", builder.Configuration["Authentication:Google:ClientId"]!},
-            {"client_secret", builder.Configuration["Authentication:Google:ClientSecret"]!},
-            {"redirect_uri", "http://localhost:3000"},
+            {"client_id", Environment.GetEnvironmentVariable("ClientId")!},
+            {"client_secret", Environment.GetEnvironmentVariable("ClientSecret")!},
+            {"redirect_uri", "https://apartmeet.onrender.com"},
             {"grant_type", "authorization_code"}
         }));
 

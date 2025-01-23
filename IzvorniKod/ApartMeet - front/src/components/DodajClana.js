@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DodajClana.css';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function DodajClana({ apiUrl }) {
+
+    const navigate = useNavigate();
 
     const navigate = useNavigate();
 

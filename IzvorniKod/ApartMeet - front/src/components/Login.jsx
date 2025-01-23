@@ -121,7 +121,7 @@ function Login({ apiUrl, ...props }) {
       <div className="zadnje">
         <p>ili</p>
         <div className="google">
-          <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&access_type=offline&response_type=code&redirect_uri=http://localhost:3000&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com&include_granted_scopes=true">
+          <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&access_type=offline&response_type=code&redirect_uri=https://apartmeet.onrender.com&client_id=418123801091-j7m2506kqlf26kfvh1teq9doe7pu5us1.apps.googleusercontent.com&include_granted_scopes=true">
             Prijava s Google računom
           </a>
           <img src={google_icon} alt="" />

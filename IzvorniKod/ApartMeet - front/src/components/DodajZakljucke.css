@@ -1,0 +1,160 @@
+.agendabox {
+    position: relative;
+    margin: 50px auto;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.agendabox h1 {
+    text-align: left;
+    color: darkslategray;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.tockelista {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #F7F7F7;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.tockelista label {
+    font-size: 14px;
+    color: darkslategray;
+    font-weight: 600;
+}
+
+.nepravne textarea {
+    margin-top: 8px;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #D9C8BF;
+    border-radius: 6px;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    overflow: auto;
+}
+
+.nepravne textarea:focus {
+    border-color: #C6B0A6;
+}
+
+.nepravne textarea::-webkit-resizer {
+    display: none; /* uklanja resizer u Chromeu */
+}
+
+.pravne label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: darkslategray;
+    line-height: 1.2;
+}
+
+.pravne div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+.pravne input[type="radio"] {
+    margin: 0;
+}
+
+
+.arhivirajbutton {
+    margin: 50px auto;
+    width: 100%;
+    max-width: 250px;
+    height: 40px;
+    color: darkslategray;
+    background-color: #D9C8BF;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.arhivirajbutton:hover {
+    background-color: #C6B0A6;
+}
+
+.arhivirajbutton:disabled {
+    position: relative;
+    background-color: #D9C8BF;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.arhivirajbutton:disabled::after {
+    content: "Odaberite zaključke za točke s pravnim učinkom!"; 
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    background-color: gray;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.arhivirajbutton:disabled:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+@media (max-width: 600px) {
+    .agendabox {
+        padding: 15px;
+    }
+
+    .tockelista {
+        padding: 10px;
+    }
+
+    .arhivirajbutton {
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .nepravne textarea {
+        font-size: 12px;
+    }
+
+    .pravne label {
+        font-size: 12px;
+    }
+
+}

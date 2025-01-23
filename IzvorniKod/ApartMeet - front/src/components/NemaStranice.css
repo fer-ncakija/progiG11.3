@@ -1,0 +1,23 @@
+.nemah1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 16px;
+}
+
+.nema-stranice__poruka {
+  font-size: 16px;
+  color: darkslategray;
+  line-height: 1.5;
+}
+
+
+@media (max-width: 680px) {
+    .nemah1 {
+      font-size: 18px;
+    }
+  
+    .nemap {
+      font-size: 12px;
+    }
+  }

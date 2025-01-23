@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './DodajClana.css';
+import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function DodajClana() {
+export default function DodajClana({ apiUrl }) {
+
+    const navigate = useNavigate();
 
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
@@ -14,8 +16,8 @@ export default function DodajClana() {
     });
 
     function isValid(){
-        const {username, email, password} = formData;
-        return username.length > 0 && email.length>0 && password.length>0;
+        const {userName, email, password} = formData;
+        return userName.length > 0 && email.length>0 && password.length>0;
     }
 
     function handleChange(event) {
@@ -28,9 +30,10 @@ export default function DodajClana() {
     }
 
     //funkcija koja obraduje submit i salje podatke na backend
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault();
         const data = {
-            username: formData.userName,
+            userName: formData.userName,
             email: formData.email,
             password: formData.password,
             role: formData.role
@@ -42,8 +45,11 @@ export default function DodajClana() {
             },
             body : JSON.stringify(data)
         };
-
-        return fetch(`${apiUrl}/users`, options);
+        fetch(`${apiUrl}/users`, options)
+            .then(options => options.json())
+            .then(() => {
+                navigate('/');
+            });
      }
 
 
@@ -93,7 +99,7 @@ export default function DodajClana() {
                 </div>
 
                 <div className="button-div">
-                    <button type="submit" /*disabled={!isValid()}*/>Dodaj člana</button>
+                    <button type="submit" disabled={!isValid()}>Dodaj člana</button>
                 </div>
             </form>
         </div>

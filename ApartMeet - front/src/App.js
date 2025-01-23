@@ -52,15 +52,15 @@ function App() {
 
   // OVO TREBA ZAKOMENTIRATI KAD ĆE SE KORISTITI SAMO FRONTEND BEZ BACKENDA !!!!
   // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
-  const userName = jwtDecode(localStorage.getItem("token")).username;
-  const role = jwtDecode(localStorage.getItem("token")).customRole;
+  //const userName = jwtDecode(localStorage.getItem("token")).username;
+  //const role = jwtDecode(localStorage.getItem("token")).customRole;
 
 
-  /*
+  
   // TREBA MAKNUTI KOMETAR KAD SE KORISTI SAMO FRONTEND BEZ BACKENDA !!!!
   const userName = "frontuser";
-  const role = "predstavnik";
-  */
+  const role = "stanar";
+  
 
 
   return (

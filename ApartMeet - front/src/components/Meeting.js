@@ -34,24 +34,32 @@ export default function Meeting({ role, apiUrl, userName }) {
         <p>Admin nema pristup uvidima u sastanke</p>
       )}
       
-      <div className="meeting-list">
-        {meetings.map((meeting, index) => {
-          index += 1;
-          const datum = new Date(meeting.vrijeme); // Pretvori string u Date objekt
-          const satiMinute = datum.toLocaleTimeString("hr-HR", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }); // Dobij vrijeme u formatu 13:00
-          const datumDio = datum.toLocaleDateString("hr-HR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          });
+      {role != "admin" && (
+        <div className="meeting-list">
+
+          {meetings
+            .filter((meeting) => {
+              return !(role === "stanar" && meeting.stanje === "Planiran");
+            })
+            .map((meeting, index) => {
+              index += 1;
+              const datum = new Date(meeting.vrijeme); 
+              const satiMinute = datum.toLocaleTimeString("hr-HR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              }); 
+              const datumDio = datum.toLocaleDateString("hr-HR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              });
+
 
           const isUserInMeeting = meeting.sudionik?.some((user) => user.userName === currentUser);
 
 
           return (
+            
             <div key={index} className="meeting-item">
 
               <h2 className="meeting-title">{meeting.naslov}</h2>
@@ -69,7 +77,9 @@ export default function Meeting({ role, apiUrl, userName }) {
                     meeting.tockeDnevnogReda.map((tocka, tockaIndex) => (
                       <li key={tockaIndex}>
                         <strong>{tocka.naziv}</strong> - Pravna učinkovitost:{" "}
-                        {tocka.pravniUcinak ? "DA" : "NE"}
+                        {tocka.pravniUcinak ? "DA" : "NE"} {tocka.zakljucak && meeting.stanje === "Arhiviran" && (
+                          <>- <strong>Zaključak:</strong> {tocka.zakljucak}</>
+                        )}
                       </li>
                     ))}
                 </ul>
@@ -86,7 +96,7 @@ export default function Meeting({ role, apiUrl, userName }) {
                 </button>
               )}
 
-              {new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && (
+              {new Date(meeting.vrijeme).getTime() > new Date().getTime() && meeting.stanje === "Objavljen" && !isUserInMeeting && role === "stanar" && (
                 <button
                   className="sudjeluj"
                   onClick={() => navigate(`/sudjeluj/${index}`)}
@@ -105,11 +115,15 @@ export default function Meeting({ role, apiUrl, userName }) {
                   </button>
                 )}
               
-              <button
-                className="zakljucci"
-                onClick={() => navigate(`/dodajZakljucke/${index}`)}
-              > Dodaj zaključke
-              </button>
+              {role === "predstavnik" && meeting.stanje === "Obavljen" && (
+                <button
+                  className="zakljucci"
+                  onClick={() => navigate(`/dodajZakljucke/${index}`)}
+                  > 
+                    Dodaj zaključke
+                </button>)
+              }
+              
 
               </div>
               
@@ -118,6 +132,9 @@ export default function Meeting({ role, apiUrl, userName }) {
         })}
 
       </div>
+      )
+      }
+      
       {role === "predstavnik" && (
         <button className="kreiraj" onClick={() => navigate("/kreirajSastanak")}>
           Kreiraj Sastanak

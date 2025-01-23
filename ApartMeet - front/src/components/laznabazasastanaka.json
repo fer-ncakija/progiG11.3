@@ -16,14 +16,42 @@
             "tockeDnevnogReda": [
             {
                 "naziv": "tockica",
-                "pravniUcinak": true
+                "pravniUcinak": true,
+                "zakljucak": "abc"
+                
             },
             {
                 "naziv": "tocka",
-                "pravniUcinak": false
+                "pravniUcinak": false,
+                "zakljucak": "bcd"
             }
             ],
             "stanje": "Obavljen",
+            "sudionik": [
+            {
+                "userName": "frontUser"
+            }
+            ]
+        },
+        {
+            "naslov": "prvi arhiviran sastanak proba",
+            "sazetak": "za namjene probe",
+            "vrijeme": "2025-01-11T12:00",
+            "mjesto": "doma",
+            "tockeDnevnogReda": [
+            {
+                "naziv": "tockica",
+                "pravniUcinak": true,
+                "zakljucak": "abc"
+                
+            },
+            {
+                "naziv": "tocka",
+                "pravniUcinak": false,
+                "zakljucak": "bcd"
+            }
+            ],
+            "stanje": "Arhiviran",
             "sudionik": [
             {
                 "userName": "frontUser"
@@ -48,7 +76,7 @@
             "stanje": "Objavljen",
             "sudionik": [
             {
-                "userName": "frontUser"
+                "userName": "frontuser"
             }
             ]
         },

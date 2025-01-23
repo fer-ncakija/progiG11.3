@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DodajClana.css';
+import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function DodajClana() {
+export default function DodajClana({ apiUrl }) {
+
+    const navigate = useNavigate();
 
     const navigate = useNavigate();
 
@@ -31,10 +33,10 @@ export default function DodajClana() {
     }
 
     //funkcija koja obraduje submit i salje podatke na backend
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleSubmit(e) {
+        e.preventDefault();
         const data = {
-            username: formData.userName,
+            userName: formData.userName,
             email: formData.email,
             password: formData.password,
             role: formData.role
@@ -46,14 +48,11 @@ export default function DodajClana() {
             },
             body : JSON.stringify(data)
         };
-
         fetch(`${apiUrl}/users`, options)
-            .then(response => {
-                return response.json();
-            })
+            .then(options => options.json())
             .then(() => {
                 navigate('/');
-            })
+            });
      }
 
 

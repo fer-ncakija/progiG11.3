@@ -1,0 +1,78 @@
+.promijeni-lozinku {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-right: 15%;
+  width: 80%;
+  height: min-content;
+}
+
+.promijeni-lozinku .content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin-top: 50px; 
+  margin-left: 20%; 
+}
+
+.form-line {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.form-line > input {
+  width: 60%;
+  height: 2.3vw;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: #D9D9D9;
+  padding-right: 0;
+  font-size: 1.7vw;
+  font-family: "Trebuchet MS"; 
+}
+
+.form-line > p {
+  font-size: 1.7vw;
+  width: 40%;
+  text-align: right;
+  margin-right: 30px;
+  font-family: "Trebuchet MS"; 
+}
+
+.button-div {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+}
+
+.button-promijeni {
+  margin-top: 5%;
+  font-size: 1.7vw; 
+  padding: 8px;
+  border-radius: 10px;
+  width: 30%;
+  height: auto;
+  border: 1px solid rgba(0, 0, 0, 0.30);
+  background: #D9C8BF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: "Trebuchet MS"; 
+  cursor: pointer;
+}
+
+.button-promijeni:hover {
+  background-color: #c82333;
+}
+
+.promijeni-lozinku p {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-family: "Trebuchet MS"; 
+}

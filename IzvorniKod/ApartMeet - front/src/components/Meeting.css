@@ -6,5 +6,72 @@
     border-radius: 25px;
     box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.25);
     margin-top: 6%;
+}
 
+.meeting-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.meeting-item {
+    box-shadow: 0px 1px 3px gray;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.meeting-bullets {
+    display: flex;
+    flex-direction: column;
+    padding-left: 35px;
+    font-size: 1.5vw;
+    row-gap: 1px;
+}
+
+.meeting-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    height: 4vw;
+    min-height: 30px;
+    border-radius: 20px;
+    padding-left: 30px;
+    border: solid 1px grey;
+}
+
+.meeting-status {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 2px 5px;
+    box-shadow: 0px 1px 3px gray;
+    margin-bottom: 2px;
+}
+
+.meeting-intro {
+    margin-bottom: 1.5%;
+}
+
+.meeting-time {
+    margin-top: 0;
+}
+
+.agenda-points {
+    padding-bottom: 0px;
+    padding-left: 10px;
+    margin-bottom: 0;
+}
+
+.buttons {
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+    gap: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
 }

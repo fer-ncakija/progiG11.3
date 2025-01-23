@@ -14,14 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
 .AddJsonFile("appsettings.User.json", optional: true, reloadOnChange: true);
 
-builder.Services.AddCors(options => 
-    {
-        options.AddPolicy(name: "cors", policy => 
-        {
-            policy.WithOrigins("http://localhost:3000");
-        });
-    }
-);
 builder.Services.AddSqlite<ApartmeetContext>(builder.Configuration["ConnectionStrings:Apartmeet"]);
 builder.Services.Configure<MailClientSettings>(builder.Configuration.GetSection("MailClient"));
 
@@ -67,10 +59,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("cors");
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("AllowAll");
 
 app.MapPost("/login", async (LoginDto loginDto, ApartmeetContext context) => 
 {

@@ -46,7 +46,7 @@ export default function DodajClana({ apiUrl }) {
             body : JSON.stringify(data)
         };
         fetch('${apiUrl}/users', options)
-            .then(response => response.json())
+            .then(options => options.json())
             .then(() => {
                 navigate('/');
             });

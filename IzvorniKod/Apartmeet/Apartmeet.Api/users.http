@@ -9,9 +9,43 @@ Content-Type: application/json
 
 {
     "Username": "admin",
-    "Password": "admin"
+    "Password": "admin",
+    "Email": "apartmeetprogi@gmail.com"
 }
 
 ###
 GET http://localhost:5066/users
 Authorization: Bearer 
+###
+POST http://localhost:5066/users
+Content-Type: application/json
+
+{
+    "Username": "marko",
+    "Password": "markic",
+    "Role": "admin",
+    "Email": "apartmeetprogi1@gmail.com"
+}
+
+###
+DELETE http://localhost:5066/users/marko
+
+###
+GET http://localhost:5066/meetings/1
+
+
+###
+POST http://localhost:5066/meetings/1/agendapoints
+Content-Type: application/json
+
+{
+            "naziv": "popravak",
+            "pravniUcinak": false
+}
+###
+PUT http://localhost:5066/meetings/1
+Content-Type: application/json
+
+{
+    "stanje": "Objavljen"
+}

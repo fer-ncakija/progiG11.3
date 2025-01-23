@@ -99,14 +99,21 @@ public static class UserEndpoints
             return Results.Ok(meetings);
         });
 
-        routes.MapPut("/users/{id}", async (int id, UpdateUserDto updateUserDto, ApartmeetContext context) =>
+        routes.MapPut("/users/{username}", async (string username, UpdateUserDto updateUserDto, ApartmeetContext context) =>
         {
-            var user = await context.Users.FindAsync(id);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Username == username);
             if (user == null) return Results.NotFound();
 
-            user.Username = updateUserDto.Username;
-            user.Email = updateUserDto.Email;
-            user.Role = updateUserDto.Role;
+            if (user.Password != updateUserDto.CurrentPassword)
+            {
+                return Results.Conflict("Incorrect current password.");
+            }
+            if (updateUserDto.CurrentPassword == updateUserDto.NewPassword)
+            {
+                return Results.Conflict("New password can't be the same as old password.");
+            }
+
+            user.Password = updateUserDto.NewPassword;
 
             context.Entry(user).State = EntityState.Modified;
             await context.SaveChangesAsync();
@@ -114,9 +121,9 @@ public static class UserEndpoints
             return Results.NoContent();
         });
 
-        routes.MapDelete("/users/{id}", async (int id, ApartmeetContext context) =>
+        routes.MapDelete("/users/{username}", async (string username, ApartmeetContext context) =>
         {
-            var user = await context.Users.FindAsync(id);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Username == username);
             if (user == null) return Results.NotFound();
 
             context.Users.Remove(user);

@@ -1,0 +1,55 @@
+GET http://localhost:5066/meetings
+
+###
+POST http://localhost:5066/meetings
+Content-Type: application/json
+
+{
+    "NASLOV": "a",
+    "SAZETAK": "b",
+    "VRIJEME": "2018-06-12T19:30",
+    "MJESTO": "c"
+}
+
+###
+POST http://localhost:5066/meetings/thread
+Content-Type: application/json
+
+{
+    "MeetingTitle": "mt title",
+    "ScheduledDate": "2018-06-12T19:30",
+    "MeetingSummary": "mt summary",
+    "ThreadTitle": "th title",
+    "ThreadDescription": "th description"
+}
+
+###
+GET http://localhost:5066/threads
+
+###
+GET https://projectbajeet.work.gd/api/main/allThreads
+
+###
+POST http://localhost:5066/meetings/1/agendapoints
+Content-Type: application/json
+
+{
+    "Description": "a",
+    "HasLegalEffect": true
+}
+
+###
+DELETE http://localhost:5066/users/2
+
+###
+POST http://localhost:5066/login
+Content-Type: application/json
+
+{
+    "Username": "admin",
+    "Password": "admin"
+}
+
+###
+GET http://localhost:5066/users
+Authorization: Bearer 

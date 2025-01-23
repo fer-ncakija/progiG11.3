@@ -7,26 +7,77 @@ namespace Apartmeet.Api.Endpoints;
 
 public static class MeetingEndpoints
 {
-    public static void MapMeetingEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapMeetingEndpoints(this IEndpointRouteBuilder routes)    
     {
-        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context) =>
+        routes.MapPost("/meetings", async (CreateMeetingDto createMeetingDto, ApartmeetContext context, IMailService mailService) =>
         {
+            
             var meeting = new Meeting
             {
-                Title = createMeetingDto.Title,
+                Title = createMeetingDto.naslov,
                 Status = "Planiran",
-                Summary = createMeetingDto.Summary,
-                ScheduledDate = createMeetingDto.ScheduledDate,
-                Place = createMeetingDto.Place
+                Summary = createMeetingDto.sazetak,
+                ScheduledDate = createMeetingDto.vrijeme,
+                Place = createMeetingDto.mjesto
             };
 
             context.Meetings.Add(meeting);
             await context.SaveChangesAsync();
 
+
             return Results.Created($"/meetings/{meeting.Id}", meeting);
         });
 
-        routes.MapPost("/meetings/{meetingId}/users/{userId}", async (int meetingId, int userId, ApartmeetContext context) =>
+        routes.MapPost("/meetings/thread", async (CreateMeetingThreadDto createMeetingThreadDto, ApartmeetContext context) =>
+        {
+            var meeting = new Meeting
+            {
+                Title = $"{createMeetingThreadDto.MeetingTitle} - za diskusiju",
+                Status = "Obavljen",
+                Summary = createMeetingThreadDto.MeetingSummary,
+                ScheduledDate = createMeetingThreadDto.ScheduledDate,
+                Place = ""
+            };
+
+            context.Meetings.Add(meeting);
+            await context.SaveChangesAsync();
+
+            var agendaPoint = new AgendaPoint
+            {
+                MeetingId = meeting.Id,
+                Description = createMeetingThreadDto.ThreadTitle,
+                HasLegalEffect = true,
+                Outcome = null,
+                Meeting = meeting
+            };
+
+            context.AgendaPoints.Add(agendaPoint);
+            await context.SaveChangesAsync();
+
+            var responseBody = new
+            {
+                meeting,
+                agendaPoint
+            };
+
+            return Results.Created($"/meetings/{meeting.Id}", new MeetingDto(
+                meeting.Id,
+                meeting.Title,
+                meeting.Summary,
+                meeting.Status,
+                meeting.ScheduledDate,
+                meeting.Place,
+                new List<AgendaPointDto> { new AgendaPointDto(
+                    agendaPoint.Id,
+                    agendaPoint.Description,
+                    agendaPoint.HasLegalEffect,
+                    agendaPoint.Outcome
+                )},
+                new List<UserDto> {}
+            ));
+        });
+
+        routes.MapPost("/meetings/{meetingId}/users/{username}", async (int meetingId, string username, ApartmeetContext context) =>
         {
             // Ako meeting ne postoji
             var meeting = await context.Meetings.FindAsync(meetingId);
@@ -36,15 +87,15 @@ public static class MeetingEndpoints
             }
 
             // Ako user ne postoji
-            var user = await context.Users.FindAsync(userId);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Username == username);
             if (user == null)
             {
-                return Results.NotFound($"User with ID {userId} not found.");
+                return Results.NotFound($"User with username {username} not found.");
             }
 
             // Ako je user vec u tom meetingu
             var existingUserMeeting = await context.UserMeetings
-                .FirstOrDefaultAsync(um => um.UserId == userId && um.MeetingId == meetingId);
+                .FirstOrDefaultAsync(um => um.UserId == user.Id && um.MeetingId == meetingId);
 
             if (existingUserMeeting != null)
             {
@@ -54,7 +105,7 @@ public static class MeetingEndpoints
             // Dodavanje usera u meeting
             var userMeeting = new UserMeeting
             {
-                UserId = userId,
+                UserId = user.Id,
                 MeetingId = meetingId,
                 User = user,
                 Meeting = meeting
@@ -63,7 +114,7 @@ public static class MeetingEndpoints
             context.UserMeetings.Add(userMeeting);
             await context.SaveChangesAsync();
 
-            return Results.Ok($"User {userId} added to meeting {meetingId}.");
+            return Results.Ok($"User {user.Id} added to meeting {meetingId}.");
         });
 
 
@@ -123,19 +174,16 @@ public static class MeetingEndpoints
             return Results.Ok(meeting);
         });
 
-        routes.MapPut("/meetings/{id}", async (int id, UpdateMeetingDto updateMeetingDto, ApartmeetContext context) =>
+        routes.MapPut("/meetings/{id}", async (int id, UpdateMeetingDto updateMeetingDto, ApartmeetContext context, IMailService mailService) =>
         {
             var meeting = await context.Meetings.FindAsync(id);
             if (meeting == null) return Results.NotFound();
+            
 
-            meeting.Title = updateMeetingDto.Title;
-            meeting.Summary = updateMeetingDto.Summary;
-            meeting.Status = updateMeetingDto.Status;
-            meeting.ScheduledDate = updateMeetingDto.ScheduledDate;
-            meeting.Place = updateMeetingDto.Place;
-
+            meeting.Status = updateMeetingDto.stanje;
             await context.SaveChangesAsync();
 
+            await mailService.SendMailAsync(meeting);
             return Results.NoContent();
         });
 

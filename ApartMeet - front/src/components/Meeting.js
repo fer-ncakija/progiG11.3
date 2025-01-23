@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
-import laznabazasastanaka from "./laznabazasastanaka.json"; // učitavanje privremene baze sastanaka (maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!)
 
 
 export default function Meeting({ role, apiUrl, userName }) {
@@ -11,20 +10,12 @@ export default function Meeting({ role, apiUrl, userName }) {
   const [currentUser, setCurrentUser] = useState(userName);
 
 
-  // dohvaćanje podataka iz backenda --> treba zakomentirati kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
-  /*useEffect(() => {
+  // dohvaćanje podataka iz backendas
+  useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
       .then(data => setMeetings(data));
-  }, []);*/
-
-  
-  
-  // simuliran dohvat podataka iz privremene baze --> maknut komentar kada se koristi privremena baza sastanaka samo za testiranje frontenda !!!
-  useEffect(() => {
-    setMeetings(laznabazasastanaka.sastanci);
-  }, []);
-  
+  }, [])
   
 
   return (

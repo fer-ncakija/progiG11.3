@@ -32,29 +32,6 @@ function Login({ apiUrl, ...props }) {
     e.preventDefault();
     setError("");
 
-    // MAKNUT KOMENTAR KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
-    /*
-    const data = {
-      username: loginForm.username,
-      password: loginForm.password,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    fetch("/login", options).then((response) => {
-      if (response.status === 401) {
-        setError("Login failed");
-      } else {
-        props.onLogin();
-      }
-    });
-    */
-
-    // ZAKOMENTIRAT KADA CE SE KORISTITI FRONTEND BEZ BACKENDA!!!!
     const data = {
       username: loginForm.username,
       password: loginForm.password,

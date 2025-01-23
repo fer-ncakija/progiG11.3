@@ -8,8 +8,6 @@ export default function DodajClana({ apiUrl }) {
 
     const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
     //state za cuvanje podataka o novom dodanom clanu
     const [formData, setFormData] = useState({
         userName: "",

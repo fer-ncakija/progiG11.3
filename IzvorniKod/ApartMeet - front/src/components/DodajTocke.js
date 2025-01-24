@@ -94,35 +94,32 @@ function DodajTocke({ apiUrl }) {
             stanje: "Objavljen"
         };
 
-        // PUT zahtjev za ažuriranje stanja
-        const stanjeOptions = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(stanjeData),
-        };
-
-        // prvo ažuriramo stanje sastanka
-        fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
-            .then(() => {
-                // nakon uspješnog ažuriranja stanja, dodajemo svaku točku dnevnog reda zasebno
-                const postAgendaPointPromises = pointForm.tockeDnevnogReda.map(tocka => {
-                    const tockaOptions = {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(tocka),
-                    };
-                    return fetch(`${apiUrl}/meetings/${id}/agendapoints`, tockaOptions);
-                });
-
-                return Promise.all(postAgendaPointPromises);
-            })
-            .then(() => {
-                navigate('/');
-            });
+        // prvo dodajemo svaku točku dnevnog reda zasebno
+        const postAgendaPointPromises = pointForm.tockeDnevnogReda.map(tocka => {
+            const tockaOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(tocka),
+            };
+            return fetch(`${apiUrl}/meetings/${id}/agendapoints`, tockaOptions);
+        });
+        Promise.all(postAgendaPointPromises)
+        .then(() => {
+            // nakon uspješnog dodavanja točaka, šaljemo PUT zahtjev za ažuriranje stanja
+            const stanjeOptions = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(stanjeData),
+            };
+            fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
+        })
+        .then(() => {
+            navigate('/');
+        });
     }
 
     return (

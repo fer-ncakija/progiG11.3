@@ -12,7 +12,7 @@ function Obavljen({ apiUrl }) {
         fetch(`${apiUrl}/meetings/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data.stanje != "Objavljen" && (new Date(data.vrijeme).getTime() > new Date().getTime())) {
+                if ((data.stanje != "Objavljen") || (new Date(data.vrijeme).getTime() > new Date().getTime())) {
                     navigate('*');
                 }
             })

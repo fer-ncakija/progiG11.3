@@ -34,12 +34,13 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
         if (!response.ok) {
           throw new Error("Greška pri promjeni lozinke");
         }
+        return response.json();
       })
       .then(() => {
         navigate('/');
       })
       .catch(error => {
-        setMessage(error.message);
+        setMessage("Greška pri promjeni lozinke");
       });
   };
   

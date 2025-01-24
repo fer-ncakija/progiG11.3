@@ -46,7 +46,7 @@ export default function Meeting({ role, apiUrl, userName }) {
               });
 
 
-          const isUserInMeeting = meeting.sudionik?.some((user) => user.userName === currentUser);
+          const isUserInMeeting = meeting.sudionici?.some((user) => user.username === currentUser);
 
 
           return (

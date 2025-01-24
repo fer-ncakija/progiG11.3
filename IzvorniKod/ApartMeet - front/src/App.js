@@ -50,7 +50,7 @@ function App() {
     localStorage.removeItem("token");
   }
 
-  function forceLogout()
+  async function forceLogout()
   {
     const token = localStorage.getItem("token");
 
@@ -64,7 +64,7 @@ function App() {
       setUserName(decodedToken.username);
       setRole(decodedToken.customRole);
 
-      fetch(`${apiUrl}/users`)
+       await fetch(`${apiUrl}/users`)
         .then((response) => response.json())
         .then((data) => {
           if (!data.some((user) => user.username === decodedToken.username)) {

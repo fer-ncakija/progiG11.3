@@ -125,6 +125,7 @@ public static class UserEndpoints
         {
             var user = await context.Users.SingleOrDefaultAsync(u => u.Username == username);
             if (user == null) return Results.NotFound();
+            if (user.Username == "admin") return Results.Conflict("Admin can't be deleted.");
 
             context.Users.Remove(user);
             await context.SaveChangesAsync();

@@ -49,10 +49,11 @@ export default function DodajClana({ apiUrl }) {
         fetch(`${apiUrl}/users`, options)
         .then(options => options.json())
         .then(() => {
+            console.log("1");
             navigate('/');
         })
         .catch((error) => {
-            setMessage(error);
+            console.log("2");
         });
      }
 

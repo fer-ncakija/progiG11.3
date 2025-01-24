@@ -30,7 +30,6 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
         }),
     };
     fetch(`${apiUrl}/users/${userName}`, options)
-      .then((response) => response.json())
       .then(() => {
         navigate('/');
       })

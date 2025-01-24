@@ -36,8 +36,25 @@ function App() {
     localStorage.removeItem("token");
   }
 
+  
+  // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
+  const userName = jwtDecode(localStorage.getItem("token")).username;
+  const role = jwtDecode(localStorage.getItem("token")).customRole;
+
 
   const apiUrl = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    fetch(`${apiUrl}/users`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!(data.some((user) => user.username === userName))) {
+          setIsLoggedIn(false);
+          localStorage.setItem("isLoggedIn", "false");
+          localStorage.removeItem("token");
+        }
+      })
+  }, [apiUrl, userName]);
 
 
   // provjera je li korisnik prijavljen, ako nije prikazuje komponentu za prijavu
@@ -48,10 +65,6 @@ function App() {
       </div>
     );
   }
-
-  // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
-  const userName = jwtDecode(localStorage.getItem("token")).username;
-  const role = jwtDecode(localStorage.getItem("token")).customRole;
   
   return (
     <div className="App">

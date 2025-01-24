@@ -5,8 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 function KreirajSastanak({ apiUrl, forceLogout }) {
 
+    const [isLoading, setIsLoading] = React.useState(true);
+
     useEffect(() => {
         forceLogout();
+        setIsLoading(false);
     }, [apiUrl]);
 
     const navigate = useNavigate();
@@ -55,6 +58,10 @@ function KreirajSastanak({ apiUrl, forceLogout }) {
             .then(() => {
                 navigate('/');
             });
+    }
+
+    if (isLoading) {
+        return null;
     }
 
     return(

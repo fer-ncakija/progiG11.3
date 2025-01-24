@@ -16,6 +16,9 @@ function DodajTocke({ apiUrl }) {
 
     const [selectedFromSelect, setSelectedFromSelect] = React.useState({}); // provjerava je li odabrana diskusija iz selecta
 
+    const [isLoading, setIsLoading] = React.useState(true);
+    
+
 
     useEffect(() => {
         fetch(`${apiUrl}/meetings/${id}`)
@@ -23,6 +26,9 @@ function DodajTocke({ apiUrl }) {
             .then((data) => {
                 if (data.stanje != "Planiran") {
                     navigate('*');
+                }
+                else {
+                    setIsLoading(false);
                 }
             })
     }, [apiUrl, id, navigate]);
@@ -120,6 +126,10 @@ function DodajTocke({ apiUrl }) {
         .then(() => {
             navigate('/');
         });
+    }
+
+    if (isLoading) {
+        return null;
     }
 
     return (

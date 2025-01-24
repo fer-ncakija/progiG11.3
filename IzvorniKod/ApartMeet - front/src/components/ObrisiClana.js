@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './ObrisiClana.css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+
 
 
 export default function ObrisiClana({ apiUrl, forceLogout }){
@@ -44,7 +46,7 @@ export default function ObrisiClana({ apiUrl, forceLogout }){
     return null;
   }
 
-  
+
   return (
     <div className="obrisi-clana">
       <div className="content">

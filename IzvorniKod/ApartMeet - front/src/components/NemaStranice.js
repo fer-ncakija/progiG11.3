@@ -1,18 +1,8 @@
 import React from 'react';
 import "./NemaStranice.css";
 
-function NemaStranice({ forceLogout }) {
 
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  useEffect(() => {
-    forceLogout();
-    setIsLoading(false);
-  }, [apiUrl]);
-
-  if (isLoading) {
-    return null;
-  }
+function NemaStranice() {
   
   return (
     <div className="meeting-container">

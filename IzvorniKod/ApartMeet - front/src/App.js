@@ -122,7 +122,7 @@ function App() {
             <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} forceLogout={forceLogout} {...props}/>} />
           </>
           )}
-          <Route path="*" Component={NemaStranice} forceLogout={forceLogout}/>
+          <Route path="*" Component={NemaStranice}/>
         </Routes>
       </BrowserRouter>
     </div>

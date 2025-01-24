@@ -20,12 +20,17 @@ export default function ObrisiClana({ apiUrl }){
         }
     };
     fetch(`${apiUrl}/users/${username}`, options)
-    .then(() => {
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.body);
+        }
+      })
+      .then(() => {
         navigate('/');
-    })
-    .catch((error) => {
-      setMessage(error);
-    });
+      })
+      .catch(error => {
+        setMessage(error);
+      });
   }
   return (
     <div className="obrisi-clana">

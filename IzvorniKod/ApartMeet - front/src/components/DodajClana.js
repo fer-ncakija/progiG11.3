@@ -47,14 +47,18 @@ export default function DodajClana({ apiUrl }) {
             body : JSON.stringify(data)
         };
         fetch(`${apiUrl}/users`, options)
-        .then(options => options.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.body);
+            }
+            return response.json();
+        })
         .then(() => {
-            console.log("1");
             navigate('/');
         })
-        .catch((error) => {
-            console.log("2");
-        });
+        .catch(error => {
+            setMessage(error);
+        });
      }
 
 

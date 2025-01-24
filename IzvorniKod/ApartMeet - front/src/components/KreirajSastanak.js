@@ -8,8 +8,9 @@ function KreirajSastanak({ apiUrl, forceLogout }) {
     const [isLoading, setIsLoading] = React.useState(true);
 
     useEffect(() => {
-        forceLogout();
-        setIsLoading(false);
+        if(!forceLogout()) {
+            setIsLoading(false);
+        }        
     }, [apiUrl]);
 
     const navigate = useNavigate();

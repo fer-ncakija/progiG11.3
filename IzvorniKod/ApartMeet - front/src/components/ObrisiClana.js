@@ -29,7 +29,7 @@ export default function ObrisiClana({ apiUrl }){
         navigate('/');
       })
       .catch(error => {
-        setMessage(error);
+        setMessage(error.message);
       });
   }
   return (

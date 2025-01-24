@@ -57,7 +57,7 @@ export default function DodajClana({ apiUrl }) {
             navigate('/');
         })
         .catch(error => {
-            setMessage(error);
+            setMessage(error.message);
         });
      }
 

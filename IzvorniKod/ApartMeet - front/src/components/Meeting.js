@@ -57,7 +57,7 @@ export default function Meeting({ role, apiUrl, userName }) {
               <div className="meeting-bullets">
                 <p className="meeting-status">Status: {meeting.stanje}</p>
                 <p className="meeting-intro">- {meeting.sazetak}</p>
-                <p className="meeting-time">- {datumDio} ({datum.toLocaleDateString("hr-HR", { weekday: "long" })}) u {satiMinute} sati, {meeting.mjesto}</p>
+                <p className="meeting-time">- {datumDio} ({datum.toLocaleDateString("hr-HR", { weekday: "long" })}) u {satiMinute} sati{meeting.mjesto === "" ? "": `, ${meeting.mjesto}`}</p>
               </div>
               
 

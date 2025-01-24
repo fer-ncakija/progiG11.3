@@ -19,7 +19,7 @@ function DodajZakljucke({ apiUrl }) {
         fetch(`${apiUrl}/meetings/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data.stanje === "Arhiviran") {
+                if (data.stanje != "Obavljen") {
                     navigate('*');
                 }
             })

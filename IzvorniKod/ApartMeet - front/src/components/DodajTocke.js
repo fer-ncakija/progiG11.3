@@ -21,7 +21,7 @@ function DodajTocke({ apiUrl }) {
         fetch(`${apiUrl}/meetings/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                if (data.stanje === "Objavljen") {
+                if (data.stanje != "Planiran") {
                     navigate('*');
                 }
             })

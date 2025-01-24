@@ -111,7 +111,6 @@ function Login({ apiUrl, ...props }) {
             />
           </div>
         </div>
-        <div className="zaborav">Zaboravljena lozinka?</div>
         <div className="submit">
           <button className="prijava" type="submit" disabled={!isValid()}>
             Prijava

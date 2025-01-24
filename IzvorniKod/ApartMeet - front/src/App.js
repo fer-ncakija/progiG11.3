@@ -23,40 +23,60 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
     return localStorage.getItem("isLoggedIn") === "true";
   });
+
+  const [userName, setUserName] = React.useState(null);
+  const [role, setRole] = React.useState(null);
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   
   // funkcija koja se poziva kada se korisnik uspješno prijavi
   function onLogin() {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserName(decodedToken.username);
+      setRole(decodedToken.customRole);
+    }
   }
 
   // funkcija koja se poziva kada se korisnik odjavi
   function onLogout() {
     setIsLoggedIn(false);
+    setUserName(null);
+    setRole(null);
     localStorage.setItem("isLoggedIn", "false");
     localStorage.removeItem("token");
   }
 
-  
-  // dekodiranje JWT tokena kako bi se dobili korisničko ime i ulogu
-  const userName = jwtDecode(localStorage.getItem("token")).username;
-  const role = jwtDecode(localStorage.getItem("token")).customRole;
-
-
-  const apiUrl = process.env.REACT_APP_API_URL;
-
   useEffect(() => {
-    fetch(`${apiUrl}/users`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!(data.some((user) => user.username === userName))) {
-          setIsLoggedIn(false);
-          localStorage.setItem("isLoggedIn", "false");
-          localStorage.removeItem("token");
-        }
-      })
-  }, [apiUrl, userName]);
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      setIsLoggedIn(false);
+      return;
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      setUserName(decodedToken.username);
+      setRole(decodedToken.customRole);
+
+      fetch(`${apiUrl}/users`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.some((user) => user.username === decodedToken.username)) {
+            onLogout();
+          }
+        })
+        .catch(() => {
+          onLogout();
+        });
+    } catch (error) {
+      onLogout();
+    }
+  }, [apiUrl]);
 
   // provjera je li korisnik prijavljen, ako nije prikazuje komponentu za prijavu
   if (!isLoggedIn) {

@@ -22,15 +22,14 @@ export default function ObrisiClana({ apiUrl }){
     fetch(`${apiUrl}/users/${username}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response.body);
+          throw new Error("Greška pri brisanju korisnika");
         }
       })
       .then(() => {
         navigate('/');
       })
       .catch(error => {
-        let errorMessage = error.message;
-        setMessage(errorMessage);
+        setMessage(error.message);
       });
   }
   return (

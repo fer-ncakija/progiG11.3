@@ -49,7 +49,7 @@ export default function DodajClana({ apiUrl }) {
         fetch(`${apiUrl}/users`, options)
         .then(response => {
             if (!response.ok) {
-                throw new Error(response.body);
+                throw new Error("Greška pri dodavanju korisnika");
             }
             return response.json();
         })
@@ -57,8 +57,7 @@ export default function DodajClana({ apiUrl }) {
             navigate('/');
         })
         .catch(error => {
-            let errorMessage = error.message;
-            setMessage(errorMessage);
+            setMessage(error.message);
         });
      }
 

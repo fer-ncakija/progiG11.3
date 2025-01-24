@@ -62,7 +62,7 @@ public static class MeetingEndpoints
 
             return Results.Created($"/meetings/{meeting.Id}", new MeetingDto(
                 meeting.Id,
-                meeting.Title,
+                meeting.Title.Split(" - ")[0],
                 meeting.Summary,
                 meeting.Status,
                 meeting.ScheduledDate,

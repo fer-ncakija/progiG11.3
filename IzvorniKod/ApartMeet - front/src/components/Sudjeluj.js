@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./Sudjeluj.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function Sudjeluj({ userName, apiUrl }) {
+function Sudjeluj({ userName, apiUrl, forceLogout }) {
     const currentUser = userName;
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
@@ -12,12 +12,22 @@ function Sudjeluj({ userName, apiUrl }) {
         sudionik: "",
     });
 
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    useEffect(() => {
+        forceLogout();
+        setIsLoading(false);
+    }, [apiUrl]);
+
     useEffect(() => {
         fetch(`${apiUrl}/meetings/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 if ((data.sudionici?.some((user) => user.username === currentUser)) || (data.stanje != "Objavljen") || (new Date(data.vrijeme).getTime() < new Date().getTime())) {
                     navigate('*');
+                }
+                else {
+                    setIsLoading(false);
                 }
             })
     }, [apiUrl, id, navigate]);
@@ -48,6 +58,10 @@ function Sudjeluj({ userName, apiUrl }) {
             .then(() => {
                 navigate('/');
             });
+    }
+
+    if (isLoading) {
+        return null;
     }
 
     return (

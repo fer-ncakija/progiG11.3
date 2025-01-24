@@ -3,12 +3,19 @@ import './ObrisiClana.css';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ObrisiClana({ apiUrl }){
+export default function ObrisiClana({ apiUrl, forceLogout }){
 
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
+
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  useEffect(() => {
+    forceLogout();
+    setIsLoading(false);
+  }, [apiUrl]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +39,12 @@ export default function ObrisiClana({ apiUrl }){
         setMessage(error.message);
       });
   }
+
+  if (isLoading) {
+    return null;
+  }
+
+  
   return (
     <div className="obrisi-clana">
       <div className="content">

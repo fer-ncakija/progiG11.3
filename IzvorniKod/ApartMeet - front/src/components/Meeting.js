@@ -3,20 +3,28 @@ import { useNavigate } from "react-router-dom";
 import "./Meeting.css";
 
 
-export default function Meeting({ role, apiUrl, userName }) {
+export default function Meeting({ role, apiUrl, userName, forceLogout }) {
 
   const navigate = useNavigate();
   const [meetings, setMeetings] = useState([]);
   const [currentUser, setCurrentUser] = useState(userName);
+  const [isLoading, setIsLoading] = React.useState(true);
 
+  useEffect(() => {
+      forceLogout();
+      setIsLoading(false);
+  }, [apiUrl]);
 
-  // dohvaćanje podataka iz backendas
+  // dohvaćanje podataka iz backenda
   useEffect(() => {
     fetch(`${apiUrl}/meetings`)
       .then(response => response.json())
       .then(data => setMeetings(data));
   }, [])
-  
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="meeting-container">

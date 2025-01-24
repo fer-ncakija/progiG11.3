@@ -97,32 +97,32 @@ function App() {
       <BrowserRouter>
         <Header userName={userName} role={role} onLogout={onLogout}/>
         <Routes>
-          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} userName={userName} {...props}/>} />
+          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} userName={userName} forceLogout={forceLogout} {...props}/>} />
           {role === "admin" && (
           <>
-            <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
-            <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
+            <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
+            <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
           </>
           )}
           {role === "predstavnik" && (
           <>
             <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
-            <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
-            <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
-            <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
+            <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
+            <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
+            <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
           </>
           )}
           {role === "stanar" && (
           <>
-            <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
+            <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} forceLogout={forceLogout} {...props} />} />
           </>
           )}
           {(role === "stanar" || role === "predstavnik") && (
           <>
-            <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>} />
+            <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} forceLogout={forceLogout} {...props}/>} />
           </>
           )}
-          <Route path="*" Component={NemaStranice}/>
+          <Route path="*" Component={NemaStranice} forceLogout={forceLogout}/>
         </Routes>
       </BrowserRouter>
     </div>

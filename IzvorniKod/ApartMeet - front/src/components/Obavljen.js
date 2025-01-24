@@ -4,9 +4,15 @@ import "./Obavljen.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
 
-function Obavljen({ apiUrl }) {
+function Obavljen({ apiUrl, forceLogout }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    useEffect(() => {
+        forceLogout();
+        setIsLoading(false);
+    }, [apiUrl]);
 
     useEffect(() => {
         fetch(`${apiUrl}/meetings/${id}`)
@@ -14,6 +20,9 @@ function Obavljen({ apiUrl }) {
             .then((data) => {
                 if ((data.stanje != "Objavljen") || (new Date(data.vrijeme).getTime() > new Date().getTime())) {
                     navigate('*');
+                }
+                else {
+                    setIsLoading(false);
                 }
             })
     }, [apiUrl, id, navigate]);
@@ -40,6 +49,11 @@ function Obavljen({ apiUrl }) {
                 navigate('/');
             });
     }
+
+    if (isLoading) {
+        return null;
+    }
+
 
     return (
         <div className="donebox">

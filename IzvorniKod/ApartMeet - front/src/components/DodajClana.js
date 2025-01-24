@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './DodajClana.css';
 
 
-export default function DodajClana({ apiUrl }) {
+export default function DodajClana({ apiUrl, forceLogout }) {
 
     const navigate = useNavigate();
 
@@ -15,6 +15,13 @@ export default function DodajClana({ apiUrl }) {
         role: "stanar" 
     });
     const [message, setMessage] = useState('');
+
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    useEffect(() => {
+        forceLogout();
+        setIsLoading(false);
+    }, [apiUrl]);
 
     function isValid(){
         const {userName, email, password} = formData;
@@ -61,6 +68,10 @@ export default function DodajClana({ apiUrl }) {
         });
      }
 
+
+    if (isLoading) {
+        return null;
+    }
 
     //forma za dodavanje novog clana
     return(

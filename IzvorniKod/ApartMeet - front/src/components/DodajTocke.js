@@ -4,7 +4,7 @@ import "./DodajTocke.css";
 import plus_icon from "../assets/plus.png";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function DodajTocke({ apiUrl }) {
+function DodajTocke({ apiUrl, forceLogout }) {
     const navigate = useNavigate();
     const { id } = useParams(); // dohvaćanje ID-a sastanka iz URL-a
 
@@ -18,7 +18,10 @@ function DodajTocke({ apiUrl }) {
 
     const [isLoading, setIsLoading] = React.useState(true);
     
-
+    useEffect(() => {
+        forceLogout();
+        setIsLoading(false);
+      }, [apiUrl]);
 
     useEffect(() => {
         fetch(`${apiUrl}/meetings/${id}`)

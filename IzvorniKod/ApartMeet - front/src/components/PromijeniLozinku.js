@@ -3,7 +3,7 @@ import './PromijeniLozinku.css';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function PromijeniLozinku({ apiUrl, userName }) {
+export default function PromijeniLozinku({ apiUrl, userName, forceLogout }) {
 
   const navigate = useNavigate();
 
@@ -11,6 +11,13 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  useEffect(() => {
+    forceLogout();
+    setIsLoading(false);
+  }, [apiUrl]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +44,10 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
         setMessage("Greška pri promjeni lozinke");
       });
   };
-  
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="promijeni-lozinku">

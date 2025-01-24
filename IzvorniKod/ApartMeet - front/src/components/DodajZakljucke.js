@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import "./DodajZakljucke.css";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function DodajZakljucke({ apiUrl }) {
+function DodajZakljucke({ apiUrl, forceLogout }) {
     const navigate = useNavigate();
     const { id } = useParams(); 
 
     const [agendaForm, setAgendaForm] = React.useState([]);
+
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    useEffect(() => {
+        forceLogout();
+        setIsLoading(false);
+      }, [apiUrl]);
 
     // provjerava imaju li točke s pravnim učinkom zaključke
     function isValid() {
@@ -21,6 +28,9 @@ function DodajZakljucke({ apiUrl }) {
             .then((data) => {
                 if (data.stanje != "Obavljen") {
                     navigate('*');
+                }
+                else {
+                    setIsLoading(false);
                 }
             })
     }, [apiUrl, id, navigate]);
@@ -78,6 +88,10 @@ function DodajZakljucke({ apiUrl }) {
             .then(() => {
                 navigate('/');
             });
+    }
+
+    if (isLoading) {
+        return null;
     }
 
     return (

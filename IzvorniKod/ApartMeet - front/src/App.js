@@ -48,6 +48,7 @@ function App() {
     setRole(null);
     localStorage.setItem("isLoggedIn", "false");
     localStorage.removeItem("token");
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -55,6 +56,7 @@ function App() {
 
     if (!token) {
       setIsLoggedIn(false);
+      window.location.reload();
       return;
     }
 
@@ -68,13 +70,16 @@ function App() {
         .then((data) => {
           if (!data.some((user) => user.username === decodedToken.username)) {
             onLogout();
+            window.location.reload();
           }
         })
         .catch(() => {
           onLogout();
+          window.location.reload();
         });
     } catch (error) {
       onLogout();
+      window.location.reload();
     }
   }, [apiUrl]);
 

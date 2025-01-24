@@ -29,11 +29,18 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
           newPassword,
         }),
     };
-    fetch(`${apiUrl}/users`, options)
-    .then(options => options.json())
-    .then(() => {
+    fetch(`${apiUrl}/users/${userName}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Greška pri promjeni lozinke");
+        }
+      })
+      .then(() => {
         navigate('/');
-    });
+      })
+      .catch(error => {
+        setMessage(error.message);
+      });
   };
   
 

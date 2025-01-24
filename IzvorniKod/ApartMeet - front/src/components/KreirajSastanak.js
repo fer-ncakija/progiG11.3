@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./KreirajSastanak.css";
 import { useNavigate } from 'react-router-dom';
 
 
-function KreirajSastanak({ apiUrl }) {
+function KreirajSastanak({ apiUrl, forceLogout }) {
+
+    useEffect(() => {
+        forceLogout();
+    }, [apiUrl]);
 
     const navigate = useNavigate();
 

@@ -50,7 +50,8 @@ function App() {
     localStorage.removeItem("token");
   }
 
-  useEffect(() => {
+  function forceLogout()
+  {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -76,6 +77,10 @@ function App() {
     } catch (error) {
       onLogout();
     }
+  }
+
+  useEffect(() => {
+    forceLogout();
   }, [apiUrl]);
 
   // provjera je li korisnik prijavljen, ako nije prikazuje komponentu za prijavu
@@ -101,7 +106,7 @@ function App() {
           )}
           {role === "predstavnik" && (
           <>
-            <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
+            <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} forceLogout={forceLogout} {...props}/>} />
             <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
             <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
             <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />

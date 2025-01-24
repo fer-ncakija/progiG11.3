@@ -17,13 +17,15 @@ export default function ObrisiClana({ apiUrl }){
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body : JSON.stringify(username)
+        }
     };
-    fetch(`${apiUrl}/users`, options)
-        .then(() => {
-            navigate('/');
-        });
+    fetch(`${apiUrl}/users/${username}`, options)
+    .then(() => {
+        navigate('/');
+    })
+    .catch((error) => {
+      setMessage(error);
+    });
   }
   return (
     <div className="obrisi-clana">
@@ -42,6 +44,7 @@ export default function ObrisiClana({ apiUrl }){
             <button className='button-obrisi' type="submit">Obriši Korisnika</button>
           </div>
         </form>
+        {message && <p>{message}</p>}
       </div>
     </div>
   );

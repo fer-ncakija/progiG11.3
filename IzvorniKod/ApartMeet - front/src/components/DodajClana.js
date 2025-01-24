@@ -14,6 +14,7 @@ export default function DodajClana({ apiUrl }) {
         password: "",
         role: "stanar" 
     });
+    const [message, setMessage] = useState('');
 
     function isValid(){
         const {userName, email, password} = formData;
@@ -46,10 +47,13 @@ export default function DodajClana({ apiUrl }) {
             body : JSON.stringify(data)
         };
         fetch(`${apiUrl}/users`, options)
-            .then(options => options.json())
-            .then(() => {
-                navigate('/');
-            });
+        .then(options => options.json())
+        .then(() => {
+            navigate('/');
+        })
+        .catch((error) => {
+            setMessage(error);
+        });
      }
 
 
@@ -102,6 +106,7 @@ export default function DodajClana({ apiUrl }) {
                     <button type="submit" disabled={!isValid()}>Dodaj člana</button>
                 </div>
             </form>
+            {message && <p>{message}</p>}
         </div>
     );
 }

@@ -48,7 +48,6 @@ function App() {
     setRole(null);
     localStorage.setItem("isLoggedIn", "false");
     localStorage.removeItem("token");
-    window.location.reload();
   }
 
   useEffect(() => {
@@ -56,7 +55,6 @@ function App() {
 
     if (!token) {
       setIsLoggedIn(false);
-      window.location.reload();
       return;
     }
 
@@ -70,16 +68,13 @@ function App() {
         .then((data) => {
           if (!data.some((user) => user.username === decodedToken.username)) {
             onLogout();
-            window.location.reload();
           }
         })
         .catch(() => {
           onLogout();
-          window.location.reload();
         });
     } catch (error) {
       onLogout();
-      window.location.reload();
     }
   }, [apiUrl]);
 
@@ -97,29 +92,47 @@ function App() {
       <BrowserRouter>
         <Header userName={userName} role={role} onLogout={onLogout}/>
         <Routes>
-          <Route path="/" exact Component={({...props}) => <Meeting role={role} apiUrl={apiUrl} userName={userName} {...props}/>} />
+          <Route path="/" exact Component={({...props}) => {
+            window.location.reload();
+            return <Meeting role={role} apiUrl={apiUrl} userName={userName} {...props}/>;}} />
           {role === "admin" && (
           <>
-            <Route path="/dodajClana" exact Component={({...props}) => <DodajClana apiUrl={apiUrl} {...props}/>} />
-            <Route path="/obrisiClana" exact Component={({...props}) => <ObrisiClana apiUrl={apiUrl} {...props}/>} />
+            <Route path="/dodajClana" exact Component={({...props}) => {
+              window.location.reload();
+              return <DodajClana apiUrl={apiUrl} {...props}/>;}} />
+            <Route path="/obrisiClana" exact Component={({...props}) => {
+              window.location.reload();
+              return <ObrisiClana apiUrl={apiUrl} {...props}/>;}} />
           </>
           )}
           {role === "predstavnik" && (
           <>
-            <Route path="/kreirajSastanak" exact Component={({...props}) => <KreirajSastanak apiUrl={apiUrl} {...props}/>} />
-            <Route path="/dodajTocke/:id" exact Component={({...props}) => <DodajTocke apiUrl={apiUrl} {...props}/>} />
-            <Route path="/obavljen/:id" exact Component={({...props}) => <Obavljen apiUrl={apiUrl} {...props}/>} />
-            <Route path="/dodajZakljucke/:id" exact Component={({...props}) => <DodajZakljucke apiUrl={apiUrl} {...props}/>} />
+            <Route path="/kreirajSastanak" exact Component={({...props}) => {
+              window.location.reload();
+              return <KreirajSastanak apiUrl={apiUrl} {...props}/>;}} />
+            <Route path="/dodajTocke/:id" exact Component={({...props}) => {
+              window.location.reload();
+              return <DodajTocke apiUrl={apiUrl} {...props}/>;}} />
+            <Route path="/obavljen/:id" exact Component={({...props}) => {
+              window.location.reload();
+              return <Obavljen apiUrl={apiUrl} {...props}/>;}} />
+            <Route path="/dodajZakljucke/:id" exact Component={({...props}) => {
+              window.location.reload();
+              return <DodajZakljucke apiUrl={apiUrl} {...props}/>;}} />
           </>
           )}
           {role === "stanar" && (
           <>
-            <Route path="/sudjeluj/:id" exact Component={({ ...props }) => <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />} />
+            <Route path="/sudjeluj/:id" exact Component={({ ...props }) => {
+              window.location.reload();
+              return <Sudjeluj userName={userName} apiUrl={apiUrl} {...props} />;}} />
           </>
           )}
           {(role === "stanar" || role === "predstavnik") && (
           <>
-            <Route path="/promijeniLozinku" exact Component={({...props}) => <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>} />
+            <Route path="/promijeniLozinku" exact Component={({...props}) => {
+              window.location.reload();
+              return <PromijeniLozinku apiUrl={apiUrl} userName={userName} {...props}/>;}} />
           </>
           )}
           <Route path="*" Component={NemaStranice}/>

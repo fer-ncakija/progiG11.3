@@ -115,7 +115,7 @@ function DodajTocke({ apiUrl }) {
                 },
                 body: JSON.stringify(stanjeData),
             };
-            fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
+            return fetch(`${apiUrl}/meetings/${id}`, stanjeOptions)
         })
         .then(() => {
             navigate('/');

@@ -16,7 +16,7 @@ function Sudjeluj({ userName, apiUrl }) {
         fetch(`${apiUrl}/meetings/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                if ((data.sudionik?.some((user) => user.userName === currentUser)) && (data.stanje != "Objavljen") && (new Date(meeting.vrijeme).getTime() > new Date().getTime())) {
+                if ((data.sudionik?.some((user) => user.userName === currentUser)) && (data.stanje != "Objavljen") && (new Date(data.vrijeme).getTime() > new Date().getTime())) {
                     navigate('*');
                 }
             })

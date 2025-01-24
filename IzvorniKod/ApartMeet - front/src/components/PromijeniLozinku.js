@@ -79,6 +79,7 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
             <button className='button-promijeni' type="submit">Promijeni lozinku</button>
           </div>
         </form>
+        {message && <p>{message}</p>}
       </div>
     </div>
   );

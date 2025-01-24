@@ -30,12 +30,7 @@ export default function PromijeniLozinku({ apiUrl, userName }) {
         }),
     };
     fetch(`${apiUrl}/users/${userName}`, options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Greška pri promjeni lozinke");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then(() => {
         navigate('/');
       })
